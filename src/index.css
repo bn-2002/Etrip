@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  @font-face {
+    font-family: IranSans;
+    src: local('IranSans'),
+      url(./assests/fonts/IRANSansDN/IRANSansDN.ttf) format('truetype');
+  }
+}
+

@@ -1,0 +1,66 @@
+.rec.rec-arrow {
+    border-radius: 10px;
+    color: black !important;
+    background-color: white !important;
+    cursor: pointer;
+  }
+  .rec.rec-arrow:hover {
+    color: black !important;
+    background-color: white !important;
+  }
+  .rec.rec-arrow:disabled {
+    cursor: pointer !important;
+  }
+  .rec-carousel-item:focus {
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .rec-carousel-item {
+    height: auto;
+  }
+  
+  .rec-pagination {
+    display: none !important;
+  }
+  
+  .rec-arrow {
+    position: absolute;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease 0.5s;
+    transform : scale(.8);
+    box-shadow: none !important;
+  }
+  
+  .rec-arrow-right {
+    right: 1.5rem;
+  }
+  .rec-arrow-left {
+    left: 2.5rem;
+  }
+  
+  .rec-carousel-wrapper {
+    position: relative;
+    height: auto;
+    width:101% !important;
+  }
+  
+  .rec-carousel-wrapper:hover .rec-arrow {
+    opacity: 1;
+    visibility: visible;
+    transition: all ease 0.5s;
+  }
+  
+  .rec-swipable {
+    height: 25rem;
+    display: flex;
+    gap:1rem;
+  }
+  
+  .rec-item-wrapper {
+    height: 100% !important;
+  }
+  
+  

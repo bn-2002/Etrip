@@ -1,0 +1,22 @@
+.slider img {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all ease-in-out 1.5s;
+}
+
+.slide {
+  opacity: 0.5;
+  transition: all ease-in-out 1.5s;
+  transform: scale(1) translateZ(0px);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.current {
+  transition: all ease-in-out 1.5s;
+  opacity: 1;
+  transform: scale(1) translateZ(0px);
+  overflow: hidden;
+  max-width: 100%;
+}
