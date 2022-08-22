@@ -11,7 +11,7 @@ const Dropdown = () => {
           className="hidden w-5 h-5 text-white md:flex"
           aria-hidden="true"
         />
-        <span className="items-center justify-center hidden mx-2 mb-1 text-white text-s font-main md:flex">
+        <span className="items-center justify-center hidden mx-2 mb-1 text-base text-white font-main md:flex">
           دانلود اپ
         </span>
         <PhoneIcon />
@@ -32,7 +32,7 @@ const Dropdown = () => {
                 <button
                   className={`font-main ${
                     active ? 'bg-[#F2FAFF]' : 'text-black'
-                  }   w-full rounded-md  text-sm text-right px-2 py-2 `}
+                  }   w-full rounded-md  text-base text-right px-2 py-2 `}
                 >
                   IOS نسخه
                 </button>
@@ -43,7 +43,7 @@ const Dropdown = () => {
                 <button
                   className={`font-main ${
                     active ? 'bg-[#F2FAFF]' : 'text-black'
-                  }   w-full rounded-md  text-sm text-right px-2 py-2 `}
+                  }   w-full rounded-md  text-base text-right px-2 py-2 `}
                 >
                   نسخه اندروید
                 </button>

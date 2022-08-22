@@ -9,26 +9,29 @@ import Footer from './components/Layout/footer/Footer';
 
 const App = () => {
   return (
-    <div className='font-main'>
+    <div className='overflow-x-hidden font-main'>
       <Header/>
       <Catogries/>
       <Services/>
       <Entertainments/>
       <Packages/>
       <BestPackages/>
-      <Footer/>
+      <Footer/> 
     </div>
   );
 };
 
 export default App;
 
-//////////responsive
-/////////////colors
-/////////header navbar fixed
-/////shimer effect
-///////hover service and display bg div
-/////// font
-////slider
+//////////responsive //////////////////
+/////// font////////////////
+////fix slider width
 ////sass
 ///////make typography component
+/////scale images
+/////scrollbar style
+//////card hover effect////////////
+/////////complete sliders cards
+/////****react stop screen scroll to top when rerender in use Effect in slider in background header****
+/////////***************header navbar fixed
+/////shimer effect

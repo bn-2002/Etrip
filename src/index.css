@@ -5,7 +5,8 @@
   @font-face {
     font-family: IranSans;
     src: local('IranSans'),
-      url(./assests/fonts/IRANSansDN/IRANSansDN.ttf) format('truetype');
+    url(./assests/fonts/iransans/IRAN-SANS-Regular.ttf) format('truetype');
+      /* url(./assests/fonts/IRANSansDN/IRANSansDN.ttf) format('truetype'); */
   }
 }
 

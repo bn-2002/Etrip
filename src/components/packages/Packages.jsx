@@ -10,12 +10,12 @@ import {
 
 const Packages = () => {
   return (
-    <div className="mx-auto sm:px-1 md:px-1 xl:px-40 lg:px-30 bg-[#F3F4F6] pt-8 pb-12 flex flex-col gap-10 mt-8">
+    <div className="mx-auto px-1 sm:px-1 md:px-1 xl:px-40 lg:px-30 bg-[#F3F4F6] pt-8 pb-12 flex flex-col gap-10 mt-8">
       <div className="flex flex-col gap-2 text-center title">
-        <h1 className="text-2xl "> پکیج ها</h1>
+        <h1 className="text-3xl text-[#585858] font-bold "> پکیج ها</h1>
         <div className="flex items-center justify-center gap-1 title-des ">
           <div className="h-[1px] w-[20px] bg-red-600"></div>
-          <h4 className="text-sm text-red-600">مجموعه ای از پکیج های هیجانی</h4>
+          <h4 className="text-xl text-red-600">مجموعه ای از پکیج های هیجانی</h4>
           <div className="h-[1px] w-[20px] bg-red-600"></div>
         </div>
       </div>
@@ -32,3 +32,4 @@ const Packages = () => {
 };
 
 export default Packages;
+
