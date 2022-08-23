@@ -19,7 +19,7 @@ const Packages = () => {
           <div className="h-[1px] w-[20px] bg-red-600"></div>
         </div>
       </div>
-      <div class="flex flex-wrap justify-center items-around gap-3">
+      <div className="flex flex-wrap justify-center items-around gap-3">
         <img src={PackageImg1} alt="" />
         <img src={PackageImg2} alt="" />
         <img src={PackageImg3} alt="" />
@@ -32,4 +32,3 @@ const Packages = () => {
 };
 
 export default Packages;
-

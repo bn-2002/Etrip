@@ -3,9 +3,11 @@ import LoginBtn from './LoginBtn';
 import Dropdown from './Dropdown';
 import faveIcon from '../../../assests/images/favicon.png';
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
-    <div className="fixed z-50 flex items-center justify-between w-full h-20 px-1 mt-1 bg-transparent sm:px-1 lg:mt-10 xl:mt-12 md:px-1 xl:px-60 lg:px-40">
+    <div
+      className={`${props.style} z-50 transition-all fixed flex items-center justify-between w-full h-20 px-1 mt-1 bg-transparent sm:px-1 lg:mt-10 xl:mt-12 md:px-1 xl:px-60 lg:px-40`}
+    >
       <div className="flex items-center justify-around">
         <LoginBtn />
         <Dropdown />
@@ -15,4 +17,4 @@ const Navbar = () => {
   );
 };
 
-export default  Navbar;
+export default Navbar;

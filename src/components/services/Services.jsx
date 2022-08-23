@@ -1,9 +1,11 @@
 import React from 'react';
 import { data } from './data';
-
-const Services = () => {
+const Services = (props) => {
   return (
-    <div className="mx-auto px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40 bg-[#F3F4F6] pt-8 pb-12 flex flex-col gap-10 mt-8">
+    <div
+      className={`${props.style} mx-auto px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40 bg-[#F3F4F6]
+      pt-8 pb-12 flex flex-col gap-10`}
+    >
       <div className="flex flex-col gap-2 text-center title">
         <h1 className="text-3xl text-[#585858] font-bold">خدمات و تفریحات</h1>
         <div className="flex items-center justify-center gap-1 title-des ">
@@ -17,7 +19,10 @@ const Services = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         {data.map((service) => {
           return (
-            <div className="relative mx-auto mt-4 transition-all cursor-pointer group">
+            <div
+              className="relative mx-auto mt-4 transition-all cursor-pointer group"
+              key={service.id}
+            >
               <div className="relative z-50">
                 <img
                   src={service.img}

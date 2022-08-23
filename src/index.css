@@ -5,8 +5,37 @@
   @font-face {
     font-family: IranSans;
     src: local('IranSans'),
-    url(./assests/fonts/iransans/IRAN-SANS-Regular.ttf) format('truetype');
-      /* url(./assests/fonts/IRANSansDN/IRANSansDN.ttf) format('truetype'); */
+      url(./assests/fonts/iransans/IRAN-SANS-Regular.ttf) format('truetype');
+    /* url(./assests/fonts/IRANSansDN/IRANSansDN.ttf) format('truetype'); */
   }
 }
 
+/* body {
+  background-color: cadetblue;
+}
+
+.header {
+  width: 100%;
+  top:0;
+  left:0;
+  background-color: burlywood;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height:400px;
+}
+
+.gap {
+  height:100vh;
+}
+
+img {
+  margin:0 auto;
+  display:block;
+  height:auto;
+  width:50%;
+} */
+
+.gap {
+  height:100vh;
+}
