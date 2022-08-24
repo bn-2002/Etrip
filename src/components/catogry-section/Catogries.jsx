@@ -1,15 +1,20 @@
 import React from 'react';
 import FilterItems from './FilterItems';
 import SearchBar from './SearchBar';
+import './FilterItems.css';
 
-const Catogries = (props) => {
+const Catogries = () => {
   return (
     <div
-      id="catogries-section"
-      className={`${props.style} bg-white duration-700 py-5 transition-all mx-auto md:container sm:px-1 md:px-1 xl:px-60 lg:px-40 z-[200]`}
+      className={`catogries-section sticky top-0 border mx-auto bg-white w-full sm:px-1 md:px-1 xl:px-60 lg:px-40 z-[200]  px-2`}
     >
-      <SearchBar />
-      <FilterItems />
+      <div
+        id="catogries-section"
+        className={`w-full  bg-white duration-700 py-5 transition-all mx-auto   `}
+      >
+        <SearchBar />
+        <FilterItems />
+      </div>
     </div>
   );
 };

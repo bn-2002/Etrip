@@ -17,7 +17,6 @@ export const SearchBar = () => {
       <input
         className="w-3/4 px-4 py-2 outline-none"
         type="text"
-        // placeholder="Search.."
         dir='rtl'
       />
       <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
