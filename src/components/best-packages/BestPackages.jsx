@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from '../UI/slider/Slider';
 import { data } from './data';
-import Card from './Card';
+import Card from '../UI/card/Card';
 import SectionTitle from '../UI/typography/SectionTitle';
 
 const BestPackages = () => {

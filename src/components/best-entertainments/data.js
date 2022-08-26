@@ -23,7 +23,7 @@ export const data = [
     id: 3,
     img: cover3Img,
     place: 'کیش',
-    des: '،فلای بورد',
+    des: 'فلای بورد',
     off: 16,
   },
   {

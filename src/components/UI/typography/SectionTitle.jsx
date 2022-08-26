@@ -4,7 +4,7 @@ const SectionTitle = ({ title, des, align }) => {
   return (
     <div
       className={`flex flex-col gap-2 title ${
-        align === 'center' ? 'text-center' : 'items-end'
+        align === 'center' ? 'text-center' : 'items-start'
       }`}
     >
       <h1

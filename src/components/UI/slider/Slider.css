@@ -72,10 +72,10 @@
 }
 
 .rec-item-wrapper .ettAov img {
-  transition: all ease 0.5s;
+  /* transition: all ease 0.5s; */
 }
 
 .rec-item-wrapper .ettAov img:hover {
-  transform: scale(1.1);
-  transition: all cubic-bezier(0.19, 1, 0.22, 1) 1s;
+  /* transform: scale(1.1); */
+  /* transition: all cubic-bezier(0.19, 1, 0.22, 1) 1s; */
 }

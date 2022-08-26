@@ -18,7 +18,7 @@ const Service = ({ service }) => {
             </span>
           </div>
           <button className="px-3 py-1 text-white bg-[#E92444] rounded-2xl text-[13px] sm:text-[16px] hover:bg-[##CA213D] w-20">
-            « مشاهده
+             مشاهده »
           </button>
         </div>
       </div>

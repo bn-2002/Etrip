@@ -25,8 +25,6 @@ export default App;
 
 ////////searchbar
 
-/////////complete sliders cards
-
 ///scale packages
 
 ////sass

@@ -39,3 +39,9 @@ img {
 .gap {
   height:100vh;
 }
+
+
+body {
+  direction: rtl;
+
+}
