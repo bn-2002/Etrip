@@ -6,7 +6,7 @@ const Service = ({ service }) => {
       className="relative mx-auto mt-4 transition-all cursor-pointer group"
       key={service.id}
     >
-      <div className="relative z-50">
+      <div className="relative z-[19]">
         <img src={service.img} alt="" className="shadow-xl rounded-[10px]" />
         <div className="absolute flex flex-col h-[90%] justify-around top-2 left-3">
           <p className="text-[#575757] text-[17px] sm:text-[20px] font-bold">

@@ -23,16 +23,24 @@ const App = () => {
 
 export default App;
 
-//////////responsive //////////////////TODO
-/////// font////////////////TODO
-////fix slider widthFIXME
-////sassFIXME
-///////make typography componentFIXME
-/////scale imagesFIXME
-//////card hover effect///////////TODO
-/////////complete sliders cardsFIXME
-/////BUG****react stop screen scroll to top when rerender in use Effect in slider in background header****FIXME
-/////shimer effectFIXME
-////////searchbar FIXME
-//////////lazy loading FIXME
+////////searchbar
 
+/////////complete sliders cards
+
+///scale packages
+
+////sass
+
+//////////add  lazy loading
+
+/////add shimer effect
+
+/////fix slider width and items count :(
+
+////Animations
+
+///////login and sign up page
+
+//////filter modal
+
+////change data by click on each items in catogries

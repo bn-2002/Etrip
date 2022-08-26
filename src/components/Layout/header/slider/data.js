@@ -13,5 +13,3 @@ export const data = [
     img: sliderImg3,
   },
 ];
-
-

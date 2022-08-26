@@ -2,11 +2,11 @@ import React from 'react';
 
 const Card = (props) => {
   return (
-    <div className="relative w-[250px] h-full">
+    <div className="relative h-full w-[250px]">
       <img
         src={props.img}
         at={props.des}
-        className="z-50 w-full border border-red-800 rounded-lg "
+        className="w-full h-full rounded-lg "
       />
       <div className="absolute p-2 text-[17px] text-white bg-[#e92444] rounded-md top-2 left-2">
         %{props.off}

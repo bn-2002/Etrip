@@ -4,7 +4,10 @@ import enamadImg from '../../../assests/images/enamad.png';
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col items-center justify-center gap-5 py-10 bg-[#1E1E1E] p-4">
+    <footer
+      id="footer"
+      className="flex flex-col items-center justify-center gap-5 py-10 bg-[#1E1E1E] p-4 z-[19] relative"
+    >
       <div className="flex flex-wrap items-center justify-center gap-2">
         <img className="rounded-lg" src={reziImg} alt="rezi" />
         <img className="rounded-lg" src={enamadImg} alt="rezi" />

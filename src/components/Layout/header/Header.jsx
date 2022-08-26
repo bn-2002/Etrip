@@ -4,10 +4,10 @@ import Slider from './slider/Slider';
 
 const Header = () => {
   return (
-    <div  className="flex flex-col">
+    <header id="header" className="flex flex-col">
       <Navbar />
-      <Slider/>
-    </div>
+      <Slider />
+    </header>
   );
 };
 

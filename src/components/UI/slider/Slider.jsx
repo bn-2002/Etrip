@@ -4,14 +4,14 @@ import Item from './Item';
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
-  { width: 550, itemsToShow: 3 },
-  { width: 768, itemsToShow: 4 },
+  { width: 550, itemsToShow: 2 },
+  { width: 768, itemsToShow: 3 },
   { width: 1200, itemsToShow: 4 },
 ];
 
 function Slider({ data, card: Card }) {
   return (
-    <div className="w-full h-auto mt-5">
+    <div className="w-full h-auto mt-5 overflow-x-hidden">
       <Carousel breakPoints={breakPoints}>
         {data.map((card) => {
           return (
