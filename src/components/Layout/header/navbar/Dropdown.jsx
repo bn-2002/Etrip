@@ -1,12 +1,12 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import PhoneIcon from '../../icons/PhoneIcon';
+import PhoneIcon from '../../../icons/PhoneIcon'
 
 const Dropdown = () => {
   return (
     <Menu as="div" className="relative inline-block text-center">
-      <Menu.Button className=" flex items-center justify-center rounded-[100px] text-white px-5 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 border border-white">
+      <Menu.Button className=" flex items-center justify-center rounded-[100px] text-white px-5 py-1 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 border border-white">
         <ChevronDownIcon
           className="hidden w-5 h-5 text-white md:flex"
           aria-hidden="true"

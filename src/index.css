@@ -37,11 +37,10 @@ img {
 } */
 
 .gap {
-  height:100vh;
+  height: 100vh;
 }
-
 
 body {
   direction: rtl;
-
+  font-family: IranSans;
 }

@@ -15,7 +15,15 @@ const Packages = () => {
       />
       <div className="flex flex-wrap justify-center gap-3 items-around">
         {data.map((item) => {
-          return <img src={item.img} alt={item.des} />;
+          return (
+            <div className="w-fit overflow-hidden rounded-2xl">
+              <img
+                src={item.img}
+                alt={item.des}
+                className=" hover:scale-110 transition-all duration-700"
+              />
+            </div>
+          );
         })}
       </div>
     </section>

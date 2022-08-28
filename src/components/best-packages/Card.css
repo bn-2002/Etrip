@@ -1,0 +1,17 @@
+.card-details {
+  background-image: linear-gradient(0deg, #000000a6, #6c6c6ca6, transparent);
+  text-align: right;
+}
+
+.card {
+  overflow: hidden;
+  direction: rtl;
+}
+
+.card img {
+  transition: all ease 1s;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}

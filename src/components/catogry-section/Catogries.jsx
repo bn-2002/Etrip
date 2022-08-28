@@ -11,7 +11,7 @@ const Catogries = () => {
     >
       <div
         id="catogries-section"
-        className={`w-full  bg-white duration-700 py-5 transition-all mx-auto   `}
+        className={`w-full  bg-white duration-700 py-1 transition-all mx-auto   `}
       >
         <SearchBar />
         <FilterItems />
