@@ -3,14 +3,13 @@ import React from 'react';
 const ItemLable = (props) => {
   return (
     <svg
-      class="ri-label"
       id="Layer_1"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       xlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 461 228.54"
       height="50px"
-      className={props.style}
+      className={`${props.style} ri-label`}
     >
       <defs>
         <linearGradient
@@ -21,12 +20,12 @@ const ItemLable = (props) => {
           y2="0.08"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="#b3140e"></stop>
-          <stop offset="0.38" stop-color="#d9281e"></stop>
-          <stop offset="0.44" stop-color="#e03027"></stop>
-          <stop offset="0.56" stop-color="#ea3d35"></stop>
-          <stop offset="0.67" stop-color="#ee413a"></stop>
-          <stop offset="1" stop-color="#fd5b47"></stop>
+          <stop offset="0" stopColor="#b3140e"></stop>
+          <stop offset="0.38" stopColor="#d9281e"></stop>
+          <stop offset="0.44" stopColor="#e03027"></stop>
+          <stop offset="0.56" stopColor="#ea3d35"></stop>
+          <stop offset="0.67" stopColor="#ee413a"></stop>
+          <stop offset="1" stopColor="#fd5b47"></stop>
         </linearGradient>
       </defs>
       <title>label</title>

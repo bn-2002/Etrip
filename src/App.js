@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ListProvider } from './store/ListContext';
 import Home from './pages/Home';
 import List from './pages/List';
 
@@ -7,15 +8,20 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index element={<Home />} />
-        <Route path="list" element={<List />} />
+        <Route
+          path="list"
+          element={
+            <ListProvider>
+              <List />
+            </ListProvider>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-
 
 /// update to react 18
 ////shared layout component
