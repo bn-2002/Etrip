@@ -15,7 +15,7 @@ const ImgWrapper = ({ imgs }) => {
   };
 
   const [imgState, setImgState] = useState(initialImgState);
-  const [imgUrl, setImgUrl] = useState(imgs[0].ImageURL);
+  const [imgUrl, setImgUrl] = useState(imgs[1].ImageURL);
 
   const setImgOrder = (selectedImgOrder, imgOrder) => {
     if (imgOrder === 1) {
