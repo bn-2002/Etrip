@@ -3,8 +3,12 @@ import LocationIcon from '../icons/LocationIcon';
 import MagnifireIcon from '../icons/MagnifireIcon';
 import CartIcon from '../icons/CartIcon';
 import PageFilterIcon from '../icons/PageFilterIcon';
+import { useCart } from '../../store/CartContext';
+import { Link } from 'react-router-dom';
 
 export const SearchBar = ({ style }) => {
+  const cartItems = useCart();
+
   return (
     <div
       className={`${style} flex items-center border border-t-0 border-x-0 border-b-[#e5e5ea] justify-evenly mt-2 py-[2px]`}
@@ -24,9 +28,14 @@ export const SearchBar = ({ style }) => {
       </div>
       <div className="w-[1px] h-6 bg-[#e5e5ea]"></div>
 
-      <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
-        <CartIcon />
-      </div>
+      <Link to="/cart">
+        <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer flex  transition-all relative">
+          <div className="bg-[#e92444] text-white rounded-full text-center px-2 absolute -top-1 -right-2">
+            {cartItems.length}
+          </div>
+          <CartIcon />
+        </div>
+      </Link>
     </div>
   );
 };

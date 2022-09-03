@@ -2,7 +2,9 @@ import React from 'react';
 import parse from 'html-react-parser';
 
 const Description = ({ showDetails, description }) => {
-  description = description.replace('background:white;', '');
+  description = description
+    .replace('background:white;', '')
+    .replace('<o:p></o:p>', ' ');
 
   return (
     <div

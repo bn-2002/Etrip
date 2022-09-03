@@ -16,11 +16,11 @@ const Packages = () => {
       <div className="flex flex-wrap justify-center gap-3 items-around">
         {data.map((item) => {
           return (
-            <div className="w-fit overflow-hidden rounded-2xl">
+            <div key={item.id} className="overflow-hidden w-fit rounded-2xl">
               <img
                 src={item.img}
                 alt={item.des}
-                className=" hover:scale-110 transition-all duration-700"
+                className="transition-all duration-700 hover:scale-110"
               />
             </div>
           );

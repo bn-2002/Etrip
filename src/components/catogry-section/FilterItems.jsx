@@ -9,7 +9,7 @@ const FilterItems = () => {
       <div className="flex gap-2 overflow-x-scoll flex-row items-center overflow-y-hidden catogries-items-filter h-[100px] w-auto ">
         <span className=" whitespace-nowrap">فیلتر دسته بندی</span>
         {data.map((element) => {
-          return <CatogryItem name={element.name} key={element.id} />;
+          return <CatogryItem name={element.name} id={element.id} key={element.id} />;
         })}
       </div>
     </div>

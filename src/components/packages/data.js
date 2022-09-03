@@ -7,26 +7,32 @@ import PackageImg6 from '../../assests/images/Package6.jpg';
 
 export const data = [
   {
+    id : 1,
     img: PackageImg1,
     des: 'پکیج ماه عسل (2 نفره) | کیش ',
   },
   {
+    id:2,
     img: PackageImg2,
     des: 'پکیج طلایی | کیش ',
   },
   {
+    id:3,
     img: PackageImg3,
     des: 'پکیج همدم (2 نفره) | کیش ',
   },
   {
+    id:4,
     img: PackageImg4,
     des: 'پکیج کودک | کیش ',
   },
   {
+    id:5,
     img: PackageImg5,
     des: 'پکیج نوجوان | کیش ',
   },
   {
+    id:6,
     img: PackageImg6,
     des: 'پکیج آدرنالین | کیش ',
   },

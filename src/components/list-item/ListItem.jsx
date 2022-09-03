@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
-import './ListItem.css';
 import ItemLable from '../icons/ItemLable';
 import ImgWrapper from './ImgWrapper';
-import Cart from './Cart';
+import CartPreviewsList from './CartPreviewsList';
 import Description from './Description';
-import CartData from './CartData';
+import ProductInfo from './ProductInfo';
+import { useCart } from '../../store/CartContext';
 
-const ListItem = ({ item }) => {
-  const [showDetails, setShowDetails] = useState(true);
-  const [showAddToCart, setShowAddToCard] = useState(true);
+const ListItem = ({ item, id }) => {
+  const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetailsBtn = () => {
     setShowDetails((prevShowDetails) => !prevShowDetails);
   };
 
-  const toggleShowAddToCartBtn = () => {
-    setShowAddToCard((prevShowAddToCart) => !prevShowAddToCart);
-  };
+  const cartItems = useCart();
+
+  let productCarts = [];
+
+  cartItems.forEach((cartItem) => {
+    if (cartItem.id === id) {
+      productCarts.push(cartItem);
+    }
+  });
 
   return (
     <div className="relative mx-auto h-fit mt-14">
@@ -32,21 +37,14 @@ const ListItem = ({ item }) => {
 
         <div className="min-h-min mt-[10px]">
           <div className="flex flex-col-reverse items-stretch justify-between gap-2 lg:flex-row">
-            <CartData
-              name={item.Feature && item.Feature[0].Name}
-              collectionName={item.CollectionName}
-              basePrice={item.Feature && item.Feature[0].BasePrice}
-              finalPrice={item.Feature && item.Feature[0].FinalPrice}
-              moreDetailsOnClick={toggleDetailsBtn}
-              addToCartOnClick={toggleShowAddToCartBtn}
-            />
+            <ProductInfo moreDetailsOnClick={toggleDetailsBtn} id={id} />
             <ImgWrapper imgs={item.Photo} />
           </div>
           <Description
             showDetails={showDetails}
             description={item.Description}
           />
-          <Cart showAddToCart={showAddToCart} />
+          <CartPreviewsList carts={productCarts} />
         </div>
       </div>
 

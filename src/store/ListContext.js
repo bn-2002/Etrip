@@ -6,7 +6,7 @@ export const ListProvider = (props) => {
   const dispatcher = (state, action) => {
     if (action.type === 'all-products') {
       return {
-        items: action.payload.Product,
+        items: action.payload.products,
       };
     }
   };
