@@ -2,10 +2,10 @@ import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatchItemsInfo } from '../../store/ItemsInfoContext';
+import { useDispatchList } from '../../store/ListContext';
 
 const Dropdown = ({ firstItem, menuItems, type, productID }) => {
-  const dispatchItemInfo = useDispatchItemsInfo();
+  const dispatchItemInfo = useDispatchList();
 
   return (
     <Menu as="div" className="relative w-full text-center text-black">

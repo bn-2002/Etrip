@@ -1,6 +1,5 @@
 import React from 'react';
 import { useCart } from '../store/CartContext';
-import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import ListHeader from '../components/Layout/header/list-header/ListHeader';
 import Catogries from '../components/catogry-section/Catogries';

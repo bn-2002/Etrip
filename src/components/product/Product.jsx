@@ -6,7 +6,7 @@ import Description from './Description';
 import ProductInfo from './ProductInfo';
 import { useCart } from '../../store/CartContext';
 
-const ListItem = ({ item, id }) => {
+const Product = ({ item, id }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetailsBtn = () => {
@@ -55,4 +55,4 @@ const ListItem = ({ item, id }) => {
   );
 };
 
-export default ListItem;
+export default Product;

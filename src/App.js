@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import List from './pages/List';
 import Cart from './pages/Cart';
-import ListContext from './store/ListContext';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatchItemsInfo } from './store/ItemsInfoContext';
+import { useDispatchList } from './store/ListContext';
 
 function App() {
-  const { setList } = useContext(ListContext);
-  const dispatchItemsInfo = useDispatchItemsInfo();
+  const dispatchList = useDispatchList();
 
   const fetchData = useCallback(async () => {
     const response = await fetch(
@@ -48,19 +46,20 @@ function App() {
     /////create uniqe id for each feature
     let products = [];
     result.Product.forEach((product) => {
-      const uniqeId = uuidv4();
+      const uniqueID = uuidv4();
       products.push({
         ...product,
-        productID: uniqeId,
+        productID: uniqueID,
       });
     });
 
-    setList({ type: 'all-products', payload: { products: products } });
-    dispatchItemsInfo({
+    console.log('products : ', products);
+
+    dispatchList({
       type: 'all-products',
       payload: { products: products },
     });
-  });
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -78,6 +77,4 @@ function App() {
 }
 
 export default App;
-
-//scroll snapping
 

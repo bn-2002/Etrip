@@ -1,29 +1,27 @@
 import React from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import Dropdown from './Dropdown';
-import { useItemsInfo } from '../../store/ItemsInfoContext';
+import { useList } from '../../store/ListContext';
 import { useDispatchCart } from '../../store/CartContext';
 
-const ProductInfo = ({
-  moreDetailsOnClick,
-  id,
-}) => {
-  const itemsInfo = useItemsInfo();
+const ProductInfo = ({ moreDetailsOnClick, id }) => {
+  const list = useList();
   ////find index of current item in items list
-  const i = itemsInfo.availableITems.findIndex((item) => item.id === id);
+  const i = list.availableItems.findIndex((item) => item.id === id);
 
-  const productFeatures = itemsInfo.allItems[i].Feature;
+  let productFeatures;
+  productFeatures = list.allItems[i].Feature;
 
   const dispatchCart = useDispatchCart();
 
   const addToCartHandler = () => {
     const item = {
-      collectionName : itemsInfo.allItems[i].Name,
-      name: itemsInfo.availableITems[i].selectedName,
-      time: itemsInfo.availableITems[i].selectedTime,
-      date: itemsInfo.availableITems[i].selectedDate,
-      basePrice: itemsInfo.availableITems[i].basePrice,
-      finalPrice: itemsInfo.availableITems[i].finalPrice,
+      collectionName: list.allItems[i].Name,
+      name: list.availableItems[i].selectedName,
+      time: list.availableItems[i].selectedTime,
+      date: list.availableItems[i].selectedDate,
+      basePrice: list.availableItems[i].basePrice,
+      finalPrice: list.availableItems[i].finalPrice,
       count: 1,
       id: id,
     };
@@ -44,19 +42,19 @@ const ProductInfo = ({
       <div className="flex flex-col items-stretch justify-between flex-1 gap-2 sm:flex-row">
         <div className="flex items-center justify-between flex-1  border py-1  border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
           <span className="font-semibold text-[18px] mx-2 text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis ">
-            {`${itemsInfo.allItems[i].Name} `}
+            {`${list.allItems[i].Name} `}
           </span>
         </div>
         <div className="flex items-center justify-between flex-1   border py-1 border-[#d9d9d9] text-gray-800  rounded-md">
           <div className="w-full text-gray-600 ">
             {productFeatures && productFeatures.length === 1 && (
-              <p className="mx-2">{itemsInfo.availableITems[i].selectedName}</p>
+              <p className="mx-2">{list.availableItems[i].selectedName}</p>
             )}
             {productFeatures && productFeatures.length > 1 && (
               <Dropdown
                 type={'name'}
-                firstItem={itemsInfo.availableITems[i].selectedName}
-                menuItems={itemsInfo.availableITems[i].namesArray}
+                firstItem={list.availableItems[i].selectedName}
+                menuItems={list.availableItems[i].namesArray}
                 productID={id}
               />
             )}
@@ -68,29 +66,29 @@ const ProductInfo = ({
           <div className="flex items-center  flex-1 border py-1 justify-between px-2  border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
             <span className="">قیمت :</span>
             <div className="relative text-red-500">
-              <span>{itemsInfo.availableITems[i].basePrice} ریال</span>
+              <span>{list.availableItems[i].basePrice} ریال</span>
               <div className="bg-black w-full h-[.5px] top-[45%] absolute"></div>
             </div>
           </div>
           <div className="flex items-center   flex-1  border py-1 justify-between px-2 border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
             <span className=""> با تخفیف :</span>
             <span className="text-green-500 ">
-              {itemsInfo.availableITems[i].finalPrice} ریال
+              {list.availableItems[i].finalPrice} ریال
             </span>
           </div>
         </div>
 
         {!(
-          itemsInfo.availableITems[i].datesArray.length === 1 &&
-          itemsInfo.availableITems[i].timesArray.length === 1
+          list.availableItems[i].datesArray.length === 1 &&
+          list.availableItems[i].timesArray.length === 1
         ) && (
           <div className="flex items-stretch justify-between flex-1 gap-2">
             {
               <div className="flex items-center flex-1 justify-between border   border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
                 <Dropdown
                   type={'date'}
-                  firstItem={itemsInfo.availableITems[i].selectedDate}
-                  menuItems={itemsInfo.availableITems[i].datesArray}
+                  firstItem={list.availableItems[i].selectedDate}
+                  menuItems={list.availableItems[i].datesArray}
                   productID={id}
                 />
               </div>
@@ -99,8 +97,8 @@ const ProductInfo = ({
               <div className="flex items-center flex-1 justify-between border border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
                 <Dropdown
                   type={'time'}
-                  firstItem={itemsInfo.availableITems[i].selectedTime}
-                  menuItems={itemsInfo.availableITems[i].timesArray}
+                  firstItem={list.availableItems[i].selectedTime}
+                  menuItems={list.availableItems[i].timesArray}
                   productID={id}
                 />
               </div>
