@@ -9,7 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ListProvider>
       <CartProvider>
-        <App />
+        <App/>
       </CartProvider>
     </ListProvider>
   </React.StrictMode>,

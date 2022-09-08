@@ -5,17 +5,18 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatchList, useList } from '../../store/ListContext';
 import useFetch from '../../hooks/useFetch';
 
-const FormDropDown = ({ firstItem, menuItems, type }) => {
-  console.log('menuItems: ', menuItems);
+const FormDropDown = ({setCollectionName,setCity, firstItem, menuItems, type }) => {
+  // console.log('menuItems: ', menuItems);
 
   const dispatchList = useDispatchList();
   const { isLoading, error, sendRequest } = useFetch();
   const list = useList();
 
-  const onClick = async (id) => {
+  const onClick = async (id,name) => {
     let newConfig;
 
     if (type === 'city') {
+      setCity(name)
       newConfig = {
         ...list.filteredItems,
         cityID: id,
@@ -24,6 +25,7 @@ const FormDropDown = ({ firstItem, menuItems, type }) => {
     }
 
     if (type === 'collection') {
+      setCollectionName(name)
       newConfig = {
         ...list.filteredItems,
         collectionID: id,
@@ -41,8 +43,8 @@ const FormDropDown = ({ firstItem, menuItems, type }) => {
     });
   };
 
-  const filterList = (menuItem) => {
-    onClick(menuItem);
+  const filterList = (menuItemID,menuItemName) => {
+    onClick(menuItemID,menuItemName);
   };
 
   return (
@@ -71,7 +73,7 @@ const FormDropDown = ({ firstItem, menuItems, type }) => {
                   {({ active }) => (
                     <div
                       onClick={() => {
-                        filterList(menuItem.id);
+                        filterList(menuItem.id,menuItem.name);
                       }}
                       className={`font-main ${
                         active ? 'bg-[#F2FAFF]' : 'text-black'

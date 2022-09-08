@@ -95,6 +95,9 @@ const listReducer = (state, action) => {
 
   ////FILTER LIST BY CHOOSE FROM CATOGRIES SECTION
   else if (action.type === 'filter-list') {
+
+    console.log('payload : ' , action.payload)
+
     const newState = {};
 
     newState.filteredItems = action.payload.newConfig;
