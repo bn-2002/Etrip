@@ -43,4 +43,11 @@ img {
 body {
   direction: rtl;
   font-family: IranSans;
+  overflow-x: hidden !important;
+  /* overflow: hidden; */
 }
+
+/* html {
+  padding: 0 !important;
+  overflow-y: scroll !important ;
+} */

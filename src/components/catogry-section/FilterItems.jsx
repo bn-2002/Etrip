@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CatogryItem from './CatogryItem';
 import { data } from './data';
 import './FilterItems.css';
+import { useList } from '../../store/ListContext';
 
 const FilterItems = () => {
+
+  const list = useList();
+  const currentCollectionID =  list.filteredItems?.collectionID
+  console.log('currentCollectionID : ' , currentCollectionID)
+
   return (
     <div className="flex items-center h-[50px] justify-center mt-3 ">
       <div className="flex gap-2 overflow-x-scoll flex-row items-center overflow-y-hidden catogries-items-filter h-[100px] w-auto ">
@@ -11,6 +17,7 @@ const FilterItems = () => {
         {data.map((element) => {
           return (
             <CatogryItem
+              currentCollectionID = {currentCollectionID}
               collectionID={element.id}
               name={element.name}
               key={element.id}

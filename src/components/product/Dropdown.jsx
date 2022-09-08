@@ -2,10 +2,12 @@ import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatchList } from '../../store/ListContext';
+import { useDispatchList, useList } from '../../store/ListContext';
+import useFetch from '../../hooks/useFetch';
 
 const Dropdown = ({ firstItem, menuItems, type, productID }) => {
   const dispatchItemInfo = useDispatchList();
+  const { isLoading, error, sendRequest } = useFetch();
 
   return (
     <Menu as="div" className="relative w-full text-center text-black">
@@ -24,52 +26,52 @@ const Dropdown = ({ firstItem, menuItems, type, productID }) => {
       >
         <Menu.Items className="absolute right-0 w-full  z-[55] mt-3 origin-top-right bg-white divide-y divide-gray-100 rounded-sm shadow-5xl ring-1 ring-black ring-opacity-5 focus:outline-none ">
           <div className="px-1 py-1 ">
-            {menuItems.map((menuItem) => {
-              return (
-                <Menu.Item key={uuidv4()}>
-                  {({ active }) => (
-                    <button
-                      onClick={() => {
-                        if (type === 'name') {
-                          dispatchItemInfo({
-                            type: 'change-name',
-                            payload: {
-                              name: menuItem,
-                              productID: productID,
-                            },
-                          });
-                        }
+            {menuItems &&
+              menuItems.map((menuItem) => {
+                return (
+                  <Menu.Item key={uuidv4()}>
+                    {({ active }) => (
+                      <button
+                        onClick={() => {
+                          if (type === 'name') {
+                            dispatchItemInfo({
+                              type: 'change-name',
+                              payload: {
+                                name: menuItem,
+                                productID: productID,
+                              },
+                            });
+                          }
+                          if (type === 'date') {
+                            dispatchItemInfo({
+                              type: 'change-date',
+                              payload: {
+                                date: menuItem,
+                                productID: productID,
+                              },
+                            });
+                          }
 
-                        if (type === 'date') {
-                          dispatchItemInfo({
-                            type: 'change-date',
-                            payload: {
-                              date: menuItem,
-                              productID: productID,
-                            },
-                          });
-                        }
-
-                        if (type === 'time') {
-                          dispatchItemInfo({
-                            type: 'change-time',
-                            payload: {
-                              time: menuItem,
-                              productID: productID,
-                            },
-                          });
-                        }
-                      }}
-                      className={`font-main ${
-                        active ? 'bg-[#F2FAFF]' : 'text-black'
-                      }   w-full rounded-md  text-base text-right px-2 py-2 `}
-                    >
-                      {menuItem}
-                    </button>
-                  )}
-                </Menu.Item>
-              );
-            })}
+                          if (type === 'time') {
+                            dispatchItemInfo({
+                              type: 'change-time',
+                              payload: {
+                                time: menuItem,
+                                productID: productID,
+                              },
+                            });
+                          }
+                        }}
+                        className={`font-main ${
+                          active ? 'bg-[#F2FAFF]' : 'text-black'
+                        }   w-full rounded-md  text-base text-right px-2 py-2 `}
+                      >
+                        {menuItem}
+                      </button>
+                    )}
+                  </Menu.Item>
+                );
+              })}
           </div>
         </Menu.Items>
       </Transition>

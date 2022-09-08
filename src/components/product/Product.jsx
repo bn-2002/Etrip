@@ -6,7 +6,7 @@ import Description from './Description';
 import ProductInfo from './ProductInfo';
 import { useCart } from '../../store/CartContext';
 
-const Product = ({ item, id }) => {
+const Product = ({ item }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetailsBtn = () => {
@@ -18,10 +18,11 @@ const Product = ({ item, id }) => {
   let productCarts = [];
 
   cartItems.forEach((cartItem) => {
-    if (cartItem.id === id) {
+    if (cartItem.id === item.productID) {
       productCarts.push(cartItem);
     }
   });
+
 
   return (
     <div className="relative mx-auto h-fit mt-14">
@@ -30,14 +31,14 @@ const Product = ({ item, id }) => {
           <div className="relative z-[50]">
             <ItemLable />
             <span className="absolute top-[5px] text-white right-[37%]">
-              کیش
+            {item.CityName}
             </span>
           </div>
         </div>
 
         <div className="min-h-min mt-[10px]">
           <div className="flex flex-col-reverse items-stretch justify-between gap-2 lg:flex-row">
-            <ProductInfo moreDetailsOnClick={toggleDetailsBtn} id={id} />
+            <ProductInfo moreDetailsOnClick={toggleDetailsBtn} productID={item.productID} />
             <ImgWrapper imgs={item.Photo} />
           </div>
           <Description

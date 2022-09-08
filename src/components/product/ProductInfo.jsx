@@ -4,13 +4,13 @@ import Dropdown from './Dropdown';
 import { useList } from '../../store/ListContext';
 import { useDispatchCart } from '../../store/CartContext';
 
-const ProductInfo = ({ moreDetailsOnClick, id }) => {
+const ProductInfo = ({ moreDetailsOnClick, productID }) => {
   const list = useList();
   ////find index of current item in items list
-  const i = list.availableItems.findIndex((item) => item.id === id);
+  const i = list.availableItems.findIndex((item) => item.productID === productID);
 
   let productFeatures;
-  productFeatures = list.allItems[i].Feature;
+  productFeatures = list.allItems[i]?.Feature;
 
   const dispatchCart = useDispatchCart();
 
@@ -23,7 +23,7 @@ const ProductInfo = ({ moreDetailsOnClick, id }) => {
       basePrice: list.availableItems[i].basePrice,
       finalPrice: list.availableItems[i].finalPrice,
       count: 1,
-      id: id,
+      id: productID,
     };
 
     //////It is specific ID for each product that we want to dispatch in cart items List
@@ -42,7 +42,7 @@ const ProductInfo = ({ moreDetailsOnClick, id }) => {
       <div className="flex flex-col items-stretch justify-between flex-1 gap-2 sm:flex-row">
         <div className="flex items-center justify-between flex-1  border py-1  border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
           <span className="font-semibold text-[18px] mx-2 text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis ">
-            {`${list.allItems[i].Name} `}
+            {`${list.allItems[i]?.Name} `}
           </span>
         </div>
         <div className="flex items-center justify-between flex-1   border py-1 border-[#d9d9d9] text-gray-800  rounded-md">
@@ -55,7 +55,7 @@ const ProductInfo = ({ moreDetailsOnClick, id }) => {
                 type={'name'}
                 firstItem={list.availableItems[i].selectedName}
                 menuItems={list.availableItems[i].namesArray}
-                productID={id}
+                productID={productID}
               />
             )}
           </div>
@@ -66,30 +66,30 @@ const ProductInfo = ({ moreDetailsOnClick, id }) => {
           <div className="flex items-center  flex-1 border py-1 justify-between px-2  border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
             <span className="">قیمت :</span>
             <div className="relative text-red-500">
-              <span>{list.availableItems[i].basePrice} ریال</span>
+              <span>{list.availableItems[i]?.basePrice} ریال</span>
               <div className="bg-black w-full h-[.5px] top-[45%] absolute"></div>
             </div>
           </div>
           <div className="flex items-center   flex-1  border py-1 justify-between px-2 border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
             <span className=""> با تخفیف :</span>
             <span className="text-green-500 ">
-              {list.availableItems[i].finalPrice} ریال
+              {list.availableItems[i]?.finalPrice} ریال
             </span>
           </div>
         </div>
 
         {!(
-          list.availableItems[i].datesArray.length === 1 &&
-          list.availableItems[i].timesArray.length === 1
+          list.availableItems[i]?.datesArray.length === 1 &&
+          list.availableItems[i]?.timesArray.length === 1
         ) && (
           <div className="flex items-stretch justify-between flex-1 gap-2">
             {
               <div className="flex items-center flex-1 justify-between border   border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
                 <Dropdown
                   type={'date'}
-                  firstItem={list.availableItems[i].selectedDate}
-                  menuItems={list.availableItems[i].datesArray}
-                  productID={id}
+                  firstItem={list.availableItems[i]?.selectedDate}
+                  menuItems={list.availableItems[i]?.datesArray}
+                  productID={productID}
                 />
               </div>
             }
@@ -97,9 +97,9 @@ const ProductInfo = ({ moreDetailsOnClick, id }) => {
               <div className="flex items-center flex-1 justify-between border border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
                 <Dropdown
                   type={'time'}
-                  firstItem={list.availableItems[i].selectedTime}
-                  menuItems={list.availableItems[i].timesArray}
-                  productID={id}
+                  firstItem={list.availableItems[i]?.selectedTime}
+                  menuItems={list.availableItems[i]?.timesArray}
+                  productID={productID}
                 />
               </div>
             }

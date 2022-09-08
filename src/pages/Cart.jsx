@@ -6,6 +6,7 @@ import Catogries from '../components/catogry-section/Catogries';
 
 const Cart = () => {
   const items = useCart();
+  console.log(items)
   return (
     <>
       <ListHeader />

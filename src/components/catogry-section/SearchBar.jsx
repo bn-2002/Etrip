@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LocationIcon from '../icons/LocationIcon';
 import MagnifireIcon from '../icons/MagnifireIcon';
 import CartIcon from '../icons/CartIcon';
 import PageFilterIcon from '../icons/PageFilterIcon';
 import { useCart } from '../../store/CartContext';
 import { Link } from 'react-router-dom';
+import Modal from '../UI/Modal';
+import FilterForm from './FilterForm';
 
 export const SearchBar = ({ style }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const cartItems = useCart();
 
   return (
@@ -16,18 +19,10 @@ export const SearchBar = ({ style }) => {
       <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
         <MagnifireIcon />
       </div>
-
       <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
         <LocationIcon />
       </div>
-
       <input className="w-3/4 px-4 py-2 outline-none" type="text" dir="rtl" />
-
-      <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
-        <PageFilterIcon />
-      </div>
-      <div className="w-[1px] h-6 bg-[#e5e5ea]"></div>
-
       <Link to="/cart">
         <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer flex  transition-all relative">
           <div className="bg-[#e92444] text-white rounded-full text-center px-2 absolute -top-1 -right-2">
@@ -36,6 +31,17 @@ export const SearchBar = ({ style }) => {
           <CartIcon />
         </div>
       </Link>
+     {/* devider line */}
+      <div className="w-[1px] h-6 bg-[#e5e5ea]"></div>
+      <div
+        onClick={() => setIsOpen((prevState) => !prevState)}
+        className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all"
+      >
+        <PageFilterIcon />
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          <FilterForm />
+        </Modal>
+      </div>
     </div>
   );
 };

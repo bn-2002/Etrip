@@ -17,14 +17,18 @@ ReactDOM.render(
 );
 
 //TODO
+//add shared layout catogries items
+////fix filter form drop doen issue
+////bring api call to context
+////add new reducers function to get handle dispatcheds for filtering(city,type,gender,..)
+///in all these steps take care od Cart!!!
+
+///search bar section 
 //lazy loading
-// render list by catogries
-///filter by filter Form
 ///login and sign up page
 ////Cart page (pardakht)
 ///memoize
 ///handle api errors
-////reame files
 //scroll snapping
 ///refactor styles and responsives
 ////add iransans fonts
@@ -34,13 +38,4 @@ ReactDOM.render(
 ///create useFetch hook
 ///learn redux toolkit
 ///add addToCart and removeFromCart function to CartContext
-
-
-///CollectionID: 100
-//CollectionName: "کلوپ تفریحات دریایی و غواصی نگین فارس"
-
-// CollectionID: 102
-// CollectionName: "تور تفریحی"
-
-// CollectionID: 103
-// CollectionName: "پدیده شاندیز"
+///....

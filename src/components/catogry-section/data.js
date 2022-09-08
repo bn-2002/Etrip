@@ -1,7 +1,7 @@
 export const data = [
   {
     name: 'تمام موارد',
-    id: 1,
+    id: -1,
   },
 
   {

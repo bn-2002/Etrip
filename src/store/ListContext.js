@@ -1,59 +1,19 @@
-import React, { useReducer, useContext, createContext } from 'react';
+import React, { useReducer, useContext, createContext, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import useFetch from '../hooks/useFetch';
 
 const ListStateContext = createContext();
 const ListDispatchContext = createContext();
 
 const listReducer = (state, action) => {
-  if (action.type === 'all-products') {
-    const initialValue = {
-      allItems: [], ///this array gathers filtered all items
-      availableItems: [], ///this array gathers filtered available items
-      allItemsContainer: [], //this array gathers all all items
-      availableItemsContainer: [], ///this array gathers all available items
-    };
+  ////INITIALIZE CONTEXT VALUE BY FETCH ALL DATA
+  if (action.type === 'initialize') {
+    console.log('action.payload.initialValue : ', action.payload.initialValue);
+    return { ...action.payload.initialValue };
+  }
 
-    action.payload.products.forEach((item) => {
-      if (item) {
-        let names = [];
-        let dates = [];
-        let times = [];
-
-        if (item.Feature) {
-          item.Feature.forEach((element) => {
-            names.push(element.Name);
-          });
-
-          item.Feature[0].DateRang.forEach((feature) => {
-            dates.push(feature.Date);
-          });
-
-          item.Feature[0].DateRang[0].TimeRange.forEach((feature) => {
-            times.push(feature.Time);
-          });
-        }
-
-        const itemInfo = {
-          id: item.productID,
-          namesArray: names,
-          timesArray: times,
-          datesArray: dates,
-          selectedName: names && names[0],
-          selectedTime: times && times[0],
-          selectedDate: dates && dates[0],
-          basePrice: item.Feature && item.Feature[0].BasePrice,
-          finalPrice: item.Feature && item.Feature[0].FinalPrice,
-          collectionID: item.CollectionID,
-        };
-
-        initialValue.allItems.push(item);
-        initialValue.allItemsContainer.push(item);
-        initialValue.availableItems.push(itemInfo);
-        initialValue.availableItemsContainer.push(itemInfo);
-      }
-    });
-
-    return initialValue;
-  } else if (action.type.startsWith('change')) {
+  ///HANDLE DROPDOWN CHANGES IN PRODUCT
+  if (action.type.startsWith('change')) {
     const newState = { ...state };
 
     ///find product index
@@ -131,36 +91,150 @@ const listReducer = (state, action) => {
       newState.availableItems[productIndex].selectedTime = action.payload.time;
     }
     return { ...newState };
-  } else if (action.type === 'filter-list') {
-    const newAllItemsList = state.allItemsContainer.filter(
-      (product) => product.CollectionID === action.payload.collectionID
-    );
+  }
 
-    const newAvailableItems = state.availableItemsContainer.filter(
-      (product) => product.collectionID === action.payload.collectionID
-    );
-    return {
-      ...state,
-      availableItems: newAvailableItems,
-      allItems: newAllItemsList,
-    };
-  } else if (action.type === 'show-all-products') {
-    const newAvailableItems = state.availableItemsContainer;
-    const newAllItemsList = state.allItemsContainer;
-    return {
-      ...state,
-      availableItems: newAvailableItems,
-      allItems: newAllItemsList,
-    };
+  ////FILTER LIST BY CHOOSE FROM CATOGRIES SECTION
+  else if (action.type === 'filter-list') {
+    const newState = {};
+
+    newState.filteredItems = action.payload.newConfig;
+
+    const availableItems = [];
+    const allItems = [];
+
+    action.payload.newData.forEach((item) => {
+      if (item) {
+        let names = [];
+        let dates = [];
+        let times = [];
+
+        if (item.Feature) {
+          item.Feature?.forEach((element) => {
+            names.push(element.Name);
+          });
+
+          item?.Feature[0]?.DateRang.forEach((feature) => {
+            dates.push(feature.Date);
+          });
+
+          item?.Feature[0]?.DateRang[0]?.TimeRange?.forEach((feature) => {
+            times.push(feature.Time);
+          });
+        }
+
+        const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
+
+        const itemInfo = {
+          productID: productID,
+          namesArray: names,
+          timesArray: times,
+          datesArray: dates,
+          selectedName: names && names[0],
+          selectedTime: times && times[0],
+          selectedDate: dates && dates[0],
+          basePrice: item?.Feature && item?.Feature[0].BasePrice,
+          finalPrice: item?.Feature && item?.Feature[0].FinalPrice,
+          collectionID: item.CollectionID,
+        };
+
+        allItems.push({
+          ...item,
+          productID: productID,
+        });
+        availableItems.push(itemInfo);
+      }
+    });
+
+    newState.allItems = allItems;
+    newState.availableItems = availableItems;
+
+    return { ...newState };
   }
 };
 
 export const ListProvider = ({ children }) => {
   const initialValue = {
-    allItems: [],
-    availableItems: [], ///info that we see in screen
+    allItems: [], ///this array gathers filtered all items and use them to show (filtered)
+    availableItems: [], ///this array gathers arrays of names and dates of each item
+    filteredItems: {},
   };
-  const [ListState, dispatchList] = useReducer(listReducer, initialValue);
+
+  const [ListState, dispatchList] = useReducer(listReducer, {});
+  const { isLoading, error, sendRequest } = useFetch();
+  let result;
+
+  useEffect(async () => {
+    console.log('it runs for once');
+    result = await sendRequest({});
+
+    if (isLoading) {
+      console.log('i am loading ... ');
+    } else {
+      console.log('result : ', result);
+
+      result.forEach((item) => {
+        if (item) {
+          let names = [];
+          let dates = [];
+          let times = [];
+
+          if (item.Feature) {
+            item.Feature.forEach((element) => {
+              names.push(element.Name);
+            });
+
+            item.Feature[0].DateRang.forEach((feature) => {
+              dates.push(feature.Date);
+            });
+
+            item.Feature[0].DateRang[0].TimeRange.forEach((feature) => {
+              times.push(feature.Time);
+            });
+          }
+
+          const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
+
+          const itemInfo = {
+            productID: productID,
+            namesArray: names,
+            timesArray: times,
+            datesArray: dates,
+            selectedName: names && names[0],
+            selectedTime: times && times[0],
+            selectedDate: dates && dates[0],
+            basePrice: item?.Feature && item?.Feature[0].BasePrice,
+            finalPrice: item?.Feature && item?.Feature[0].FinalPrice,
+            collectionID: item.CollectionID,
+          };
+
+          initialValue.allItems.push({
+            ...item,
+            productID: productID,
+          });
+          initialValue.availableItems.push(itemInfo);
+        }
+        initialValue.filteredItems = {
+          cityID: -1,
+          collectionCategoryID: -1,
+          collectionID: -1,
+          productCategoryID: -1,
+          tagID: '-1',
+          genderID: '-1',
+          fromDate: '-1',
+          toDate: '-1',
+          productID: -1,
+        };
+      });
+      console.log('result : ', result);
+      console.log('initialVAlue : ', initialValue);
+      dispatchList({
+        type: 'initialize',
+        payload: {
+          initialValue: initialValue,
+        },
+      });
+    }
+  }, [result]);
 
   return (
     <ListDispatchContext.Provider value={dispatchList}>
