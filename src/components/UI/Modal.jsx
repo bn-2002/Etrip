@@ -8,7 +8,7 @@ const Modal = ({ open, children, onClose }) => {
     return null;
   } else {
     document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = '16px';
+    document.body.style.paddingRight = '8px';
 
     return ReactDOM.createPortal(
       <>

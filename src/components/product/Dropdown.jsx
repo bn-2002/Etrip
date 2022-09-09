@@ -2,12 +2,10 @@ import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatchList, useList } from '../../store/ListContext';
-import useFetch from '../../hooks/useFetch';
+import { useDispatchList } from '../../store/ListContext';
 
 const Dropdown = ({ firstItem, menuItems, type, productID }) => {
   const dispatchItemInfo = useDispatchList();
-  const { isLoading, error, sendRequest } = useFetch();
 
   return (
     <Menu as="div" className="relative w-full text-center text-black">
@@ -25,7 +23,7 @@ const Dropdown = ({ firstItem, menuItems, type, productID }) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 w-full  z-[55] mt-3 origin-top-right bg-white divide-y divide-gray-100 rounded-sm shadow-5xl ring-1 ring-black ring-opacity-5 focus:outline-none ">
-          <div className="px-1 py-1 ">
+          <div className="px-1 py-1 max-h-40 overflow-y-auto">
             {menuItems &&
               menuItems.map((menuItem) => {
                 return (

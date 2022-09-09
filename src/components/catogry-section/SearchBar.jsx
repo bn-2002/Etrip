@@ -31,7 +31,7 @@ export const SearchBar = ({ style }) => {
           <CartIcon />
         </div>
       </Link>
-     {/* devider line */}
+      {/* devider line */}
       <div className="w-[1px] h-6 bg-[#e5e5ea]"></div>
       <div
         onClick={() => setIsOpen((prevState) => !prevState)}

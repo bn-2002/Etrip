@@ -1,59 +1,31 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatchList, useList } from '../../store/ListContext';
-import useFetch from '../../hooks/useFetch';
 
-const FormDropDown = ({setCollectionName,setCity, firstItem, menuItems, type }) => {
-  // console.log('menuItems: ', menuItems);
-
-  const dispatchList = useDispatchList();
-  const { isLoading, error, sendRequest } = useFetch();
-  const list = useList();
-
-  const onClick = async (id,name) => {
-    let newConfig;
-
-    if (type === 'city') {
-      setCity(name)
-      newConfig = {
-        ...list.filteredItems,
-        cityID: id,
-        collectionID: -1,
-      };
-    }
-
-    if (type === 'collection') {
-      setCollectionName(name)
-      newConfig = {
-        ...list.filteredItems,
-        collectionID: id,
-      };
-    }
-
-    const data = await sendRequest(newConfig);
-    dispatchList({
-      type: 'filter-list',
-      payload: {
-        cityID: id,
-        newConfig: newConfig,
-        newData: data,
-      },
-    });
+const FormDropDown = ({ clickHandler, firstItem, menuItems, type }) => {
+  const changeItemHandler = (type, id, name) => {
+    clickHandler(type, id, name);
   };
 
-  const filterList = (menuItemID,menuItemName) => {
-    onClick(menuItemID,menuItemName);
+  const [clicked, setClicked] = useState(false);
+
+  const changeColorHandler = () => {
+    setClicked((prevState) => !prevState);
   };
 
   return (
     <Menu
       as="div"
-      className=" my-1 relative border rounded-sm w-full text-center text-black"
+      className=" my-1 relative border p-0 rounded-lg w-full text-center text-black"
     >
-      <Menu.Button className="flex items-center justify-between w-full text-sm font-medium  hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white py-1 focus-visible:ring-opacity-75">
-        <span className="mx-2 mb-1 text-base  font-main">{firstItem}</span>
+      <Menu.Button
+        onClick={changeColorHandler}
+        className={` ${
+          clicked ? 'text-white bg-[#e92444]' : ''
+        } flex items-center justify-between w-full hover:text-white hover:bg-[#e92444] rounded-lg text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white py-1 focus-visible:ring-opacity-75`}
+      >
+        <span className="mx-2 mb-1 text-base font-main ">{firstItem}</span>
         <ChevronDownIcon className="w-5 h-5 mx-2" aria-hidden="true" />
       </Menu.Button>
       <Transition
@@ -66,18 +38,18 @@ const FormDropDown = ({setCollectionName,setCity, firstItem, menuItems, type }) 
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 w-full  z-[55] mt-[2px] origin-top-right bg-white divide-y divide-gray-100 rounded-sm shadow-5xl ring-1 ring-black ring-opacity-5 focus:outline-none ">
-          <div className="px-1 py-1 ">
+          <div className="px-1 py-1 max-h-40 overflow-y-auto ">
             {menuItems.map((menuItem) => {
               return (
                 <Menu.Item key={uuidv4()}>
                   {({ active }) => (
                     <div
                       onClick={() => {
-                        filterList(menuItem.id,menuItem.name);
+                        changeItemHandler(type, menuItem.id, menuItem.name);
                       }}
                       className={`font-main ${
                         active ? 'bg-[#F2FAFF]' : 'text-black'
-                      }   w-full rounded-md  text-base text-right px-2 py-2 `}
+                      }   w-full rounded-md  text-base cursor-pointer text-right px-2 py-2 `}
                     >
                       {menuItem.name}
                     </div>

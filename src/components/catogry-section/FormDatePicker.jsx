@@ -3,16 +3,15 @@ import DatePicker from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import 'react-multi-date-picker/styles/colors/red.css';
-import { useDispatchList, useList } from '../../store/ListContext';
-import useFetch from '../../hooks/useFetch';
 
-const FormDatePicker = ({ value, setValue, placeholder, type }) => {
-  const dispatchList = useDispatchList();
-  const { isLoading, error, sendRequest } = useFetch();
-  const list = useList();
-
+const FormDatePicker = ({
+  clickHandler,
+  value,
+  setValue,
+  placeholder,
+  type,
+}) => {
   let today = new Date().toLocaleDateString('fa-IR');
-
   function toEnglishDigits(str) {
     // convert persian digits [۰۱۲۳۴۵۶۷۸۹]
     var e = '۰'.charCodeAt(0);
@@ -27,42 +26,18 @@ const FormDatePicker = ({ value, setValue, placeholder, type }) => {
     });
     return str;
   }
+  const minDate = toEnglishDigits(today);
 
-  const onClick = async () => {
+  const dateChangeHandler = () => {
     const selectedDate = value?.toDate?.().toLocaleDateString('fa-IR');
     if (selectedDate) {
       const userSelectedDate = toEnglishDigits(selectedDate);
-      console.log('userSelectedDate : ', userSelectedDate);
-      const newConfig = {
-        ...list.filteredItems,
-        fromDate: userSelectedDate,
-      };
-
-      const data = await sendRequest(newConfig);
-
-      console.log('data : ', data);
-
-      console.log('newConfig : ', newConfig);
-      console.log('newData :', data);
-
-      dispatchList({
-        type: 'filter-list',
-        payload: {
-          newConfig: newConfig,
-          newData: data,
-        },
-      });
+      clickHandler(type, userSelectedDate);
     }
   };
 
-  const minDate = toEnglishDigits(today);
-
-  const filterList = () => {
-    onClick();
-  };
-
   useEffect(() => {
-    filterList();
+    dateChangeHandler();
   }, [value]);
 
   return (

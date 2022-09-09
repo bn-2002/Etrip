@@ -1,5 +1,10 @@
-import React, { useReducer, useContext, createContext, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, {
+  useReducer,
+  useContext,
+  createContext,
+  useEffect,
+  useCallback,
+} from 'react';
 import useFetch from '../hooks/useFetch';
 
 const ListStateContext = createContext();
@@ -8,7 +13,6 @@ const ListDispatchContext = createContext();
 const listReducer = (state, action) => {
   ////INITIALIZE CONTEXT VALUE BY FETCH ALL DATA
   if (action.type === 'initialize') {
-    console.log('action.payload.initialValue : ', action.payload.initialValue);
     return { ...action.payload.initialValue };
   }
 
@@ -93,11 +97,8 @@ const listReducer = (state, action) => {
     return { ...newState };
   }
 
-  ////FILTER LIST BY CHOOSE FROM CATOGRIES SECTION
+  ////FILTER LIST
   else if (action.type === 'filter-list') {
-
-    console.log('payload : ' , action.payload)
-
     const newState = {};
 
     newState.filteredItems = action.payload.newConfig;
@@ -125,6 +126,7 @@ const listReducer = (state, action) => {
           });
         }
 
+        ///This is unique ID for each each product
         const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
 
         const itemInfo = {
@@ -150,31 +152,82 @@ const listReducer = (state, action) => {
 
     newState.allItems = allItems;
     newState.availableItems = availableItems;
-
+    newState.filterList = state.filterList;
     return { ...newState };
   }
 };
 
 export const ListProvider = ({ children }) => {
+  const { isLoading, error, sendRequest } = useFetch();
+
+  const filterList = useCallback(async (filteredItems, type, value) => {
+    let newConfig;
+    if (type === 'collection') {
+      newConfig = {
+        ...filteredItems,
+        collectionID: value,
+      };
+    }
+
+    if (type === 'city') {
+      newConfig = {
+        ...filteredItems,
+        cityID: value,
+      };
+    }
+
+    if (type === 'start-date') {
+      newConfig = {
+        ...filteredItems,
+        fromDate: value,
+      };
+    }
+
+    if (type === 'end-date') {
+      newConfig = {
+        ...filteredItems,
+        toDate: value,
+      };
+    }
+
+    if (type === 'reset-config') {
+      newConfig = {
+        cityID: -1,
+        collectionCategoryID: -1,
+        collectionID: -1,
+        productCategoryID: -1,
+        tagID: '-1',
+        genderID: '-1',
+        fromDate: '-1',
+        toDate: '-1',
+        productID: -1,
+      };
+    }
+
+    const data = await sendRequest(newConfig);
+    dispatchList({
+      type: 'filter-list',
+      payload: {
+        newConfig: newConfig,
+        newData: data,
+      },
+    });
+  }, []);
+
   const initialValue = {
     allItems: [], ///this array gathers filtered all items and use them to show (filtered)
     availableItems: [], ///this array gathers arrays of names and dates of each item
     filteredItems: {},
+    filterList: filterList,
   };
 
   const [ListState, dispatchList] = useReducer(listReducer, {});
-  const { isLoading, error, sendRequest } = useFetch();
   let result;
 
   useEffect(async () => {
-    console.log('it runs for once');
     result = await sendRequest({});
 
-    if (isLoading) {
-      console.log('i am loading ... ');
-    } else {
-      console.log('result : ', result);
-
+    if (result) {
       result.forEach((item) => {
         if (item) {
           let names = [];
@@ -195,6 +248,7 @@ export const ListProvider = ({ children }) => {
             });
           }
 
+          ///This is unique ID for each each product
           const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
 
           const itemInfo = {
@@ -228,8 +282,7 @@ export const ListProvider = ({ children }) => {
           productID: -1,
         };
       });
-      console.log('result : ', result);
-      console.log('initialVAlue : ', initialValue);
+      initialValue.fetch = sendRequest;
       dispatchList({
         type: 'initialize',
         payload: {

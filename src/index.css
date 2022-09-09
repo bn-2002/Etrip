@@ -51,3 +51,19 @@ body {
   padding: 0 !important;
   overflow-y: scroll !important ;
 } */
+
+*::-webkit-scrollbar {
+  width: 0.5rem;
+  border-radius: 0.4rem;
+  scroll-behavior: smooth !important;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 9px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(189, 181, 181);
+  border-radius: 9px;
+}

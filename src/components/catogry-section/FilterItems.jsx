@@ -5,10 +5,8 @@ import './FilterItems.css';
 import { useList } from '../../store/ListContext';
 
 const FilterItems = () => {
-
   const list = useList();
-  const currentCollectionID =  list.filteredItems?.collectionID
-  console.log('currentCollectionID : ' , currentCollectionID)
+  const currentCollectionID = list.filteredItems?.collectionID;
 
   return (
     <div className="flex items-center h-[50px] justify-center mt-3 ">
@@ -17,7 +15,7 @@ const FilterItems = () => {
         {data.map((element) => {
           return (
             <CatogryItem
-              currentCollectionID = {currentCollectionID}
+              currentCollectionID={currentCollectionID}
               collectionID={element.id}
               name={element.name}
               key={element.id}
