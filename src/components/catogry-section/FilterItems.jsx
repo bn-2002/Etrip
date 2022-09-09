@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CatogryItem from './CatogryItem';
 import { data } from './data';
 import './FilterItems.css';

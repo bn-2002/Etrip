@@ -6,7 +6,7 @@ import PageFilterIcon from '../icons/PageFilterIcon';
 import { useCart } from '../../store/CartContext';
 import { Link } from 'react-router-dom';
 import Modal from '../UI/Modal';
-import FilterForm from './FilterForm';
+import FilterForm from '../FilterForm/FilterForm';
 
 export const SearchBar = ({ style }) => {
   const [isOpen, setIsOpen] = useState(false);

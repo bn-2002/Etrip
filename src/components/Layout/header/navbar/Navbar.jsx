@@ -13,7 +13,7 @@ const Navbar = (props) => {
         <img src={faveIcon} alt="etrip icon" className="w-20 mr-8 lg:w-28" />
       </Link>
       <div className="flex items-center justify-around">
-        <Dropdown />
+        {props.showApp && <Dropdown />}
         <LoginBtn />
       </div>
     </div>

@@ -20,12 +20,6 @@ ReactDOM.render(
 );
 
 //TODO
-//add shared layout catogries items
-////fix filter form drop doen issue
-////bring api call to context
-////add new reducers function to get handle dispatcheds for filtering(city,type,gender,..)
-///in all these steps take care od Cart!!!
-
 ///search bar section
 //lazy loading
 ///login and sign up page
@@ -38,7 +32,6 @@ ReactDOM.render(
 ////fix slider
 ////animations
 ///add sass
-///create useFetch hook
 ///learn redux toolkit
 ///add addToCart and removeFromCart function to CartContext
 ///....

@@ -38,5 +38,3 @@ export default Home;
 ///////login and sign up page
 
 //////filter modal
-
-////change data by click on each items in catogries

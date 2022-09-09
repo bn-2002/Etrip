@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormDropDown from './FormDropDown';
-import { data } from './data';
+import { data } from '../catogry-section/data';
 import FormDatePicker from './FormDatePicker';
 import { useFilterForm } from '../../store/FilterContext';
 import { useList } from '../../store/ListContext';
