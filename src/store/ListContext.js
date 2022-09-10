@@ -150,68 +150,9 @@ const listReducer = (state, action) => {
       }
     });
 
-    if (!action.payload.search) {
-      console.log('we are just filter :)');
-      newState.allItems = allItems;
-      newState.availableItems = availableItems;
-      newState.filterList = state.filterList;
-    }
-
-
-    if (action.payload.search) {
-      console.log('we want to also search :)');
-      console.log('allItems : ' , allItems)
-      const newAllItems = allItems.filter((product) =>
-        product.Name.includes(action.payload.keyword)
-      );
-      
-      const newAvailableItems = [];
-
-      newAllItems.forEach((item) => {
-        if (item) {
-          let names = [];
-          let dates = [];
-          let times = [];
-
-          if (item.Feature) {
-            item.Feature?.forEach((element) => {
-              names.push(element.Name);
-            });
-
-            item?.Feature[0]?.DateRang.forEach((feature) => {
-              dates.push(feature.Date);
-            });
-
-            item?.Feature[0]?.DateRang[0]?.TimeRange?.forEach((feature) => {
-              times.push(feature.Time);
-            });
-          }
-
-          ///This is unique ID for each each product
-          const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
-
-          const itemInfo = {
-            productID: productID,
-            namesArray: names,
-            timesArray: times,
-            datesArray: dates,
-            selectedName: names && names[0],
-            selectedTime: times && times[0],
-            selectedDate: dates && dates[0],
-            basePrice: item?.Feature && item?.Feature[0].BasePrice,
-            finalPrice: item?.Feature && item?.Feature[0].FinalPrice,
-            collectionID: item.CollectionID,
-          };
-          newAvailableItems.push(itemInfo);
-        }
-      });
-      console.log('newAvailableItems : ', newAvailableItems);
-      console.log('newAllItems : ', newAllItems);
-
-      newState.allItems = newAllItems;
-      newState.availableItems = newAvailableItems;
-      newState.filterList = state.filterList;
-    }
+    newState.allItems = allItems;
+    newState.availableItems = availableItems;
+    newState.filterList = state.filterList;
 
     return { ...newState };
   }
@@ -309,8 +250,15 @@ export const ListProvider = ({ children }) => {
       };
     }
 
-    if (type === 'reset-config' || type === 'reset-and-search') {
-      console.log('salam');
+    if (type === 'content') {
+      newConfig = {
+        ...filteredItems,
+        content: value,
+        collectionID: -1,
+      };
+    }
+
+    if (type === 'reset-config') {
       newConfig = {
         cityID: -1,
         collectionCategoryID: -1,
@@ -326,28 +274,13 @@ export const ListProvider = ({ children }) => {
 
     const data = await sendRequest(newConfig);
 
-    if (type === 'reset-and-search') {
-      console.log('salam');
-
-      dispatchList({
-        type: 'filter-list',
-        payload: {
-          search: true,
-          newConfig: newConfig,
-          newData: data,
-          keyword : value,
-        },
-      });
-    } else {
-      dispatchList({
-        type: 'filter-list',
-        payload: {
-          search: false,
-          newConfig: newConfig,
-          newData: data,
-        },
-      });
-    }
+    dispatchList({
+      type: 'filter-list',
+      payload: {
+        newConfig: newConfig,
+        newData: data,
+      },
+    });
   }, []);
 
   const initialValue = {
@@ -416,6 +349,7 @@ export const ListProvider = ({ children }) => {
           fromDate: '-1',
           toDate: '-1',
           productID: -1,
+          content: '',
         };
       });
       initialValue.fetch = sendRequest;

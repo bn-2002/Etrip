@@ -7,11 +7,10 @@ import { useCart } from '../../store/CartContext';
 import { Link } from 'react-router-dom';
 import Modal from '../UI/Modal';
 import FilterForm from '../filter-form/FilterForm';
-import { useDispatchList, useList } from '../../store/ListContext';
+import { useList } from '../../store/ListContext';
 
 export const SearchBar = ({ style }) => {
   const list = useList();
-  const dispatchList = useDispatchList();
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useCart();
 
@@ -29,7 +28,7 @@ export const SearchBar = ({ style }) => {
   /////////////CHANGE INPUT HANDLER FUNCTION
   const changeInputHandler = (value) => {
     debounce(() => {
-      list.filterList(list.filteredItems, 'reset-and-search',value);
+      list.filterList(list.filteredItems, 'content', value);
     }, 2500);
   };
 

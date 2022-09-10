@@ -30,7 +30,7 @@ const useFetch = () => {
             GenderID: body?.genderID ? body.genderID : '-1',
             FromDate: body?.fromDate ? body.fromDate : '-1',
             ToDate: body?.toDate ? body.toDate : '-1',
-            Content: '',
+            Content: body?.content ? body.content : '',
             ProductID: body?.productID ? body.productID : -1,
             Resolution: '500*500',
             Browser: navigator.userAgent,
@@ -49,8 +49,6 @@ const useFetch = () => {
       const result = await response.json();
 
       return result.Product;
-
-
     } catch (err) {
       setError(err.message || 'Something went wrong!');
     }
@@ -64,4 +62,3 @@ const useFetch = () => {
 };
 
 export default useFetch;
-
