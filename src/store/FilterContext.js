@@ -9,6 +9,18 @@ const filterReducer = (state, action) => {
       city: action.payload.value,
     };
   }
+  if (action.type === 'productCategory') {
+    return {
+      ...state,
+      productCategory: action.payload.value,
+    };
+  }
+  if (action.type === 'collectionCategory') {
+    return {
+      ...state,
+      collectionCategory: action.payload.value,
+    };
+  }
   if (action.type === 'collection') {
     return {
       ...state,
@@ -40,7 +52,9 @@ const filterReducer = (state, action) => {
 export const FilterProvider = ({ children }) => {
   const initialValue = {
     city: 'شهر',
+    productCategory: 'تمام موارد',
     collection: 'تمام موارد',
+    collectionCategory: 'تمام موارد',
     startDate: '-1',
     endDate: '-1',
   };

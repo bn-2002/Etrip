@@ -13,7 +13,9 @@ const ListDispatchContext = createContext();
 const listReducer = (state, action) => {
   ////INITIALIZE CONTEXT VALUE BY FETCH ALL DATA
   if (action.type === 'initialize') {
-    return { ...action.payload.initialValue };
+    return {
+      ...action.payload.initialValue,
+    };
   }
 
   ///HANDLE DROPDOWN CHANGES IN PRODUCT
@@ -94,15 +96,12 @@ const listReducer = (state, action) => {
       ///update selected Time
       newState.availableItems[productIndex].selectedTime = action.payload.time;
     }
+    console.log('newState : ', newState);
     return { ...newState };
   }
 
   ////FILTER LIST
   else if (action.type === 'filter-list') {
-    const newState = {};
-
-    newState.filteredItems = action.payload.newConfig;
-
     const availableItems = [];
     const allItems = [];
 
@@ -150,69 +149,11 @@ const listReducer = (state, action) => {
       }
     });
 
-    newState.allItems = allItems;
-    newState.availableItems = availableItems;
-    newState.filterList = state.filterList;
-
-    return { ...newState };
-  }
-
-  // ///SEARCH FOR SPECIFIC PRODUCT OR KEYWORD
-  else if (action.type === 'search-list') {
-    console.log('we search for :', action.payload.keyword);
-
-    const newAllItems = state.allItems.filter((product) =>
-      product.Name.includes(action.payload.keyword)
-    );
-
-    const newAvailableItems = [];
-
-    newAllItems.forEach((item) => {
-      if (item) {
-        let names = [];
-        let dates = [];
-        let times = [];
-
-        if (item.Feature) {
-          item.Feature?.forEach((element) => {
-            names.push(element.Name);
-          });
-
-          item?.Feature[0]?.DateRang.forEach((feature) => {
-            dates.push(feature.Date);
-          });
-
-          item?.Feature[0]?.DateRang[0]?.TimeRange?.forEach((feature) => {
-            times.push(feature.Time);
-          });
-        }
-
-        ///This is unique ID for each each product
-        const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
-
-        const itemInfo = {
-          productID: productID,
-          namesArray: names,
-          timesArray: times,
-          datesArray: dates,
-          selectedName: names && names[0],
-          selectedTime: times && times[0],
-          selectedDate: dates && dates[0],
-          basePrice: item?.Feature && item?.Feature[0].BasePrice,
-          finalPrice: item?.Feature && item?.Feature[0].FinalPrice,
-          collectionID: item.CollectionID,
-        };
-
-        newAvailableItems.push(itemInfo);
-      }
-    });
-
-    console.log('newAvailableItems : ', newAvailableItems);
-
     return {
       ...state,
-      allItems: newAllItems,
-      availableItems: newAvailableItems,
+      allItems: allItems,
+      availableItems: availableItems,
+      requestConfig: action.payload.newConfig,
     };
   }
 };
@@ -220,84 +161,119 @@ const listReducer = (state, action) => {
 export const ListProvider = ({ children }) => {
   const { isLoading, error, sendRequest } = useFetch();
 
-  const filterList = useCallback(async (filteredItems, type, value) => {
-    let newConfig;
-    if (type === 'collection') {
-      newConfig = {
-        ...filteredItems,
-        collectionID: value,
-      };
-    }
+  //this function send new request to server with new config
+  let data;
+  const filterList = useCallback(
+    async (requestConfig, type, value) => {
+      let newConfig;
+      if (type === 'collection') {
+        newConfig = {
+          ...requestConfig,
+          collectionID: value,
+        };
+      }
 
-    if (type === 'city') {
-      newConfig = {
-        ...filteredItems,
-        cityID: value,
-      };
-    }
+      if (type === 'city') {
+        newConfig = {
+          ...requestConfig,
+          cityID: value,
+        };
+      }
 
-    if (type === 'start-date') {
-      newConfig = {
-        ...filteredItems,
-        fromDate: value,
-      };
-    }
+      if (type === 'start-date') {
+        newConfig = {
+          ...requestConfig,
+          fromDate: value,
+        };
+      }
 
-    if (type === 'end-date') {
-      newConfig = {
-        ...filteredItems,
-        toDate: value,
-      };
-    }
+      if (type === 'end-date') {
+        newConfig = {
+          ...requestConfig,
+          toDate: value,
+        };
+      }
 
-    if (type === 'content') {
-      newConfig = {
-        ...filteredItems,
-        content: value,
-        collectionID: -1,
-      };
-    }
+      if (type === 'productCategory') {
+        newConfig = {
+          ...requestConfig,
+          productCategoryID: value,
+        };
+      }
 
-    if (type === 'reset-config') {
-      newConfig = {
-        cityID: -1,
-        collectionCategoryID: -1,
-        collectionID: -1,
-        productCategoryID: -1,
-        tagID: '-1',
-        genderID: '-1',
-        fromDate: '-1',
-        toDate: '-1',
-        productID: -1,
-      };
-    }
+      if (type === 'collectionCategory') {
+        newConfig = {
+          ...requestConfig,
+          collectionCategoryID: value,
+        };
+      }
 
-    const data = await sendRequest(newConfig);
+      if (type === 'content') {
+        newConfig = {
+          ...requestConfig,
+          content: value,
+          collectionID: -1,
+        };
+      }
 
-    dispatchList({
-      type: 'filter-list',
-      payload: {
-        newConfig: newConfig,
-        newData: data,
-      },
-    });
-  }, []);
+      if (type === 'reset-config') {
+        newConfig = {
+          cityID: -1,
+          collectionCategoryID: -1,
+          collectionID: -1,
+          productCategoryID: -1,
+          tagID: '-1',
+          genderID: '-1',
+          fromDate: '-1',
+          toDate: '-1',
+          productID: -1,
+        };
+      }
 
-  const initialValue = {
-    allItems: [], ///this array gathers filtered all items and use them to show (filtered)
-    availableItems: [], ///this array gathers arrays of names and dates of each item
-    filteredItems: {},
-    filterList: filterList,
-  };
+      data = await sendRequest(
+        'http://webapi.ep7.ir/TourismAPI/GetCollectionsProducts/',
+        newConfig
+      );
+
+      if (data) {
+        dispatchList({
+          type: 'filter-list',
+          payload: {
+            newConfig: newConfig,
+            newData: data.Product,
+          },
+        });
+      }
+    },
+    [data]
+  );
 
   const [ListState, dispatchList] = useReducer(listReducer, {});
-  let result;
+
+  ////these use Effect set initial State by snding request to server to get all collectionProducts and filterItems
+  const initialValue = {
+    allItems: [], ///this array gathers filtered all items
+    availableItems: [], ///this array gathers arrays of names and dates of each item and we display them
+    requestConfig: {}, ///this is config that sent to api call includes {collectionID,cityID,...}
+    filterListInfo: {}, ///get data from URL: .../TourismAPI/GetFilterInfo API Call
+    filterList: filterList, ///function that is called when we want to filter products
+  };
+  let result, filterListInfo;
 
   useEffect(async () => {
-    result = await sendRequest({});
+    result = await sendRequest(
+      'http://webapi.ep7.ir/TourismAPI/GetCollectionsProducts/',
+      {}
+    );
 
-    if (result) {
-      result.forEach((item) => {
+    filterListInfo = await sendRequest(
+      'http://webapi.ep7.ir/TourismAPI/GetFilterInfo/',
+      {}
+    );
+
+    if (result && filterListInfo) {
+      ///set availableItems , allItems
+      result.Product.forEach((item) => {
         if (item) {
           let names = [];
           let dates = [];
@@ -339,20 +315,26 @@ export const ListProvider = ({ children }) => {
           });
           initialValue.availableItems.push(itemInfo);
         }
-        initialValue.filteredItems = {
-          cityID: -1,
-          collectionCategoryID: -1,
-          collectionID: -1,
-          productCategoryID: -1,
-          tagID: '-1',
-          genderID: '-1',
-          fromDate: '-1',
-          toDate: '-1',
-          productID: -1,
-          content: '',
-        };
       });
-      initialValue.fetch = sendRequest;
+
+      ////set requestConfig (initial Config)
+      initialValue.requestConfig = {
+        cityID: -1,
+        collectionCategoryID: -1,
+        collectionID: -1,
+        productCategoryID: -1,
+        tagID: '-1',
+        genderID: '-1',
+        fromDate: '-1',
+        toDate: '-1',
+        productID: -1,
+        content: '',
+      };
+
+      ////set filterListInfo (get from server)
+      initialValue.filterListInfo = filterListInfo;
+
+      ///displatch data to reducer function to set state
       dispatchList({
         type: 'initialize',
         payload: {
@@ -360,7 +342,7 @@ export const ListProvider = ({ children }) => {
         },
       });
     }
-  }, [result]);
+  }, [result, filterListInfo]);
 
   return (
     <ListDispatchContext.Provider value={dispatchList}>

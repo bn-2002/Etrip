@@ -28,7 +28,7 @@ export const SearchBar = ({ style }) => {
   /////////////CHANGE INPUT HANDLER FUNCTION
   const changeInputHandler = (value) => {
     debounce(() => {
-      list.filterList(list.filteredItems, 'content', value);
+      list.filterList(list.requestConfig, 'content', value);
     }, 2500);
   };
 

@@ -45,13 +45,13 @@ const FormDropDown = ({ clickHandler, firstItem, menuItems, type }) => {
                   {({ active }) => (
                     <div
                       onClick={() => {
-                        changeItemHandler(type, menuItem.id, menuItem.name);
+                        changeItemHandler(type, menuItem.ID, menuItem.Name);
                       }}
                       className={`font-main ${
                         active ? 'bg-[#F2FAFF]' : 'text-black'
                       }   w-full rounded-md  text-base cursor-pointer text-right px-2 py-2 `}
                     >
-                      {menuItem.name}
+                      {menuItem.Name}
                     </div>
                   )}
                 </Menu.Item>

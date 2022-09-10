@@ -20,7 +20,6 @@ ReactDOM.render(
 );
 
 //TODO
-///search bar section
 //lazy loading
 ///login and sign up page
 ////Cart page (pardakht)
