@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import LocationIcon from '../icons/LocationIcon';
 import MagnifireIcon from '../icons/MagnifireIcon';
 import CartIcon from '../icons/CartIcon';
@@ -6,27 +6,57 @@ import PageFilterIcon from '../icons/PageFilterIcon';
 import { useCart } from '../../store/CartContext';
 import { Link } from 'react-router-dom';
 import Modal from '../UI/Modal';
-import FilterForm from '../FilterForm/FilterForm';
+import FilterForm from '../filter-form/FilterForm';
+import { useDispatchList, useList } from '../../store/ListContext';
 
 export const SearchBar = ({ style }) => {
+  const list = useList();
+  const dispatchList = useDispatchList();
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useCart();
+
+  /////////////////DEBOUNCE FUNCTION
+  const timeout = useRef();
+  const debounce = (func, delay) => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+    timeout.current = setTimeout(() => {
+      func();
+    }, delay);
+  };
+
+  /////////////CHANGE INPUT HANDLER FUNCTION
+  const changeInputHandler = (value) => {
+    debounce(() => {
+      list.filterList(list.filteredItems, 'reset-and-search',value);
+    }, 2500);
+  };
 
   return (
     <div
       className={`${style} flex items-center border border-t-0 border-x-0 border-b-[#e5e5ea] justify-evenly mt-2 py-[2px]`}
     >
       <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
-        <MagnifireIcon />
-      </div>
-      <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
         <LocationIcon />
       </div>
-      <input className="w-3/4 px-4 py-2 outline-none" type="text" dir="rtl" />
+      <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all">
+        <MagnifireIcon />
+      </div>
+      <input
+        onChange={(event) => changeInputHandler(event.target.value)}
+        className="w-3/4 px-4 py-2 outline-none"
+        type="text"
+        dir="rtl"
+      />
       <Link to="/cart">
         <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer flex  transition-all relative">
-          <div className="bg-[#e92444] text-white rounded-full text-center px-2 absolute -top-1 -right-2">
-            {cartItems.length}
+          <div
+            className={`${
+              cartItems.length > 0 ? 'bg-[#e92444] text-white' : ''
+            } rounded-full text-center px-2 absolute -top-1 -right-2`}
+          >
+            {cartItems.length > 0 ? cartItems.length : ''}
           </div>
           <CartIcon />
         </div>
