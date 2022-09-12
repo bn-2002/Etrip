@@ -5,13 +5,16 @@ import App from './App';
 import { CartProvider } from './store/CartContext';
 import { ListProvider } from './store/ListContext';
 import { FilterProvider } from './store/FilterContext';
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
     <ListProvider>
       <CartProvider>
         <FilterProvider>
+        <BrowserRouter>
           <App />
+          </BrowserRouter>
         </FilterProvider>
       </CartProvider>
     </ListProvider>
@@ -35,3 +38,8 @@ ReactDOM.render(
 ///add addToCart and removeFromCart function to CartContext
 ///....
 
+
+
+////get Home data from Api
+////implement lazy loading
+//////

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import LocationIcon from '../icons/LocationIcon';
 import MagnifireIcon from '../icons/MagnifireIcon';
 import CartIcon from '../icons/CartIcon';
@@ -8,22 +8,13 @@ import { Link } from 'react-router-dom';
 import Modal from '../UI/Modal';
 import FilterForm from '../filter-form/FilterForm';
 import { useList } from '../../store/ListContext';
+import useDebounce from '../../hooks/useDebounce';
 
-export const SearchBar = ({ style }) => {
+export const SearchBar = ({ style, iconColor }) => {
   const list = useList();
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useCart();
-
-  /////////////////DEBOUNCE FUNCTION
-  const timeout = useRef();
-  const debounce = (func, delay) => {
-    if (timeout.current) {
-      clearTimeout(timeout.current);
-    }
-    timeout.current = setTimeout(() => {
-      func();
-    }, delay);
-  };
+  const debounce = useDebounce();
 
   /////////////CHANGE INPUT HANDLER FUNCTION
   const changeInputHandler = (value) => {
@@ -48,7 +39,8 @@ export const SearchBar = ({ style }) => {
         type="text"
         dir="rtl"
       />
-      <Link to="/cart">
+
+      <Link to={`${cartItems.length === 0 ? './' : '/cart'}`}>
         <div className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer flex  transition-all relative">
           <div
             className={`${
@@ -60,13 +52,14 @@ export const SearchBar = ({ style }) => {
           <CartIcon />
         </div>
       </Link>
+
       {/* devider line */}
       <div className="w-[1px] h-6 bg-[#e5e5ea]"></div>
       <div
         onClick={() => setIsOpen((prevState) => !prevState)}
         className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all"
       >
-        <PageFilterIcon />
+        <PageFilterIcon color={iconColor} />
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
           <FilterForm />
         </Modal>

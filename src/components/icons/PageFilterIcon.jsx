@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PageFilterIcon = () => {
+const PageFilterIcon = ({ color }) => {
   return (
     <svg
       id="res-page-filter-icon"
@@ -8,6 +8,7 @@ const PageFilterIcon = () => {
       height="20"
       width="20"
       viewBox="0 0 30 30"
+      fill={color}
     >
       <path
         id="Path_142"

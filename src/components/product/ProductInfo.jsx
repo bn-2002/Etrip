@@ -6,6 +6,7 @@ import { useDispatchCart } from '../../store/CartContext';
 
 const ProductInfo = ({ moreDetailsOnClick, productID }) => {
   const list = useList();
+  
   ////find index of current item in items list
   const i = list.availableItems.findIndex((item) => item.productID === productID);
 

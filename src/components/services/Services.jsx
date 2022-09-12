@@ -3,11 +3,11 @@ import { data } from './data';
 import Service from './Service';
 import SectionTitle from '../UI/typography/SectionTitle';
 
-const Services = (props) => {
+const Services = ({style}) => {
   return (
     <section
       id="services"
-      className={`${props.style} mx-auto px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40 bg-[#F3F4F6] pt-8 pb-12 flex flex-col gap-10 relative z-[19]`}
+      className={`${style} mx-auto px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40 bg-[#F3F4F6] pt-8 pb-12 flex flex-col gap-10 relative z-[19]`}
     >
       <SectionTitle
         align={'center'}

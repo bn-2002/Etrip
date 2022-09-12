@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Slider.module.css';
 import { data } from './data';
-import bgImg from '../../../../../assests/images/bg.jpg';
+import bgImg from '../../../../assests/images/bg.jpg';
 
 const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

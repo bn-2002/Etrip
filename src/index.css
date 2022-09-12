@@ -10,32 +10,6 @@
   }
 }
 
-/* body {
-  background-color: cadetblue;
-}
-
-.header {
-  width: 100%;
-  top:0;
-  left:0;
-  background-color: burlywood;
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  height:400px;
-}
-
-.gap {
-  height:100vh;
-}
-
-img {
-  margin:0 auto;
-  display:block;
-  height:auto;
-  width:50%;
-} */
-
 .gap {
   height: 100vh;
 }
@@ -44,13 +18,7 @@ body {
   direction: rtl;
   font-family: IranSans;
   overflow-x: hidden !important;
-  /* overflow: hidden; */
 }
-
-/* html {
-  padding: 0 !important;
-  overflow-y: scroll !important ;
-} */
 
 *::-webkit-scrollbar {
   width: 0.5rem;
@@ -67,3 +35,4 @@ body {
   background-color: rgb(189, 181, 181);
   border-radius: 9px;
 }
+

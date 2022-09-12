@@ -3,6 +3,7 @@ import DatePicker from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import 'react-multi-date-picker/styles/colors/red.css';
+import { toEnglishDigits } from '../../helpers/helper';
 
 const FormDatePicker = ({
   clickHandler,
@@ -11,21 +12,9 @@ const FormDatePicker = ({
   placeholder,
   type,
 }) => {
+  
+  ////calculate minDate
   let today = new Date().toLocaleDateString('fa-IR');
-  function toEnglishDigits(str) {
-    // convert persian digits [۰۱۲۳۴۵۶۷۸۹]
-    var e = '۰'.charCodeAt(0);
-    str = str.replace(/[۰-۹]/g, function (t) {
-      return t.charCodeAt(0) - e;
-    });
-
-    // convert arabic indic digits [٠١٢٣٤٥٦٧٨٩]
-    e = '٠'.charCodeAt(0);
-    str = str.replace(/[٠-٩]/g, function (t) {
-      return t.charCodeAt(0) - e;
-    });
-    return str;
-  }
   const minDate = toEnglishDigits(today);
 
   const dateChangeHandler = () => {

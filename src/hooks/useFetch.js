@@ -4,26 +4,42 @@ const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const sendRequest = useCallback(async (url, body) => {
+
     /////this object will pass to fetch function if url is set for getting collection Products
     let bodyInfo = {};
+
     if (url.endsWith('GetCollectionsProducts/')) {
+      
+      ///extract config from body object
+      const {
+        cityID,
+        collectionCategoryID,
+        collectionID,
+        productCategoryID,
+        tagID,
+        genderID,
+        fromDate,
+        toDate,
+        content,
+        productID,
+      } = body;
+
+      ///set new body
       bodyInfo = {
-        CityID: body?.cityID ? body.cityID : -1,
-        CollectionCategoryID: body?.collectionCategoryID
-          ? body.collectionCategoryID
-          : -1,
-        CollectionID: body?.collectionID ? body.collectionID : -1,
-        ProductCategoryID: body?.productCategoryID
-          ? body.productCategoryID
-          : -1,
-        TagID: body?.tagID ? body.tagID : '-1',
-        GenderID: body?.genderID ? body.genderID : '-1',
-        FromDate: body?.fromDate ? body.fromDate : '-1',
-        ToDate: body?.toDate ? body.toDate : '-1',
-        Content: body?.content ? body.content : '',
-        ProductID: body?.productID ? body.productID : -1,
+        CityID: cityID ? cityID : -1,
+        CollectionCategoryID: collectionCategoryID ? collectionCategoryID : -1,
+        CollectionID: collectionID ? collectionID : -1,
+        ProductCategoryID: productCategoryID ? productCategoryID : -1,
+        TagID: tagID ? tagID : '-1',
+        GenderID: genderID ? genderID : '-1',
+        FromDate: fromDate ? fromDate : '-1',
+        ToDate: toDate ? toDate : '-1',
+        Content: content ? content : '',
+        ProductID: productID ? productID : -1,
       };
     }
+
+    // console.log('bodyInfo :' , bodyInfo)
 
     setIsLoading(true);
     setError(null);
@@ -65,3 +81,7 @@ const useFetch = () => {
 };
 
 export default useFetch;
+
+///gsap
+///react window react virtualize
+/////////lazy loading

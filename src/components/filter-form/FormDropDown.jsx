@@ -4,11 +4,11 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 import { v4 as uuidv4 } from 'uuid';
 
 const FormDropDown = ({ clickHandler, firstItem, menuItems, type }) => {
+  const [clicked, setClicked] = useState(false);
+
   const changeItemHandler = (type, id, name) => {
     clickHandler(type, id, name);
   };
-
-  const [clicked, setClicked] = useState(false);
 
   const changeColorHandler = () => {
     setClicked((prevState) => !prevState);

@@ -3,7 +3,7 @@ import FilterItems from './FilterItems';
 import SearchBar from './SearchBar';
 import './FilterItems.css';
 
-const Catogries = () => {
+const Catogries = ({ iconColor, showSearchbar }) => {
   return (
     <section
       id="catogries"
@@ -13,7 +13,7 @@ const Catogries = () => {
         id="catogries-section"
         className={`w-full  bg-white duration-700 py-1 transition-all mx-auto   `}
       >
-        <SearchBar />
+        {showSearchbar && <SearchBar iconColor={iconColor} />}
         <FilterItems />
       </div>
     </section>
