@@ -7,7 +7,7 @@ const Catogries = ({ iconColor, showSearchbar }) => {
   return (
     <section
       id="catogries"
-      className={`catogries-section sticky top-0 border mx-auto bg-white w-full sm:px-1 md:px-1 xl:px-60 lg:px-40 z-[20]  px-2`}
+      className={`catogries-section  sticky top-0  mx-auto bg-white w-full sm:px-1 md:px-1 xl:px-60 lg:px-40 z-[20]  px-2`}
     >
       <div
         id="catogries-section"

@@ -2,62 +2,28 @@ import React, { useReducer, useContext, createContext } from 'react';
 
 const FilterStateContext = createContext();
 
+const initialValue = {
+  city: 'شهر',
+  productCategory: 'دسته بندي',
+  collection: 'مجموعه',
+  collectionCategory: 'زيردسته',
+  tags: [],
+  genderTypes: [],
+  startDate: 'از تاريخ',
+  endDate: 'تا تاريخ',
+};
+
 const filterReducer = (state, action) => {
-  if (action.type === 'city') {
-    return {
-      ...state,
-      city: action.payload.value,
-    };
-  }
-  if (action.type === 'productCategory') {
-    return {
-      ...state,
-      productCategory: action.payload.value,
-    };
-  }
-  if (action.type === 'collectionCategory') {
-    return {
-      ...state,
-      collectionCategory: action.payload.value,
-    };
-  }
-  if (action.type === 'collection') {
-    return {
-      ...state,
-      collection: action.payload.value,
-    };
-  }
-  if (action.type === 'start-date') {
-    return {
-      ...state,
-      startDate: action.payload.value,
-    };
-  }
-  if (action.type === 'end-date') {
-    return {
-      ...state,
-      endDate: action.payload.value,
-    };
+  if (action.type === 'update-filter-form-data') {
+    console.log('action.payload : ', action.payload);
+    return action.payload;
   }
   if (action.type === 'reset-form') {
-    return {
-      city: 'شهر',
-      collection: 'تمام موارد',
-      startDate: '-1',
-      endDate: '-1',
-    };
-  }
+    return initialValue
+  };
 };
 
 export const FilterProvider = ({ children }) => {
-  const initialValue = {
-    city: 'شهر',
-    productCategory: 'تمام موارد',
-    collection: 'تمام موارد',
-    collectionCategory: 'تمام موارد',
-    startDate: '-1',
-    endDate: '-1',
-  };
   const [filterState, dispatchFilterForm] = useReducer(
     filterReducer,
     initialValue

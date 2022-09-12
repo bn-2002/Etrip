@@ -4,43 +4,116 @@ import FormDatePicker from './FormDatePicker';
 import { useFilterForm } from '../../store/FilterContext';
 import { useList } from '../../store/ListContext';
 import FormTag from './FormTag';
+import FormCheckBox from './FormCheckbox';
+import { addOrRemoveObject } from '../../helpers/helper';
 
 const FilterForm = () => {
   const list = useList();
   const { filterState, dispatchFilterForm } = useFilterForm();
 
+  //////////////////////////////////states to store states
+  const initialState = {
+    city: filterState.city,
+    productCategory: filterState.productCategory,
+    collection: filterState.collection,
+    collectionCategory: filterState.collectionCategory,
+    tags: filterState.tags,
+    genderTypes: filterState.genderTypes,
+  };
+
+  const [formState, setFormState] = useState(initialState);
   const [startDate, setStartDate] = useState(filterState.startDate);
   const [endDate, setEndDate] = useState(filterState.endDate);
 
-  const dropdownClickHandler = (type, id, name) => {
-    dispatchFilterForm({
-      type: type,
-      payload: {
-        value: name,
-      },
-    });
+  ////////////////function to handle changes in form and => change form state
 
-    list.filterList(list.requestConfig, type, id);
+  const dropdownClickHandler = (type, id, name) => {
+    if (type === 'city') {
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          city: name,
+        };
+      });
+    }
+
+    if (type === 'productCategory')
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          productCategory: name,
+        };
+      });
+
+    if (type === 'collection')
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          collection: name,
+        };
+      });
+
+    if (type === 'collectionCategory')
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          collectionCategory: name,
+        };
+      });
+    // list.filterList(list.requestConfig, type, id);
+  };
+
+  const datePickerHandler = (type, value) => {
+    if (type === 'start-date') setStartDate(() => value);
+    if (type === 'end-date') setEndDate(() => value);
+    // list.filterList(list.requestConfig, type, value);
+  };
+
+  const tagHandler = (id) => {
+    const newArray = addOrRemoveObject(id, formState.tags);
+    setFormState((prevState) => {
+      return {
+        ...prevState,
+        tags: newArray,
+      };
+    });
+  };
+
+  const checkboxHandler = (id) => {
+    const newArray = addOrRemoveObject(id, formState.genderTypes);
+    setFormState((prevState) => {
+      return {
+        ...prevState,
+        genderTypes: newArray,
+      };
+    });
   };
 
   const clearFormHandler = () => {
-    setStartDate(() => '');
-    setEndDate(() => '');
+    setStartDate(() => 'از تاريخ');
+    setEndDate(() => 'تا تاريخ');
+    setFormState(() => {
+      return {
+        city: 'شهر',
+        productCategory: 'دسته بندي',
+        collection: 'مجموعه',
+        collectionCategory: 'زير دسته',
+        tags: [],
+        genderTypes: [],
+      };
+    });
     dispatchFilterForm({
       type: 'reset-form',
     });
 
-    list.filterList(list.requestConfig, 'reset-config', '');
+    // list.filterList(list.requestConfig, 'reset-config', '');
   };
 
-  const datePickerHandler = (type, value) => {
+  const applyFiltersHandler = () => {
     dispatchFilterForm({
-      type: type,
-      payload: {
-        value: value,
-      },
+      type: 'update-filter-form-data',
+      payload: { ...formState, startDate: startDate, endDate: endDate },
     });
-    list.filterList(list.requestConfig, type, value);
   };
 
   return (
@@ -52,7 +125,7 @@ const FilterForm = () => {
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'city'}
-        firstItem={filterState.city}
+        firstItem={formState.city}
         menuItems={list.filterListInfo.City}
       />
 
@@ -60,7 +133,7 @@ const FilterForm = () => {
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'productCategory'}
-        firstItem={filterState.productCategory}
+        firstItem={formState.productCategory}
         menuItems={list.filterListInfo.ProductCategory}
       />
 
@@ -68,30 +141,37 @@ const FilterForm = () => {
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'collection'}
-        firstItem={filterState.collection}
+        firstItem={formState.collection}
         menuItems={list.filterListInfo.Collection}
       />
       <h2 className="text-gray-600  my-1">زیردسته</h2>
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'collectionCategory'}
-        firstItem={filterState.collectionCategory}
+        firstItem={formState.collectionCategory}
         menuItems={list.filterListInfo.CollectionCategory}
       />
       <h2 className="text-gray-600  my-1">برچسب</h2>
       <div className="flex gap-2 text-sm">
         {list.filterListInfo.Tag.map((tag) => {
-          return <FormTag tag={tag} />;
+          return (
+            <FormTag
+              tags={formState.tags}
+              clickHandler={tagHandler}
+              tag={tag}
+            />
+          );
         })}
       </div>
       <h2 className="text-gray-600  my-1">نوع</h2>
       <div className="flex gap-2 text-gray-600">
         {list.filterListInfo.GenderType.map((genderType) => {
           return (
-            <div className=" cursor-pointer flex items-center gap-1">
-              <input type="checkbox" />
-              <span>{genderType.Name}</span>
-            </div>
+            <FormCheckBox
+              clickHandler={checkboxHandler}
+              genderTypes={formState.genderTypes}
+              genderType={genderType}
+            />
           );
         })}
       </div>
@@ -102,14 +182,12 @@ const FilterForm = () => {
           type={'start-date'}
           value={startDate}
           setValue={setStartDate}
-          placeholder={'از تاريخ'}
         />
         <FormDatePicker
           clickHandler={datePickerHandler}
           type={'end-date'}
           value={endDate}
           setValue={setEndDate}
-          placeholder={'تا تاريخ'}
         />
       </div>
       <div className=" flex items-center justify-center my-1 gap-2">
@@ -119,7 +197,10 @@ const FilterForm = () => {
         >
           حذف فیلتر
         </div>
-        <div className="text-white  cursor-pointer border border-[#e92444] bg-[#e92444] px-2 flex-1 py-1 rounded-lg text-center">
+        <div
+          onClick={applyFiltersHandler}
+          className="text-white  cursor-pointer border border-[#e92444] bg-[#e92444] px-2 flex-1 py-1 rounded-lg text-center"
+        >
           اعمال فیلتر
         </div>
       </div>

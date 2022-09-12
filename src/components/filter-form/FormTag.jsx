@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { search } from '../../helpers/helper';
 
-const FormTag = ({ tag }) => {
-  const [clicked, setClicked] = useState(false);
+const FormTag = ({ tag, clickHandler, tags }) => {
+  const [, isExists] = search(tag.ID, tags);
+  const [clicked, setClicked] = useState(isExists);
 
-  const clickHandler = () => {
+  useEffect(() => {
+    setClicked(() => isExists);
+  }, [isExists]);
+
+  const tagclickHandler = () => {
     setClicked((prevState) => !prevState);
+    clickHandler(tag.ID);
   };
-  
+
   return (
     <div
-      onClick={clickHandler}
-      className={` ${
+      onClick={tagclickHandler}
+      className={`  ${
         clicked
           ? 'text-[#e92444] border-[#e92444]'
           : 'border-white text-gray-500'

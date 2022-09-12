@@ -2,16 +2,20 @@ import React from 'react';
 import Navbar from './navbar/Navbar';
 import Slider from './slider/Slider';
 import styles from './ListHeader.module.css';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Catogries from '../../catogry-section/Catogries';
 
-const Header = ({ path }) => {
+const Header = () => {
+  const location = useLocation();
+
   return (
     <>
       <header id="header">
         {' '}
-        <Navbar showDownloadAppIcon={path === '/' ? true : false} />
-        {path === '/' ? (
+        <Navbar
+          showDownloadAppIcon={location.pathname === '/' ? true : false}
+        />
+        {location.pathname === '/' ? (
           <Slider />
         ) : (
           <div
@@ -25,8 +29,8 @@ const Header = ({ path }) => {
           </div>
         )}
         <Catogries
-          showSearchbar={path === '/cart' ? false : true}
-          iconColor={path === '/' ? 'black' : 'red'}
+          showSearchbar={location.pathname === '/cart' ? false : true}
+          iconColor={location.pathname === '/' ? 'black' : 'red'}
         />
       </header>
       <Outlet />

@@ -10,8 +10,9 @@ const FormDropDown = ({ clickHandler, firstItem, menuItems, type }) => {
     clickHandler(type, id, name);
   };
 
+
   const changeColorHandler = () => {
-    setClicked((prevState) => !prevState);
+    // setClicked((prevState) => !prevState);
   };
 
   return (
@@ -22,10 +23,12 @@ const FormDropDown = ({ clickHandler, firstItem, menuItems, type }) => {
       <Menu.Button
         onClick={changeColorHandler}
         className={` ${
-          clicked ? 'text-white bg-[#e92444]' : ''
-        } flex items-center justify-between w-full hover:text-white hover:bg-[#e92444] rounded-lg text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white py-1 focus-visible:ring-opacity-75`}
+          clicked ? '' : ''
+        } flex items-center justify-between w-full   rounded-lg text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white py-1 focus-visible:ring-opacity-75`}
       >
-        <span className="mx-2 mb-1 text-base font-main ">{firstItem}</span>
+        <span className="mx-2 mb-1 text-base font-main text-gray-500">
+          {firstItem}
+        </span>
         <ChevronDownIcon className="w-5 h-5 mx-2" aria-hidden="true" />
       </Menu.Button>
       <Transition
@@ -47,9 +50,9 @@ const FormDropDown = ({ clickHandler, firstItem, menuItems, type }) => {
                       onClick={() => {
                         changeItemHandler(type, menuItem.ID, menuItem.Name);
                       }}
-                      className={`font-main ${
-                        active ? 'bg-[#F2FAFF]' : 'text-black'
-                      }   w-full rounded-md  text-base cursor-pointer text-right px-2 py-2 `}
+                      className={`font-main
+                       ${active ? 'bg-[#F2FAFF]' : 'text-black'}  
+                       w-full rounded-md  text-base cursor-pointer text-right px-2 py-2 `}
                     >
                       {menuItem.Name}
                     </div>
