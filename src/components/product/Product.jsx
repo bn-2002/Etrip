@@ -23,6 +23,7 @@ const Product = ({ item }) => {
     }
   });
 
+  // console.log('recentCarts : ', JSON.stringify(recentCart));
 
   return (
     <div className="relative mx-auto h-fit mt-14">
@@ -31,14 +32,17 @@ const Product = ({ item }) => {
           <div className="relative z-[50]">
             <ItemLable />
             <span className="absolute top-[5px] text-white right-[37%]">
-            {item.CityName}
+              {item.CityName}
             </span>
           </div>
         </div>
 
         <div className="min-h-min mt-[10px]">
           <div className="flex flex-col-reverse items-stretch justify-between gap-2 lg:flex-row">
-            <ProductInfo moreDetailsOnClick={toggleDetailsBtn} productID={item.productID} />
+            <ProductInfo
+              moreDetailsOnClick={toggleDetailsBtn}
+              productID={item.productID}
+            />
             <ImgWrapper imgs={item.Photo} />
           </div>
           <Description

@@ -32,7 +32,6 @@ export const search = (id, array) => {
 //////////this function adds a new {ID:id} object to array or remove
 ///////// if array doesnt contain this object (with this input id) => Add it to array
 ///////// if object is duplicated => remove from array
-
 export const addOrRemoveObject = (id,array) => {
   const newArray = [...array];
   const [index, hasID] = search(id, array);

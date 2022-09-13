@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const Modal = ({ open, children, onClose }) => {
+  // console.log('here is Modal : ' , open)
   if (!open) {
     document.body.style.overflow = 'scroll';
     document.body.style.paddingRight = '0px';
@@ -26,3 +27,8 @@ const Modal = ({ open, children, onClose }) => {
 };
 
 export default Modal;
+
+
+//////add onClick function from Modal to its child 
+
+////use Local Storage

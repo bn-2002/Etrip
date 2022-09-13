@@ -28,6 +28,7 @@ const reducer = (state, action) => {
         newState = [...oldState];
       }
 
+      // localStorage.setItem('cart', newState);
       return newState;
     }
 
@@ -52,6 +53,7 @@ const reducer = (state, action) => {
       }
 
       newState = [...oldState];
+      // localStorage.setItem('cart', newState);
       return newState;
     }
 

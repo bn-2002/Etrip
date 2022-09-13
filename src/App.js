@@ -6,6 +6,9 @@ import Cart from './pages/Cart';
 import Error from './pages/Error';
 import Header from './components/Layout/header/Header';
 
+// const recentCart = localStorage.getItem('cart');
+// console.log('cart : ', recentCart);
+
 function App() {
   return (
     <Routes>

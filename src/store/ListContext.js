@@ -96,7 +96,6 @@ const listReducer = (state, action) => {
       ///update selected Time
       newState.availableItems[productIndex].selectedTime = action.payload.time;
     }
-    console.log('newState : ', newState);
     return { ...newState };
   }
 
@@ -166,68 +165,39 @@ export const ListProvider = ({ children }) => {
   const filterList = useCallback(
     async (requestConfig, type, value) => {
       let newConfig;
-      if (type === 'collection') {
-        newConfig = {
-          ...requestConfig,
-          collectionID: value,
-        };
-      }
 
-      if (type === 'city') {
+      if (type === 'change-product-catogery') {
         newConfig = {
           ...requestConfig,
-          cityID: value,
-        };
-      }
-
-      if (type === 'start-date') {
-        newConfig = {
-          ...requestConfig,
-          fromDate: value,
-        };
-      }
-
-      if (type === 'end-date') {
-        newConfig = {
-          ...requestConfig,
-          toDate: value,
-        };
-      }
-
-      if (type === 'productCategory') {
-        newConfig = {
-          ...requestConfig,
-          productCategoryID: value,
-        };
-      }
-
-      if (type === 'collectionCategory') {
-        newConfig = {
-          ...requestConfig,
-          collectionCategoryID: value,
+          ProductCategoryID: value,
         };
       }
 
       if (type === 'content') {
         newConfig = {
           ...requestConfig,
-          content: value,
-          collectionID: -1,
+          Content: value,
+          ProductCategoryID: -1,
         };
       }
 
       if (type === 'reset-config') {
         newConfig = {
-          cityID: -1,
-          collectionCategoryID: -1,
-          collectionID: -1,
-          productCategoryID: -1,
-          tagID: '-1',
-          genderID: '-1',
-          fromDate: '-1',
-          toDate: '-1',
-          productID: -1,
+          CityID: -1,
+          CollectionID: -1,
+          CollectionCategoryID: -1,
+          ProductCategoryID: -1,
+          TagID: '-1',
+          GenderID: '-1',
+          FromDate: -1,
+          ToDate: -1,
+          Content: '',
+          ProductID: -1,
         };
+      }
+
+      if (type === 'apply-filter') {
+        newConfig = value;
       }
 
       data = await sendRequest(
@@ -254,16 +224,29 @@ export const ListProvider = ({ children }) => {
   const initialValue = {
     allItems: [], ///this array gathers filtered all items
     availableItems: [], ///this array gathers arrays of names and dates of each item and we display them
-    requestConfig: {}, ///this is config that sent to api call includes {collectionID,cityID,...}
+    requestConfig: {
+      CityID: -1,
+      CollectionID: -1,
+      CollectionCategoryID: -1,
+      ProductCategoryID: -1,
+      TagID: '-1',
+      GenderID: '-1',
+      FromDate: -1,
+      ToDate: -1,
+      Content: '',
+      ProductID: -1,
+    }, ///this is config that sent to api call includes {collectionID,cityID,...}
     filterListInfo: {}, ///get data from URL: .../TourismAPI/GetFilterInfo API Call
     filterList: filterList, ///function that is called when we want to filter products
+    // isLoading: isLoading,
   };
-  let result, filterListInfo;
 
+  ///////////////fetch initial Data and set to initialValue.filterListInfo and initialValue.allItems and initialValue.availableItems
+  let result, filterListInfo;
   useEffect(async () => {
     result = await sendRequest(
       'http://webapi.ep7.ir/TourismAPI/GetCollectionsProducts/',
-      {}
+      initialValue.requestConfig
     );
 
     filterListInfo = await sendRequest(
@@ -316,20 +299,6 @@ export const ListProvider = ({ children }) => {
           initialValue.availableItems.push(itemInfo);
         }
       });
-
-      ////set requestConfig (initial Config)
-      initialValue.requestConfig = {
-        cityID: -1,
-        collectionCategoryID: -1,
-        collectionID: -1,
-        productCategoryID: -1,
-        tagID: '-1',
-        genderID: '-1',
-        fromDate: '-1',
-        toDate: '-1',
-        productID: -1,
-        content: '',
-      };
 
       ////set filterListInfo (get from server)
       initialValue.filterListInfo = filterListInfo;

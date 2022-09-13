@@ -6,6 +6,7 @@ import 'react-multi-date-picker/styles/colors/red.css';
 import { toEnglishDigits } from '../../helpers/helper';
 
 const FormDatePicker = ({ clickHandler, value, setValue, type }) => {
+
   ////calculate minDate
   let today = new Date().toLocaleDateString('fa-IR');
   const minDate = toEnglishDigits(today);
@@ -21,6 +22,10 @@ const FormDatePicker = ({ clickHandler, value, setValue, type }) => {
   useEffect(() => {
     dateChangeHandler();
   }, [value]);
+
+  let placeholder = value;
+  if (value === '-1' && type === 'start-date') placeholder = 'از تاریخ';
+  if (value === '-1' && type === 'end-date') placeholder = 'تا تاریخ';
 
   return (
     <div style={{ direction: 'rtl' }} className="w-1/2">
@@ -38,7 +43,7 @@ const FormDatePicker = ({ clickHandler, value, setValue, type }) => {
         calendarPosition="bottom-right"
         onChange={setValue}
         value={value}
-        placeholder={value}
+        placeholder={placeholder}
       />
     </div>
   );

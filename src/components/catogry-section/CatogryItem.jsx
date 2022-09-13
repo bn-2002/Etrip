@@ -6,7 +6,11 @@ const CatogryItem = ({ name, productCatogeryID, currentProductCatogeryID }) => {
   const list = useList();
 
   const onClickHandler = async () => {
-    list.filterList(list.requestConfig, 'productCategory', productCatogeryID);
+    list.filterList(
+      list.requestConfig,
+      'change-product-catogery',
+      productCatogeryID
+    );
   };
 
   return (

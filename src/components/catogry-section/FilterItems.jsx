@@ -5,8 +5,7 @@ import { useList } from '../../store/ListContext';
 
 const FilterItems = () => {
   const list = useList();
-  const currentProductCatogery = list.requestConfig?.productCategoryID;
-
+  const currentProductCatogery = list.requestConfig?.ProductCategoryID;
   return (
     <div className="flex items-center h-[50px] justify-start mt-3 ">
       <div className="flex gap-2 overflow-x-scoll flex-row items-center overflow-y-hidden catogries-items-filter h-[100px] w-auto ">

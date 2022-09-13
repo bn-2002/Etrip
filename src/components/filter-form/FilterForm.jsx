@@ -7,16 +7,27 @@ import FormTag from './FormTag';
 import FormCheckBox from './FormCheckbox';
 import { addOrRemoveObject } from '../../helpers/helper';
 
-const FilterForm = () => {
+const FilterForm = ({  }) => {
+  // console.log('here is FilterForm : ', open);
+
   const list = useList();
   const { filterState, dispatchFilterForm } = useFilterForm();
 
   //////////////////////////////////states to store states
   const initialState = {
-    city: filterState.city,
-    productCategory: filterState.productCategory,
-    collection: filterState.collection,
-    collectionCategory: filterState.collectionCategory,
+    city: { name: filterState.city.name, id: filterState.city.id },
+    productCategory: {
+      name: filterState.productCategory.name,
+      id: filterState.productCategory.id,
+    },
+    collection: {
+      name: filterState.collection.name,
+      id: filterState.collection.id,
+    },
+    collectionCategory: {
+      name: filterState.collectionCategory.name,
+      id: filterState.collectionCategory.id,
+    },
     tags: filterState.tags,
     genderTypes: filterState.genderTypes,
   };
@@ -32,7 +43,7 @@ const FilterForm = () => {
       setFormState((prevState) => {
         return {
           ...prevState,
-          city: name,
+          city: { name, id },
         };
       });
     }
@@ -41,7 +52,7 @@ const FilterForm = () => {
       setFormState((prevState) => {
         return {
           ...prevState,
-          productCategory: name,
+          productCategory: { name, id },
         };
       });
 
@@ -49,7 +60,7 @@ const FilterForm = () => {
       setFormState((prevState) => {
         return {
           ...prevState,
-          collection: name,
+          collection: { name, id },
         };
       });
 
@@ -57,16 +68,14 @@ const FilterForm = () => {
       setFormState((prevState) => {
         return {
           ...prevState,
-          collectionCategory: name,
+          collectionCategory: { name, id },
         };
       });
-    // list.filterList(list.requestConfig, type, id);
   };
 
   const datePickerHandler = (type, value) => {
     if (type === 'start-date') setStartDate(() => value);
     if (type === 'end-date') setEndDate(() => value);
-    // list.filterList(list.requestConfig, type, value);
   };
 
   const tagHandler = (id) => {
@@ -90,32 +99,59 @@ const FilterForm = () => {
   };
 
   const clearFormHandler = () => {
-    setStartDate(() => 'از تاريخ');
-    setEndDate(() => 'تا تاريخ');
+    ///// reset FilterForm Component
+    setStartDate(() => '-1');
+    setEndDate(() => '-1');
     setFormState(() => {
       return {
-        city: 'شهر',
-        productCategory: 'دسته بندي',
-        collection: 'مجموعه',
-        collectionCategory: 'زير دسته',
+        city: { name: 'شهر', id: -1 },
+        productCategory: { name: 'دسته بندي', id: -1 },
+        collection: { name: 'مجموعه', id: -1 },
+        collectionCategory: { name: 'زير دسته', id: -1 },
         tags: [],
         genderTypes: [],
       };
     });
+
+    ///reset filter form context
     dispatchFilterForm({
       type: 'reset-form',
     });
 
-    // list.filterList(list.requestConfig, 'reset-config', '');
+    ////////////reset list context
+    list.filterList(list.requestConfig, 'reset-config');
   };
 
   const applyFiltersHandler = () => {
+    ///////////change data in filter form context
     dispatchFilterForm({
       type: 'update-filter-form-data',
-      payload: { ...formState, startDate: startDate, endDate: endDate },
+      payload: { ...formState, startDate, endDate },
     });
+
+    // //////////////change config in list context
+    list.filterList(list.requestConfig, 'apply-filter', {
+      CityID: formState.city.id,
+      CollectionID: formState.collection.id,
+      CollectionCategoryID: formState.collectionCategory.id,
+      ProductCategoryID: formState.productCategory.id,
+      TagID:
+        formState.tags.length === 0 ? '-1' : JSON.stringify(formState.tags),
+      GenderID:
+        formState.genderTypes.length === 0
+          ? '-1'
+          : JSON.stringify(formState.genderTypes),
+      FromDate: startDate,
+      ToDate: endDate,
+      Content: '',
+      ProductID: -1,
+    });
+
+    // console.log('kmjn');
+    // onClose();
   };
 
+  // console.log('on close ==> ', onClose);
   return (
     <form>
       <h3>فیلتر ها</h3>
@@ -125,7 +161,7 @@ const FilterForm = () => {
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'city'}
-        firstItem={formState.city}
+        firstItem={formState.city.name}
         menuItems={list.filterListInfo.City}
       />
 
@@ -133,7 +169,7 @@ const FilterForm = () => {
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'productCategory'}
-        firstItem={formState.productCategory}
+        firstItem={formState.productCategory.name}
         menuItems={list.filterListInfo.ProductCategory}
       />
 
@@ -141,14 +177,14 @@ const FilterForm = () => {
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'collection'}
-        firstItem={formState.collection}
+        firstItem={formState.collection.name}
         menuItems={list.filterListInfo.Collection}
       />
       <h2 className="text-gray-600  my-1">زیردسته</h2>
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'collectionCategory'}
-        firstItem={formState.collectionCategory}
+        firstItem={formState.collectionCategory.name}
         menuItems={list.filterListInfo.CollectionCategory}
       />
       <h2 className="text-gray-600  my-1">برچسب</h2>

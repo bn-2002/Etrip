@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LocationIcon from '../icons/LocationIcon';
 import MagnifireIcon from '../icons/MagnifireIcon';
 import CartIcon from '../icons/CartIcon';
@@ -13,8 +13,11 @@ import useDebounce from '../../hooks/useDebounce';
 export const SearchBar = ({ style, iconColor }) => {
   const list = useList();
   const [isOpen, setIsOpen] = useState(false);
+  const [count, setcount] = useState(false);
   const cartItems = useCart();
   const debounce = useDebounce();
+
+  // useEffect(() => console.log('is open = ', count), [count]);
 
   /////////////CHANGE INPUT HANDLER FUNCTION
   const changeInputHandler = (value) => {
@@ -56,12 +59,21 @@ export const SearchBar = ({ style, iconColor }) => {
       {/* devider line */}
       <div className="w-[1px] h-6 bg-[#e5e5ea]"></div>
       <div
-        onClick={() => setIsOpen((prevState) => !prevState)}
+        // onClick={() => setIsOpen((prevState) => !prevState)}
+        onClick={() => setcount((prevState) => !prevState)}
         className="p-2 rounded-full hover:bg-[#e5e5ea] cursor-pointer transition-all"
       >
         <PageFilterIcon color={iconColor} />
-        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-          <FilterForm />
+        {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}> */}
+        <Modal open={count} onClose={() => setcount(false)}>
+          <FilterForm
+          // open={count}
+          // onClose={() => {
+          //   console.log('hereeeeee');
+          //   // setIsOpen((x) => !x);
+          //   setcount((x) => !x);
+          // }}
+          />
         </Modal>
       </div>
     </div>
@@ -69,3 +81,7 @@ export const SearchBar = ({ style, iconColor }) => {
 };
 
 export default SearchBar;
+
+////close filter form
+////cookie
+////tags and gendertypes
