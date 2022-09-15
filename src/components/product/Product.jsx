@@ -23,8 +23,6 @@ const Product = ({ item }) => {
     }
   });
 
-  // console.log('recentCarts : ', JSON.stringify(recentCart));
-
   return (
     <div className="relative mx-auto h-fit my-16">
       <div className="relative mx-8 min-h-min sm:mx-16 md:mx-2 text-[17.5px]">

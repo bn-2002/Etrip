@@ -4,7 +4,7 @@ import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { useList } from '../store/ListContext';
 import { isEmptyObject } from '../helpers/helper';
 
-const List = ({ recentCart }) => {
+const List = () => {
   const list = useList();
 
   return (
@@ -16,13 +16,7 @@ const List = ({ recentCart }) => {
             <p className=" text-lg">هیچ موردی یافت نشد! 🙁 </p>
           )}
           {list.allItems.map((item) => {
-            return (
-              <Product
-                recentCart={recentCart}
-                key={item.productID}
-                item={item}
-              />
-            );
+            return <Product key={item.productID} item={item} />;
           })}
         </section>
       )}

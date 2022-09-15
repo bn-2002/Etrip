@@ -2,6 +2,7 @@ import React, { useReducer, useContext, createContext } from 'react';
 
 const cartStateContext = createContext();
 const CartDispatchContext = createContext();
+const recentCart = JSON.parse(localStorage.getItem('cart'));
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,7 +29,8 @@ const reducer = (state, action) => {
         newState = [...oldState];
       }
 
-      // localStorage.setItem('cart', newState);
+      ////////////save cart items to local storage
+      localStorage.setItem('cart', JSON.stringify(newState));
       return newState;
     }
 
@@ -53,7 +55,9 @@ const reducer = (state, action) => {
       }
 
       newState = [...oldState];
-      // localStorage.setItem('cart', newState);
+
+      ////////////save cart items to local storage
+      localStorage.setItem('cart', JSON.stringify(newState));
       return newState;
     }
 
@@ -63,7 +67,7 @@ const reducer = (state, action) => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, []);
+  const [state, dispatch] = useReducer(reducer, recentCart ? recentCart : []);
 
   return (
     <CartDispatchContext.Provider value={dispatch}>

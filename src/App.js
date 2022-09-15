@@ -7,9 +7,6 @@ import Cart from './pages/Cart';
 import Error from './pages/Error';
 import SharedLayout from './components/Layout/header/SharedLayout';
 
-// const recentCart = localStorage.getItem('cart');
-// console.log('cart : ', recentCart);
-
 function App() {
   return (
     <Routes>

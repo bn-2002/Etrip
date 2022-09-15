@@ -16,7 +16,6 @@ const Slider = () => {
     return () => clearTimeout(timer);
   }, [currentSlide]);
 
-  console.log(data);
 
   return (
     <div className={`relative ${styles.slider}`}>
