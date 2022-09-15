@@ -8,10 +8,10 @@ const List = ({ recentCart }) => {
   const list = useList();
 
   return (
-    <>
+    <div className="relative h-auto z-[19] bg-white border border-white">
       {isEmptyObject(list) && <LoadingSpinner />}
       {!isEmptyObject(list) && (
-        <section className="z-[19] relative bg-white mx-auto text-black px-2 sm:px-1 md:px-28 xl:px-60 lg:px-16 mt-4">
+        <section className="z-[19] relative bg-white mx-auto text-black px-2 sm:px-1 md:px-28 xl:px-60 lg:px-16">
           {list.allItems.length === 0 && (
             <p className=" text-lg">هیچ موردی یافت نشد! 🙁 </p>
           )}
@@ -26,7 +26,7 @@ const List = ({ recentCart }) => {
           })}
         </section>
       )}
-    </>
+    </div>
   );
 };
 
