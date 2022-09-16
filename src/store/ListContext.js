@@ -11,6 +11,17 @@ const ListStateContext = createContext();
 const ListDispatchContext = createContext();
 
 const listReducer = (state, action) => {
+  //////////change category id
+  if (action.type === 'filter-catogery') {
+    return {
+      ...state,
+      requestConfig: {
+        ...state.requestConfig,
+        ProductCategoryID: action.payload.value,
+      },
+    };
+  }
+
   ////INITIALIZE CONTEXT VALUE BY FETCH ALL DATA
   if (action.type === 'initialize') {
     return {
@@ -153,6 +164,15 @@ const listReducer = (state, action) => {
       allItems: allItems,
       availableItems: availableItems,
       requestConfig: action.payload.newConfig,
+      isLoading: false,
+    };
+  }
+
+  ///clear list
+  else if (action.type === 'is-loading') {
+    return {
+      ...state,
+      isLoading: true,
     };
   }
 };
@@ -211,7 +231,6 @@ export const ListProvider = ({ children }) => {
       );
 
       if (data) {
-        console.log('data :( ====> ', data);
         dispatchList({
           type: 'filter-list',
           payload: {
@@ -242,7 +261,8 @@ export const ListProvider = ({ children }) => {
       Content: '',
       ProductID: -1,
     }, ///this is config that is sent to api call includes {collectionID,cityID,...}
-    filterList: filterList, ///function that is called when we want to filter products
+    filterList, ///function that is called when we want to filter products
+    isLoading: false,
   };
 
   ///////////////fetch initial Data and set to initialValue.filterListInfo and initialValue.allItems and initialValue.availableItems

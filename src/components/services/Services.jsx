@@ -2,6 +2,8 @@ import React from 'react';
 import Service from './Service';
 import SectionTitle from '../UI/typography/SectionTitle';
 import { useHomeInfo } from '../../store/HomeContext';
+import { useList, useDispatchList } from '../../store/ListContext';
+
 import {
   ShimmerText,
   ShimmerThumbnail,
@@ -10,6 +12,37 @@ import {
 
 const Services = ({ style }) => {
   const homeInfo = useHomeInfo();
+  const list = useList();
+  const dispatchList = useDispatchList();
+
+  const applyFiltersHandler = (service) => {
+    /////////it changes vatogry id in requestConfig
+    dispatchList({
+      type: 'filter-catogery',
+      payload: {
+        value: service.ProductCategoryID,
+      },
+    });
+
+    ///////////set loading true
+    dispatchList({
+      type: 'is-loading',
+    });
+
+    // //////////////change config in list context
+    list.filterList(list.requestConfig, 'apply-filter', {
+      CityID: service.CityID,
+      CollectionID: service.CollectionID,
+      CollectionCategoryID: service.CollectionCategoryID,
+      ProductCategoryID: service.ProductCategoryID,
+      TagID: '-1',
+      GenderID: '-1',
+      FromDate: -1,
+      ToDate: -1,
+      Content: '',
+      ProductID: -1,
+    });
+  };
 
   return (
     <section
@@ -48,14 +81,13 @@ const Services = ({ style }) => {
                 <Service
                   key={`${service.Alt}${service.ImageURL}`}
                   service={service}
+                  onClickHandler={applyFiltersHandler}
                 />
               );
             })}
           </div>
         </>
       )}
-
-      {homeInfo && console.log('homeinfo  :', homeInfo)}
     </section>
   );
 };

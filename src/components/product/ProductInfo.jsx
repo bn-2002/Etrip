@@ -6,9 +6,11 @@ import { useDispatchCart } from '../../store/CartContext';
 
 const ProductInfo = ({ moreDetailsOnClick, productID }) => {
   const list = useList();
-  
+
   ////find index of current item in items list
-  const i = list.availableItems.findIndex((item) => item.productID === productID);
+  const i = list.availableItems.findIndex(
+    (item) => item.productID === productID
+  );
 
   let productFeatures;
   productFeatures = list.allItems[i]?.Feature;
@@ -106,7 +108,6 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
             }
           </div>
         )}
-
       </div>
       <div className="flex flex-col-reverse items-stretch justify-between flex-1 gap-2 sm:flex-row">
         <button onClick={moreDetailsOnClick} className="text-[#5377ed]">
@@ -114,7 +115,11 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
         </button>
         <button
           onClick={productFeatures !== null ? addToCartHandler : undefined}
-          className={` ${productFeatures === null ? 'bg-[grey] hover:bg-[#5a5959] cursor-not-allowed' : 'bg-[#e92444] hover:bg-[#ca1d39] cursor-pointer'} px-6 py-1 text-base text-white rounded  transition-all  sm:py-1 lg:py-0 flex flex-row justify-center items-center gap-1`}
+          className={` ${
+            productFeatures === null
+              ? 'bg-[grey] hover:bg-[#5a5959] cursor-not-allowed'
+              : 'bg-[#e92444] hover:bg-[#ca1d39] cursor-pointer'
+          } px-6 py-1 text-base text-white rounded  transition-all  sm:py-1 lg:py-0 flex flex-row justify-center items-center gap-1`}
         >
           <AiFillPlusCircle />
           <span> افزودن به سبد خرید</span>

@@ -11,15 +11,10 @@ const FilterItems = () => {
 
   const currentProductCatogery = list.requestConfig?.ProductCategoryID;
 
-  console.log('list.requestConfig?.ProductCategoryID : ' , list.requestConfig?.ProductCategoryID)
-
-  console.log('currentProductCatogery :'  , currentProductCatogery)
-
-
   return (
     <div className="flex items-center h-[50px] justify-start mt-3 ">
       <div
-        className={`${styles['catogries-items-filter']} flex gap-2 overflow-x-scoll flex-row items-center overflow-y-hidden h-[100px] w-auto `}
+        className={`${styles['catogries-items-filter']} flex gap-2 mr-2 xl:mr-12 overflow-x-scoll flex-row items-center overflow-y-hidden h-[100px] w-auto `}
       >
         {!filter.info &&
           [1, 2, 3, 4, 5, 6, 7].map((element) => {

@@ -1,26 +1,9 @@
 import React from 'react';
-import { useList } from '../../store/ListContext';
 import { Link } from 'react-router-dom';
 
-const Service = ({ service }) => {
-  const list = useList();
-
-  const applyFiltersHandler = () => {
-    console.log('service : ', service);
-
-    // //////////////change config in list context
-    list.filterList(list.requestConfig, 'apply-filter', {
-      CityID: service.CityID,
-      CollectionID: service.CollectionID,
-      CollectionCategoryID: service.CollectionCategoryID,
-      ProductCategoryID: service.ProductCategoryID,
-      TagID: '-1',
-      GenderID: '-1',
-      FromDate: -1,
-      ToDate: -1,
-      Content: '',
-      ProductID: -1,
-    });
+const Service = ({ service, onClickHandler }) => {
+  const filterHandler = () => {
+    onClickHandler(service);
   };
 
   return (
@@ -44,7 +27,7 @@ const Service = ({ service }) => {
             </span>
           </div>
           <button
-            onClick={applyFiltersHandler}
+            onClick={filterHandler}
             className="px-3 py-1 text-white bg-[#E92444] rounded-2xl text-[13px] sm:text-[16px] hover:bg-[##CA213D]"
           >
             <Link to="/list">مشاهده</Link>

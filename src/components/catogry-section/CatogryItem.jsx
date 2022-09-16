@@ -1,11 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useList } from '../../store/ListContext';
+import { useDispatchList } from '../../store/ListContext';
 
 const CatogryItem = ({ name, productCatogeryID, currentProductCatogeryID }) => {
   const list = useList();
+  const dispatchList = useDispatchList();
 
-  const onClickHandler = async () => {
+  const onClickHandler = () => {
+    /////////it changes vatogry id in requestConfig
+    dispatchList({
+      type: 'filter-catogery',
+      payload: {
+        value: productCatogeryID,
+      },
+    });
+
+    ///////////set loading true
+    dispatchList({
+      type: 'is-loading',
+    });
+
+    ////it sends request to get new data
     list.filterList(
       list.requestConfig,
       'change-product-catogery',

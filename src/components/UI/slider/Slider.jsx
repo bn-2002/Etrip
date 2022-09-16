@@ -15,7 +15,7 @@ function Slider({ data, card: Card }) {
       <Carousel breakPoints={breakPoints}>
         {data.map((card) => {
           return (
-            <Item key={card.Alt}>
+            <Item key={`${card.Alt}${card.ImageURL}`}>
               <Card
                 img={card.ImageURL}
                 discount={card.Discount}
@@ -32,3 +32,4 @@ function Slider({ data, card: Card }) {
 }
 
 export default Slider;
+

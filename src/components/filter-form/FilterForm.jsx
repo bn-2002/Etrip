@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FormDropDown from './FormDropDown';
 import FormDatePicker from './FormDatePicker';
 import { useFilterForm } from '../../store/FilterContext';
-import { useList } from '../../store/ListContext';
+import { useList, useDispatchList } from '../../store/ListContext';
 import FormTag from './FormTag';
 import FormCheckBox from './FormCheckbox';
 import { addOrRemoveObject } from '../../helpers/helper';
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 const FilterForm = () => {
   const list = useList();
+  const dispatchList = useDispatchList();
   const { filter, dispatchFilterForm } = useFilterForm();
 
   console.log('filter : ', filter);
@@ -131,6 +132,19 @@ const FilterForm = () => {
     dispatchFilterForm({
       type: 'update-filter-form-data',
       payload: { ...formState, startDate, endDate },
+    });
+
+    /////////it changes vatogry id in requestConfig
+    dispatchList({
+      type: 'filter-catogery',
+      payload: {
+        value: formState.productCategory.id,
+      },
+    });
+
+    ///////////set loading true
+    dispatchList({
+      type: 'is-loading',
     });
 
     // //////////////change config in list context
