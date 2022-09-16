@@ -6,6 +6,7 @@ import { useList } from '../../store/ListContext';
 import FormTag from './FormTag';
 import FormCheckBox from './FormCheckbox';
 import { addOrRemoveObject } from '../../helpers/helper';
+import { Link } from 'react-router-dom';
 
 const FilterForm = () => {
   const list = useList();
@@ -236,7 +237,7 @@ const FilterForm = () => {
           onClick={applyFiltersHandler}
           className="text-white  cursor-pointer border border-[#e92444] bg-[#e92444] px-2 flex-1 py-1 rounded-lg text-center"
         >
-          اعمال فیلتر
+          <Link to="/list">اعمال فیلتر</Link>
         </div>
       </div>
     </form>

@@ -10,7 +10,6 @@ const breakPoints = [
 ];
 
 function Slider({ data, card: Card }) {
-  console.log('data : ', data);
   return (
     <div className="w-full h-auto mt-5 overflow-x-hidden">
       <Carousel breakPoints={breakPoints}>
@@ -22,6 +21,7 @@ function Slider({ data, card: Card }) {
                 discount={card.Discount}
                 place={card.CityName}
                 des={card.CollectionName}
+                alt={card.Alt}
               />
             </Item>
           );

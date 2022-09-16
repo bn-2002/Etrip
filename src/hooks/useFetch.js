@@ -4,6 +4,8 @@ const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const sendRequest = useCallback(async (url, config) => {
+    console.log('config : ', config);
+
     setIsLoading(true);
     setError(null);
     try {
@@ -36,7 +38,7 @@ const useFetch = () => {
       setError(err.message || 'Something went wrong!');
     }
     setIsLoading(false);
-  },[]);
+  }, []);
   return {
     isLoading,
     error,

@@ -1,12 +1,33 @@
 import React from 'react';
+import { useList } from '../../store/ListContext';
+import { Link } from 'react-router-dom';
 
 const Service = ({ service }) => {
+  const list = useList();
+
+  const applyFiltersHandler = () => {
+    console.log('service : ', service);
+
+    // //////////////change config in list context
+    list.filterList(list.requestConfig, 'apply-filter', {
+      CityID: service.CityID,
+      CollectionID: service.CollectionID,
+      CollectionCategoryID: service.CollectionCategoryID,
+      ProductCategoryID: service.ProductCategoryID,
+      TagID: '-1',
+      GenderID: '-1',
+      FromDate: -1,
+      ToDate: -1,
+      Content: '',
+      ProductID: -1,
+    });
+  };
+
   return (
     <div
       className="relative mx-auto transition-all cursor-pointer group"
       key={service.Alt}
     >
-      {console.log(service.ImageURL)}
       <div className="relative z-[19]">
         <img
           src={service.ImageURL}
@@ -17,13 +38,16 @@ const Service = ({ service }) => {
           <p className="text-[#575757] text-[17px] sm:text-[20px] font-bold">
             {service.Title}
           </p>
-          <div className="w-[100px]">
-            <span className="text-[13px] sm:text-[16px] text-[#626161]">
+          <div className="w-[100px] line-clamp-2">
+            <span className="text-[16px] text-[#626161]">
               {service.Description}
             </span>
           </div>
-          <button className="px-3 py-1 text-white bg-[#E92444] rounded-2xl text-[13px] sm:text-[16px] hover:bg-[##CA213D]">
-            مشاهده »
+          <button
+            onClick={applyFiltersHandler}
+            className="px-3 py-1 text-white bg-[#E92444] rounded-2xl text-[13px] sm:text-[16px] hover:bg-[##CA213D]"
+          >
+            <Link to="/list">مشاهده</Link>
           </button>
         </div>
       </div>

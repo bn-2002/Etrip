@@ -27,8 +27,8 @@ const Packages = () => {
             className={'w-[260px] mx-auto relative bottom-5'}
           />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
-            {[1, 2, 3, 4, 5, 6].map(() => {
-              return <ShimmerThumbnail height={240} rounded />;
+            {[1, 2, 3, 4, 5, 6].map((element) => {
+              return <ShimmerThumbnail key={element} height={240} rounded />;
             })}
           </div>
         </div>
@@ -45,7 +45,7 @@ const Packages = () => {
             {homeInfo.Module[4].Item.map((item) => {
               return (
                 <div
-                  key={item.Alt}
+                  key={`${item.Alt}${item.ImageURL}`}
                   className="overflow-hidden w-fit rounded-2xl"
                 >
                   <img
@@ -60,7 +60,7 @@ const Packages = () => {
         </>
       )}
 
-      {homeInfo && console.log('homeinfo : ' , homeInfo)}
+      {homeInfo && console.log('homeinfo : ', homeInfo)}
     </section>
   );
 };

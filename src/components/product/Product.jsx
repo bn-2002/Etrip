@@ -24,8 +24,8 @@ const Product = ({ item }) => {
   });
 
   return (
-    <div className="relative mx-auto h-fit my-16">
-      <div className="relative mx-8 min-h-min sm:mx-16 md:mx-2 text-[17.5px]">
+    <div className="relative mx-auto h-fit my-16 ">
+      <div className="relative mx-8 min-h-min sm:mx-16 md:mx-0 text-[17.5px]">
         <div className="absolute -top-[6px]  left-[70px] md:left-[30px] ">
           <div className="relative z-[50]">
             <ItemLable />

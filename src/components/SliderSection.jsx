@@ -27,8 +27,8 @@ const SliderSection = ({ sectionId, index }) => {
             className={'w-[260px] relative bottom-5'}
           />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {[1, 2, 3, 4].map(() => {
-              return <ShimmerThumbnail height={340} rounded />;
+            {[1, 2, 3, 4].map((element) => {
+              return <ShimmerThumbnail key={element} height={340} rounded />;
             })}
           </div>
         </div>

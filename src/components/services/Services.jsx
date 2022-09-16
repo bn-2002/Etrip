@@ -28,8 +28,8 @@ const Services = ({ style }) => {
             className={'w-[260px] mx-auto relative bottom-5'}
           />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(() => {
-              return <ShimmerThumbnail height={175} rounded />;
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((element) => {
+              return <ShimmerThumbnail key={element} height={175} rounded />;
             })}
           </div>
         </div>
@@ -44,11 +44,18 @@ const Services = ({ style }) => {
           />
           <div className="grid gap-4  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
             {homeInfo.Module[2].Item.map((service) => {
-              return <Service key={service.Alt} service={service} />;
+              return (
+                <Service
+                  key={`${service.Alt}${service.ImageURL}`}
+                  service={service}
+                />
+              );
             })}
           </div>
         </>
       )}
+
+      {homeInfo && console.log('homeinfo  :', homeInfo)}
     </section>
   );
 };

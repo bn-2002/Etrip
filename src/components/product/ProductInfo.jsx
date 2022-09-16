@@ -42,7 +42,7 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
     <div className="flex flex-col justify-between gap-4 rounded-md lg:w-2/3 ">
       <div className="flex flex-col items-stretch justify-between flex-1 gap-2 sm:flex-row">
         <div className="flex items-center justify-between flex-1  border py-1  border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
-          <span className="font-semibold text-[18px] mx-2 text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis ">
+          <span className="font-semibold text-[18px] mx-2 text-gray-600 line-clamp-1">
             {`${list.allItems[i]?.Name} `}
           </span>
         </div>
@@ -62,16 +62,16 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-stretch justify-between flex-1 gap-2 sm:flex-row ">
-        <div className="flex flex-row items-stretch justify-between flex-1 gap-2 text-[1rem]">
-          <div className="flex items-center  flex-1 border py-1 justify-between px-2  border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
+      <div className="flex flex-col items-stretch justify-between flex-1 gap-2 md:flex-row">
+        <div className="flex flex-col sm:flex-row items-stretch justify-between flex-1 gap-2 md:gap-1 text-[1rem]">
+          <div className="flex items-center  flex-1 border py-1 justify-between px-2 md:px-1  border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
             <span className="">قیمت :</span>
             <div className="relative text-red-500">
               <span>{list.availableItems[i]?.basePrice} ریال</span>
               <div className="bg-black w-full h-[.5px] top-[45%] absolute"></div>
             </div>
           </div>
-          <div className="flex items-center   flex-1  border py-1 justify-between px-2 border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
+          <div className="flex items-center flex-1  border py-1 justify-between px-2 md:px-1 border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
             <span className=""> با تخفیف :</span>
             <span className="text-green-500 ">
               {list.availableItems[i]?.finalPrice} ریال
@@ -83,7 +83,7 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
           list.availableItems[i]?.datesArray.length === 1 &&
           list.availableItems[i]?.timesArray.length === 1
         ) && (
-          <div className="flex items-stretch justify-between flex-1 gap-2">
+          <div className="flex items-stretch flex-col sm:flex-row justify-between flex-1 gap-2 md:gap-1">
             {
               <div className="flex items-center flex-1 justify-between border   border-[#d9d9d9] bg-[#f6f6f6] rounded-md">
                 <Dropdown
@@ -106,6 +106,7 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
             }
           </div>
         )}
+
       </div>
       <div className="flex flex-col-reverse items-stretch justify-between flex-1 gap-2 sm:flex-row">
         <button onClick={moreDetailsOnClick} className="text-[#5377ed]">

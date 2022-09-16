@@ -37,5 +37,6 @@ ReactDOM.render(
 ///add sass
 ///learn redux toolkit
 ///add addToCart and removeFromCart function to CartContext
-////get Home data from Api
 
+////////////filter from home page
+////////////go to list page after filter

@@ -172,6 +172,9 @@ export const ListProvider = ({ children }) => {
         newConfig = {
           ...requestConfig,
           ProductCategoryID: value,
+          CityID: -1,
+          CollectionID: -1,
+          CollectionCategoryID: -1,
         };
       }
 
@@ -208,6 +211,7 @@ export const ListProvider = ({ children }) => {
       );
 
       if (data) {
+        console.log('data :( ====> ', data);
         dispatchList({
           type: 'filter-list',
           payload: {
@@ -237,10 +241,8 @@ export const ListProvider = ({ children }) => {
       ToDate: -1,
       Content: '',
       ProductID: -1,
-    }, ///this is config that sent to api call includes {collectionID,cityID,...}
-    filterListInfo: {}, ///get data from URL: .../TourismAPI/GetFilterInfo API Call
+    }, ///this is config that is sent to api call includes {collectionID,cityID,...}
     filterList: filterList, ///function that is called when we want to filter products
-    // isLoading: isLoading,
   };
 
   ///////////////fetch initial Data and set to initialValue.filterListInfo and initialValue.allItems and initialValue.availableItems
@@ -273,7 +275,7 @@ export const ListProvider = ({ children }) => {
             });
           }
 
-          ///This is unique ID for each each product
+          ///This is unique ID for each product
           const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
 
           const itemInfo = {
@@ -284,8 +286,8 @@ export const ListProvider = ({ children }) => {
             selectedName: names && names[0],
             selectedTime: times && times[0],
             selectedDate: dates && dates[0],
-            basePrice: item?.Feature && item?.Feature[0].BasePrice,
-            finalPrice: item?.Feature && item?.Feature[0].FinalPrice,
+            basePrice: item?.Feature && item?.Feature[0]?.BasePrice,
+            finalPrice: item?.Feature && item?.Feature[0]?.FinalPrice,
             collectionID: item.CollectionID,
           };
 
