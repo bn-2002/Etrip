@@ -3,22 +3,27 @@ import React from 'react';
 const Service = ({ service }) => {
   return (
     <div
-      className="relative mx-auto mt-4 transition-all cursor-pointer group"
-      key={service.id}
+      className="relative mx-auto transition-all cursor-pointer group"
+      key={service.Alt}
     >
+      {console.log(service.ImageURL)}
       <div className="relative z-[19]">
-        <img src={service.img} alt="" className="shadow-xl rounded-[10px]" />
+        <img
+          src={service.ImageURL}
+          alt=""
+          className="shadow-xl rounded-[10px]"
+        />
         <div className="absolute flex flex-col h-[90%] justify-around top-2 left-3">
           <p className="text-[#575757] text-[17px] sm:text-[20px] font-bold">
-            {service.title}
+            {service.Title}
           </p>
           <div className="w-[100px]">
             <span className="text-[13px] sm:text-[16px] text-[#626161]">
-              {service.des}
+              {service.Description}
             </span>
           </div>
-          <button className="px-3 py-1 text-white bg-[#E92444] rounded-2xl text-[13px] sm:text-[16px] hover:bg-[##CA213D] w-20">
-             مشاهده »
+          <button className="px-3 py-1 text-white bg-[#E92444] rounded-2xl text-[13px] sm:text-[16px] hover:bg-[##CA213D]">
+            مشاهده »
           </button>
         </div>
       </div>

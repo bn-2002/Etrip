@@ -25,6 +25,7 @@
     "react-scripts": "5.0.0",
     "react-search-box": "^2.3.0",
     "react-shimmer-effect": "^1.0.9",
+    "react-shimmer-effects": "^1.0.2",
     "sass": "^1.54.5",
     "stream": "^0.0.2",
     "use-reducer-async": "^2.1.1",

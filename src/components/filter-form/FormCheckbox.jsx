@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addOrRemoveObject, search } from '../../helpers/helper';
 
 const FormCheckBox = ({ genderType, clickHandler, genderTypes }) => {

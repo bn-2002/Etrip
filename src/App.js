@@ -1,5 +1,4 @@
 import React from 'react';
-// import Example from './components/UserProfiler';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import List from './pages/List';
@@ -17,7 +16,6 @@ function App() {
         <Route path="*" element={<Error />} />
       </Route>
     </Routes>
-    // <Example/>
   );
 }
 

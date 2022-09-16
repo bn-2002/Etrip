@@ -7,34 +7,37 @@ import FormTag from './FormTag';
 import FormCheckBox from './FormCheckbox';
 import { addOrRemoveObject } from '../../helpers/helper';
 
-const FilterForm = ({  }) => {
-  // console.log('here is FilterForm : ', open);
-
+const FilterForm = () => {
   const list = useList();
-  const { filterState, dispatchFilterForm } = useFilterForm();
+  const { filter, dispatchFilterForm } = useFilterForm();
+
+  console.log('filter : ', filter);
 
   //////////////////////////////////states to store states
   const initialState = {
-    city: { name: filterState.city.name, id: filterState.city.id },
+    city: {
+      name: filter.form.city.name,
+      id: filter.form.city.id,
+    },
     productCategory: {
-      name: filterState.productCategory.name,
-      id: filterState.productCategory.id,
+      name: filter.form.productCategory.name,
+      id: filter.form.productCategory.id,
     },
     collection: {
-      name: filterState.collection.name,
-      id: filterState.collection.id,
+      name: filter.form.collection.name,
+      id: filter.form.collection.id,
     },
     collectionCategory: {
-      name: filterState.collectionCategory.name,
-      id: filterState.collectionCategory.id,
+      name: filter.form.collectionCategory.name,
+      id: filter.form.collectionCategory.id,
     },
-    tags: filterState.tags,
-    genderTypes: filterState.genderTypes,
+    tags: filter.form.tags,
+    genderTypes: filter.form.genderTypes,
   };
 
   const [formState, setFormState] = useState(initialState);
-  const [startDate, setStartDate] = useState(filterState.startDate);
-  const [endDate, setEndDate] = useState(filterState.endDate);
+  const [startDate, setStartDate] = useState(filter.form.startDate);
+  const [endDate, setEndDate] = useState(filter.form.endDate);
 
   ////////////////function to handle changes in form and => change form state
 
@@ -138,7 +141,7 @@ const FilterForm = ({  }) => {
       TagID:
         formState.tags.length === 0 ? '-1' : JSON.stringify(formState.tags),
       GenderID:
-        formState.genderTypes.length === 0
+        formState.genderTypes.length === 0 || formState.genderTypes.length === 2
           ? '-1'
           : JSON.stringify(formState.genderTypes),
       FromDate: startDate,
@@ -146,12 +149,8 @@ const FilterForm = ({  }) => {
       Content: '',
       ProductID: -1,
     });
-
-    // console.log('kmjn');
-    // onClose();
   };
 
-  // console.log('on close ==> ', onClose);
   return (
     <form>
       <h3>فیلتر ها</h3>
@@ -162,7 +161,7 @@ const FilterForm = ({  }) => {
         clickHandler={dropdownClickHandler}
         type={'city'}
         firstItem={formState.city.name}
-        menuItems={list.filterListInfo.City}
+        menuItems={filter.info.City}
       />
 
       <h2 className="text-gray-600  my-1">دسته بندی</h2>
@@ -170,7 +169,7 @@ const FilterForm = ({  }) => {
         clickHandler={dropdownClickHandler}
         type={'productCategory'}
         firstItem={formState.productCategory.name}
-        menuItems={list.filterListInfo.ProductCategory}
+        menuItems={filter.info.ProductCategory}
       />
 
       <h2 className="text-gray-600  my-1">مجموعه</h2>
@@ -178,18 +177,18 @@ const FilterForm = ({  }) => {
         clickHandler={dropdownClickHandler}
         type={'collection'}
         firstItem={formState.collection.name}
-        menuItems={list.filterListInfo.Collection}
+        menuItems={filter.info.Collection}
       />
       <h2 className="text-gray-600  my-1">زیردسته</h2>
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'collectionCategory'}
         firstItem={formState.collectionCategory.name}
-        menuItems={list.filterListInfo.CollectionCategory}
+        menuItems={filter.info.CollectionCategory}
       />
       <h2 className="text-gray-600  my-1">برچسب</h2>
       <div className="flex gap-2 text-sm">
-        {list.filterListInfo.Tag.map((tag) => {
+        {filter.info.Tag.map((tag) => {
           return (
             <FormTag
               tags={formState.tags}
@@ -201,7 +200,7 @@ const FilterForm = ({  }) => {
       </div>
       <h2 className="text-gray-600  my-1">نوع</h2>
       <div className="flex gap-2 text-gray-600">
-        {list.filterListInfo.GenderType.map((genderType) => {
+        {filter.info.GenderType.map((genderType) => {
           return (
             <FormCheckBox
               clickHandler={checkboxHandler}

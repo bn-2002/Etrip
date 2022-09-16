@@ -41,7 +41,7 @@ const Product = ({ item }) => {
               moreDetailsOnClick={toggleDetailsBtn}
               productID={item.productID}
             />
-            <ImgWrapper imgs={item.Photo} />
+            <ImgWrapper imgs={item.Photo} genderText={item.GenderText} />
           </div>
           <Description
             showDetails={showDetails}

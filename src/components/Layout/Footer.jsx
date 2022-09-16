@@ -1,6 +1,6 @@
 import React from 'react';
-import reziImg from '../../../assests/images/rezi.png';
-import enamadImg from '../../../assests/images/enamad.png';
+import reziImg from '../../assests/images/rezi.png';
+import enamadImg from '../../assests/images/enamad.png';
 
 const Footer = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ImageContainer from '../icons/ImageContainer';
 
-const ImgWrapper = ({ imgs }) => {
+const ImgWrapper = ({ imgs, genderText }) => {
   const initialImgState = {
     firstImg: {
       order: 1,
@@ -120,7 +120,7 @@ const ImgWrapper = ({ imgs }) => {
           className="box-border w-full h-full mx-auto rounded-md "
         />
         <div className="bg-white px-2 absolute rounded-[3px] bottom-2 left-2">
-          سانس خانوادگی
+          {genderText}
         </div>
         <ImageContainer style={' absolute right-0 top-0'} />
         <div

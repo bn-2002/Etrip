@@ -7,12 +7,12 @@ const Header = () => {
 
   return (
     <>
-      <header id="header" className="sticky top-0 z-[100]">
+      <section id="top-header-section" className="sticky top-0 z-[21]">
         <Catogries
           showSearchbar={location.pathname === '/cart' ? false : true}
           iconColor={location.pathname === '/' ? 'black' : 'red'}
         />
-      </header>
+      </section>
     </>
   );
 };

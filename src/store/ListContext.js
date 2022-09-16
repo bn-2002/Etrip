@@ -158,12 +158,14 @@ const listReducer = (state, action) => {
 };
 
 export const ListProvider = ({ children }) => {
-  const { isLoading, error, sendRequest } = useFetch();
+  const { sendRequest } = useFetch();
 
   //this function send new request to server with new config
   let data;
   const filterList = useCallback(
     async (requestConfig, type, value) => {
+      data = undefined;
+
       let newConfig;
 
       if (type === 'change-product-catogery') {
@@ -242,19 +244,14 @@ export const ListProvider = ({ children }) => {
   };
 
   ///////////////fetch initial Data and set to initialValue.filterListInfo and initialValue.allItems and initialValue.availableItems
-  let result, filterListInfo;
+  let result;
   useEffect(async () => {
     result = await sendRequest(
       'http://webapi.ep7.ir/TourismAPI/GetCollectionsProducts/',
       initialValue.requestConfig
     );
 
-    filterListInfo = await sendRequest(
-      'http://webapi.ep7.ir/TourismAPI/GetFilterInfo/',
-      {}
-    );
-
-    if (result && filterListInfo) {
+    if (result) {
       ///set availableItems , allItems
       result.Product.forEach((item) => {
         if (item) {
@@ -300,9 +297,6 @@ export const ListProvider = ({ children }) => {
         }
       });
 
-      ////set filterListInfo (get from server)
-      initialValue.filterListInfo = filterListInfo;
-
       ///displatch data to reducer function to set state
       dispatchList({
         type: 'initialize',
@@ -311,7 +305,7 @@ export const ListProvider = ({ children }) => {
         },
       });
     }
-  }, [result, filterListInfo]);
+  }, [result]);
 
   return (
     <ListDispatchContext.Provider value={dispatchList}>

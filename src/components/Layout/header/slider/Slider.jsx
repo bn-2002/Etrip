@@ -16,7 +16,6 @@ const Slider = () => {
     return () => clearTimeout(timer);
   }, [currentSlide]);
 
-
   return (
     <div className={`relative ${styles.slider}`}>
       <img src={bgImg} alt="" />

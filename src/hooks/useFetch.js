@@ -22,6 +22,7 @@ const useFetch = () => {
           Host: '192.168.1.1',
           MacAddress: '15:54:21:32:12',
           OS: 'test',
+          // ProductID: 100,
           ...config,
         }),
       });
@@ -35,7 +36,7 @@ const useFetch = () => {
       setError(err.message || 'Something went wrong!');
     }
     setIsLoading(false);
-  });
+  },[]);
   return {
     isLoading,
     error,

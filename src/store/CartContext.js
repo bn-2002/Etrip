@@ -2,6 +2,8 @@ import React, { useReducer, useContext, createContext } from 'react';
 
 const cartStateContext = createContext();
 const CartDispatchContext = createContext();
+
+///////////set initial state if there is any cart in local storage
 const recentCart = JSON.parse(localStorage.getItem('cart'));
 
 const reducer = (state, action) => {
