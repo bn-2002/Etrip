@@ -3,14 +3,27 @@ import Product from '../components/product/Product';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { useList } from '../store/ListContext';
 import { isEmptyObject } from '../helpers/helper';
+import ProductShimmer from '../components/UI/ProductShimmer';
 
 const List = () => {
   const list = useList();
 
   return (
     <div className="relative h-auto z-[19] bg-white border border-white">
-      {isEmptyObject(list) && <LoadingSpinner />}
-      {list?.isLoading && <LoadingSpinner />}
+      {isEmptyObject(list) && (
+        <div>
+          {[1, 2, 3, 4, 5, 6].map((el) => {
+            return <ProductShimmer key={el} />;
+          })}
+        </div>
+      )}
+      {list?.isLoading && (
+        <div>
+          {[1, 2, 3, 4, 5, 6].map((el) => {
+            return <ProductShimmer key={el} />;
+          })}
+        </div>
+      )}
       {!isEmptyObject(list) && !list.isLoading && (
         <section className="z-[19] relative bg-white mx-auto text-black px-2 sm:px-1 md:px-20 xl:px-[12rem] lg:px-16">
           {list.allItems.length === 0 && (
