@@ -1,22 +1,16 @@
 import React from 'react';
-import { useDispatchCart } from '../store/CartContext';
+import { useCart } from '../store/CartContext';
 import TrashIcon from '../components/icons/TrashIcon';
 
 const CartItem = ({ product }) => {
-  const dispatchCart = useDispatchCart();
+  const cart = useCart();
 
   const addToCartHandler = () => {
-    dispatchCart({
-      type: 'ADD',
-      payload: { item: product },
-    });
+    cart.add(product);
   };
 
   const removeFromCartHandler = () => {
-    dispatchCart({
-      type: 'REMOVE',
-      payload: { item: product },
-    });
+    cart.remove(product);
   };
 
   return (

@@ -1,7 +1,6 @@
 import React, { useReducer, useContext, createContext } from 'react';
 
 const cartStateContext = createContext();
-const CartDispatchContext = createContext();
 
 ///////////set initial state if there is any cart in local storage
 const recentCart = JSON.parse(localStorage.getItem('cart'));
@@ -9,7 +8,7 @@ const recentCart = JSON.parse(localStorage.getItem('cart'));
 const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD': {
-      const oldState = [...state];
+      const oldState = [...state.items];
       let newState;
 
       ////check whether we added this item to the cart list before
@@ -33,11 +32,11 @@ const reducer = (state, action) => {
 
       ////////////save cart items to local storage
       localStorage.setItem('cart', JSON.stringify(newState));
-      return newState;
+      return { ...state, items: newState };
     }
 
     case 'REMOVE': {
-      const oldState = [...state];
+      const oldState = [...state.items];
       let newState;
 
       ////find cart item index
@@ -60,7 +59,7 @@ const reducer = (state, action) => {
 
       ////////////save cart items to local storage
       localStorage.setItem('cart', JSON.stringify(newState));
-      return newState;
+      return { ...state, items: newState };
     }
 
     default:
@@ -69,16 +68,33 @@ const reducer = (state, action) => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, recentCart ? recentCart : []);
+  const add = (item) => {
+    dispatch({
+      type: 'ADD',
+      payload: { item: item },
+    });
+  };
+
+  const remove = (item) => {
+    dispatch({
+      type: 'REMOVE',
+      payload: { item: item },
+    });
+  };
+
+  const initialValue = {
+    items: recentCart ? recentCart : [],
+    add,
+    remove,
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialValue);
 
   return (
-    <CartDispatchContext.Provider value={dispatch}>
-      <cartStateContext.Provider value={state}>
-        {children}
-      </cartStateContext.Provider>
-    </CartDispatchContext.Provider>
+    <cartStateContext.Provider value={state}>
+      {children}
+    </cartStateContext.Provider>
   );
 };
 
 export const useCart = () => useContext(cartStateContext);
-export const useDispatchCart = () => useContext(CartDispatchContext);

@@ -31,4 +31,3 @@ export default Modal;
 
 //////add onClick function from Modal to its child 
 
-////use Local Storage

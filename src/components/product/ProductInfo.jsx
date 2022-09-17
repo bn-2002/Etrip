@@ -2,10 +2,11 @@ import React from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import Dropdown from './Dropdown';
 import { useList } from '../../store/ListContext';
-import { useDispatchCart } from '../../store/CartContext';
+import { useCart } from '../../store/CartContext';
 
 const ProductInfo = ({ moreDetailsOnClick, productID }) => {
   const list = useList();
+  const cart = useCart();
 
   ////find index of current item in items list
   const i = list.availableItems.findIndex(
@@ -14,8 +15,6 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
 
   let productFeatures;
   productFeatures = list.allItems[i]?.Feature;
-
-  const dispatchCart = useDispatchCart();
 
   const addToCartHandler = () => {
     const item = {
@@ -34,10 +33,7 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
 
     const newCartItem = { ...item, uniqueCartItemID: uniqueCartItemID };
 
-    dispatchCart({
-      type: 'ADD',
-      payload: { item: newCartItem },
-    });
+    cart.add(newCartItem);
   };
 
   return (

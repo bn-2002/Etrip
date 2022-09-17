@@ -13,7 +13,8 @@ const Product = ({ item }) => {
     setShowDetails((prevShowDetails) => !prevShowDetails);
   };
 
-  const cartItems = useCart();
+  const cart = useCart();
+  const cartItems = cart.items;
 
   let productCarts = [];
 
@@ -47,7 +48,7 @@ const Product = ({ item }) => {
             showDetails={showDetails}
             description={item.Description}
           />
-          <CartPreviewsList carts={productCarts} />
+          <CartPreviewsList items={productCarts} />
         </div>
       </div>
 

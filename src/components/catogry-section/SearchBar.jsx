@@ -7,14 +7,16 @@ import { useCart } from '../../store/CartContext';
 import { Link } from 'react-router-dom';
 import Modal from '../UI/Modal';
 import FilterForm from '../filter-form/FilterForm';
-import { useList } from '../../store/ListContext';
+import { useList  , useDispatchList} from '../../store/ListContext';
 import useDebounce from '../../hooks/useDebounce';
 
 export const SearchBar = ({ style, iconColor }) => {
   const list = useList();
+  const dispatchList = useDispatchList();
   const [isOpen, setIsOpen] = useState(false);
   const [count, setcount] = useState(false);
-  const cartItems = useCart();
+  const cart = useCart();
+  const cartItems = cart.items;
   const debounce = useDebounce();
 
   // useEffect(() => console.log('is open = ', count), [count]);
@@ -22,6 +24,11 @@ export const SearchBar = ({ style, iconColor }) => {
   /////////////CHANGE INPUT HANDLER FUNCTION
   const changeInputHandler = (value) => {
     debounce(() => {
+      ///////////set loading true
+      dispatchList({
+        type: 'is-loading',
+      });
+
       list.filterList(list.requestConfig, 'content', value);
     }, 2500);
   };
@@ -83,5 +90,3 @@ export const SearchBar = ({ style, iconColor }) => {
 export default SearchBar;
 
 ////close filter form
-////cookie
-////tags and gendertypes

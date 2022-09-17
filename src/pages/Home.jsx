@@ -5,25 +5,25 @@ import SliderSection from '../components/SliderSection';
 import Packages from '../components/Packages';
 
 const Home = () => {
-
   return (
-    <div>
-      <>
-        <Services />
-        <SliderSection sectionId={'entertainments'} index={3} />
-        <Packages />
-        <SliderSection sectionId={'best-packages'} index={5} />
-        <Footer />
-      </>
-    </div>
+    <>
+      <Services />
+      <SliderSection sectionId={'entertainments'} index={3} />
+      <Packages />
+      <SliderSection sectionId={'best-packages'} index={5} />
+      <Footer />
+    </>
   );
 };
 
 export default Home;
 
 /////fix slider width and items count :(
-/////responsive issues
 ///////close form filter
 //////////lazy loading
 /////////font
 ////Animations
+
+////////add functions to Cart Context
+///////Close filterr form by click on apply filter button
+///////Infinite Scroll

@@ -1,14 +1,14 @@
 import React from 'react';
 import CartItemPreview from './CartItemPreview';
 
-const CartPreviewsList = ({ carts }) => {
+const CartPreviewsList = ({ items }) => {
   return (
     <div
       className={`transition-all duration-500 ease origin-top  border border-transparent  text-gray-700 rounded-[6px] py-0 flex justify-start items-center flex-col`}
     >
-      {carts.map((cart) => {
-        const uniqueIDString = `${cart.id}${cart.name}${cart.date}${cart.time}`;
-        return <CartItemPreview cart={cart} key={uniqueIDString} />;
+      {items.map((item) => {
+        const uniqueIDString = `${item.id}${item.name}${item.date}${item.time}`;
+        return <CartItemPreview item={item} key={uniqueIDString} />;
       })}
     </div>
   );
