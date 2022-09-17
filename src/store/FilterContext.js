@@ -7,12 +7,14 @@ const filterReducer = (state, action) => {
   if (action.type === 'update-filter-form-data') {
     return {
       ...state,
+      isOpen: true,
       form: action.payload,
     };
   }
   if (action.type === 'reset-form') {
     return {
       ...state,
+      isOpen: true,
       form: {
         city: { name: 'شهر', id: -1 },
         productCategory: { name: 'دسته بندي', id: -1 },

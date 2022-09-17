@@ -14,11 +14,10 @@ const Product = ({ item }) => {
   };
 
   const cart = useCart();
-  const cartItems = cart.items;
 
   let productCarts = [];
 
-  cartItems.forEach((cartItem) => {
+  cart.items.forEach((cartItem) => {
     if (cartItem.id === item.productID) {
       productCarts.push(cartItem);
     }

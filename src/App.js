@@ -21,3 +21,4 @@ function App() {
 
 export default App;
 
+///////////minimize count of choose ofeach product :/ 1000?

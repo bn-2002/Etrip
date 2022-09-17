@@ -20,10 +20,6 @@ export default Home;
 
 /////fix slider width and items count :(
 ///////close form filter
-//////////lazy loading
 /////////font
 ////Animations
-
-////////add functions to Cart Context
 ///////Close filterr form by click on apply filter button
-///////Infinite Scroll

@@ -1,37 +1,95 @@
-import React from 'react';
-import Product from '../components/product/Product';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
-import { useList } from '../store/ListContext';
-import { isEmptyObject } from '../helpers/helper';
+import React, { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useList, useDispatchList } from '../store/ListContext';
 import ProductShimmer from '../components/UI/ProductShimmer';
+import Product from '../components/product/Product';
+import { isEmptyObject } from '../helpers/helper';
+import useFetch from '../hooks/useFetch';
 
 const List = () => {
   const list = useList();
+  const [items, setItems] = useState([]);
+  const [productID, setProductID] = useState(1000);
+  const [hasMore, setHasMore] = useState(true);
+  const { sendRequest } = useFetch();
+  const dispatchList = useDispatchList();
+
+  const fetchData = async () => {
+    const data = await sendRequest(
+      'http://webapi.ep7.ir/TourismAPI/GetCollectionsProducts/',
+      { ...list.requestConfig, ProductID: productID }
+    );
+
+    dispatchList({
+      type: 'load-more-data',
+      payload: {
+        newData: data.Product,
+      },
+    });
+
+    setProductID((prevProductID) => prevProductID + 1000);
+
+    setItems(() => [...items, data.Product]);
+    if (data.Product.length < 1) {
+      setHasMore(false);
+    }
+  };
 
   return (
-    <div className="relative h-auto z-[19] bg-white border border-white">
-      {/* LOAD SHIMMER EFFECTS */}
-      {(isEmptyObject(list) || list?.isLoading) && (
-        <div>
-          {[1, 2, 3, 4, 5, 6].map((el) => {
-            return <ProductShimmer key={el} />;
-          })}
+    <InfiniteScroll
+      dataLength={items.length} //This is important field to render the next data
+      next={fetchData}
+      hasMore={hasMore}
+      loader={
+        <div className="mb-8">
+          <ProductShimmer />
         </div>
-      )}
-
-      {/* LOAD LIST PRODUCTS */}
-      {!isEmptyObject(list) && !list.isLoading && (
-        <section className="z-[19] relative bg-white mx-auto text-black px-2 sm:px-1 md:px-20 xl:px-[12rem] lg:px-16">
-          {list.allItems.length === 0 && (
-            <p className=" text-lg"> هیچ موردی یافت نشد! 🙁 </p>
+      }
+      endMessage={'list finished.'}
+    >
+      {
+        <div className="relative h-auto z-[19] bg-white border border-white">
+          {/* LOAD SHIMMER EFFECTS */}
+          {(isEmptyObject(list) || list?.isLoading) && (
+            <div>
+              {[1, 2, 3, 4, 5, 6].map((el) => {
+                return (
+                  <div className="my-16">
+                    <ProductShimmer key={el} />;
+                  </div>
+                );
+              })}
+            </div>
           )}
-          {list.allItems.map((item) => {
-            return <Product key={item.productID} item={item} />;
-          })}
-        </section>
-      )}
-    </div>
+
+          {/* LOAD LIST PRODUCTS */}
+          {!isEmptyObject(list) && !list.isLoading && (
+            <section className="z-[19] relative bg-white mx-auto text-black px-2 sm:px-1 md:px-20 xl:px-[12rem] lg:px-16">
+              {list.allItems.length === 0 && (
+                <p className="text-lg text-center mt-5">
+                  {' '}
+                  هیچ موردی یافت نشد! 🙁{' '}
+                </p>
+              )}
+              {list.allItems.map((item) => {
+                return <Product key={item.productID} item={item} />;
+              })}
+            </section>
+          )}
+        </div>
+      }
+    </InfiniteScroll>
   );
 };
 
 export default List;
+
+
+////////ask for amount that should add to ProductId
+///////handle error :/  happen when scroll thumbnail is not up //BUG
+////////why filter doesnt work properly for scrolling ? 
+///////some product items has same key!
+///////////////Animations
+/////////////lazy loading doest work in search and mabye filter
+
+///////infinite scroll and disable unavailable products buttons

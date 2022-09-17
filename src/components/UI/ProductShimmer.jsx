@@ -4,7 +4,7 @@ import Shimmer from 'react-shimmer-effect';
 const ProductShimmer = () => {
   return (
     <section
-      className={` my-16 mx-[3rem]  min-h-min sm:mx-16 md:mx-[5rem] lg:mx-[4rem] xl:mx-[12rem] shadow-4xl rounded-md lg:flex-row flex gap-2 flex-col-reverse`}
+      className={`mx-[3rem]  min-h-min sm:mx-16 md:mx-[5rem] lg:mx-[4rem] xl:mx-[12rem] shadow-4xl rounded-md lg:flex-row flex gap-2 flex-col-reverse`}
     >
       {/* PRODUCT INFO SECTION */}
       <div className="flex gap-3 w-full lg:w-2/3 border shadow-6xl p-2 flex-col justify-between">

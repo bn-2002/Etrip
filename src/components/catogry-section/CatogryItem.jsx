@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useList } from '../../store/ListContext';
-import { useDispatchList } from '../../store/ListContext';
+import { useList, useDispatchList } from '../../store/ListContext';
 
 const CatogryItem = ({ name, productCatogeryID, currentProductCatogeryID }) => {
   const list = useList();

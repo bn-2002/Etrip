@@ -112,7 +112,8 @@ const ProductInfo = ({ moreDetailsOnClick, productID }) => {
         <button
           onClick={productFeatures !== null ? addToCartHandler : undefined}
           className={` ${
-            productFeatures === null
+            productFeatures === null ||
+            list.availableItems[i]?.timesArray.length === 0
               ? 'bg-[grey] hover:bg-[#5a5959] cursor-not-allowed'
               : 'bg-[#e92444] hover:bg-[#ca1d39] cursor-pointer'
           } px-6 py-1 text-base text-white rounded  transition-all  sm:py-1 lg:py-0 flex flex-row justify-center items-center gap-1`}

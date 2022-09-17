@@ -22,14 +22,14 @@ const listReducer = (state, action) => {
     };
   }
 
-  ////INITIALIZE CONTEXT VALUE BY FETCH ALL DATA
+  ////initialize context by fetch all items
   if (action.type === 'initialize') {
     return {
       ...action.payload.initialValue,
     };
   }
 
-  ///HANDLE DROPDOWN CHANGES IN PRODUCT
+  ///handle drop down changes in products and filter time and date
   if (action.type.startsWith('change')) {
     const newState = { ...state };
 
@@ -110,7 +110,7 @@ const listReducer = (state, action) => {
     return { ...newState };
   }
 
-  ////FILTER LIST
+  ////filter list
   else if (action.type === 'filter-list') {
     const availableItems = [];
     const allItems = [];
@@ -168,11 +168,66 @@ const listReducer = (state, action) => {
     };
   }
 
-  ///clear list
+  ///set loading to true (it is true exactly the time between asking for new data and fetch new data)
   else if (action.type === 'is-loading') {
     return {
       ...state,
       isLoading: true,
+    };
+  } else if (action.type === 'load-more-data') {
+    console.log('action.payload.newData: ', action.payload.newData);
+
+    const availableItems = [];
+    const allItems = [];
+
+    action.payload.newData.forEach((item) => {
+      if (item) {
+        let names = [];
+        let dates = [];
+        let times = [];
+
+        if (item.Feature) {
+          item.Feature?.forEach((element) => {
+            names.push(element.Name);
+          });
+
+          item?.Feature[0]?.DateRang.forEach((feature) => {
+            dates.push(feature.Date);
+          });
+
+          item?.Feature[0]?.DateRang[0]?.TimeRange?.forEach((feature) => {
+            times.push(feature.Time);
+          });
+        }
+
+        ///This is unique ID for each each product
+        const productID = `${item.CollectionID}_${item.ID}_${item.Feature?.length}_${item.CityID}`;
+
+        const itemInfo = {
+          productID: productID,
+          namesArray: names,
+          timesArray: times,
+          datesArray: dates,
+          selectedName: names && names[0],
+          selectedTime: times && times[0],
+          selectedDate: dates && dates[0],
+          basePrice: item?.Feature && item?.Feature[0].BasePrice,
+          finalPrice: item?.Feature && item?.Feature[0].FinalPrice,
+          collectionID: item.CollectionID,
+        };
+
+        allItems.push({
+          ...item,
+          productID: productID,
+        });
+        availableItems.push(itemInfo);
+      }
+    });
+
+    return {
+      ...state,
+      allItems: [...state.allItems, ...allItems],
+      availableItems: [...state.availableItems, ...availableItems],
     };
   }
 };

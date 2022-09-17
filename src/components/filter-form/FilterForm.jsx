@@ -13,8 +13,6 @@ const FilterForm = () => {
   const dispatchList = useDispatchList();
   const { filter, dispatchFilterForm } = useFilterForm();
 
-  console.log('filter : ', filter);
-
   //////////////////////////////////states to store states
   const initialState = {
     city: {
@@ -134,7 +132,7 @@ const FilterForm = () => {
       payload: { ...formState, startDate, endDate },
     });
 
-    /////////it changes vatogry id in requestConfig
+    /////////it changes categry id in requestConfig
     dispatchList({
       type: 'filter-catogery',
       payload: {
