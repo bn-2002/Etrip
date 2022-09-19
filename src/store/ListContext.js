@@ -224,11 +224,19 @@ const listReducer = (state, action) => {
       }
     });
 
-    return {
-      ...state,
-      allItems: [...state.allItems, ...allItems],
-      availableItems: [...state.availableItems, ...availableItems],
-    };
+    if (state?.allItems) {
+      return {
+        ...state,
+        allItems: [...state.allItems, ...allItems],
+        availableItems: [...state.availableItems, ...availableItems],
+      };
+    } else {
+      return {
+        ...state,
+        allItems: allItems,
+        availableItems: availableItems,
+      };
+    }
   }
 };
 

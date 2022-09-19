@@ -21,4 +21,24 @@ function App() {
 
 export default App;
 
-///////////minimize count of choose ofeach product :/ 1000?
+///////handle error :/  happen when scroll thumbnail is not up //BUG
+
+////////why filter doesnt work properly for scrolling ?
+////////ask for amount that should add to ProductId
+/////////////lazy loading doest work in search and mabye filter
+
+///////some product items has same key!
+///////Close filterr form by click on apply filter button
+///////////minimize count of choose ofeach product :/ 1000?//TODO
+
+///react intersection to make products empty div
+
+////////////go to list page after filter
+
+///memoize
+///handle api errors
+
+////fix slider(scroll snapping)
+///////////////Animations(gsap)
+///add sass
+

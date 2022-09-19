@@ -18,8 +18,3 @@ const Home = () => {
 
 export default Home;
 
-/////fix slider width and items count :(
-///////close form filter
-/////////font
-////Animations
-///////Close filterr form by click on apply filter button

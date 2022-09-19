@@ -45,17 +45,17 @@ const List = () => {
           <ProductShimmer />
         </div>
       }
-      endMessage={'list finished.'}
+      // endMessage={'list finished.'}
     >
       {
         <div className="relative h-auto z-[19] bg-white border border-white">
           {/* LOAD SHIMMER EFFECTS */}
           {(isEmptyObject(list) || list?.isLoading) && (
             <div>
-              {[1, 2, 3, 4, 5, 6].map((el) => {
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((el) => {
                 return (
                   <div className="my-16">
-                    <ProductShimmer key={el} />;
+                    <ProductShimmer key={el} />
                   </div>
                 );
               })}
@@ -83,13 +83,3 @@ const List = () => {
 };
 
 export default List;
-
-
-////////ask for amount that should add to ProductId
-///////handle error :/  happen when scroll thumbnail is not up //BUG
-////////why filter doesnt work properly for scrolling ? 
-///////some product items has same key!
-///////////////Animations
-/////////////lazy loading doest work in search and mabye filter
-
-///////infinite scroll and disable unavailable products buttons

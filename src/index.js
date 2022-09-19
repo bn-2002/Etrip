@@ -25,17 +25,3 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-//TODO
-//lazy loading
-///memoize
-///handle api errors
-//scroll snapping
-///refactor styles and responsives
-////add iransans fonts
-////fix slider
-////animations
-///add sass
-///learn redux toolkit
-///add addToCart and removeFromCart function to CartContext
-////////////go to list page after filter
-

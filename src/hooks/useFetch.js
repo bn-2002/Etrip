@@ -47,6 +47,3 @@ const useFetch = () => {
 
 export default useFetch;
 
-///gsap
-///react window react virtualize
-/////////lazy loading
