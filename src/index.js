@@ -6,6 +6,7 @@ import { CartProvider } from './store/CartContext';
 import { ListProvider } from './store/ListContext';
 import { FilterProvider } from './store/FilterContext';
 import { HomeProvider } from './store/HomeContext';
+import { DarkModeProvider } from './store/DarkModeContext';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
@@ -14,9 +15,11 @@ ReactDOM.render(
       <ListProvider>
         <CartProvider>
           <FilterProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+              <DarkModeProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter> 
+              </DarkModeProvider>
           </FilterProvider>
         </CartProvider>
       </ListProvider>

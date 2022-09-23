@@ -1,8 +1,14 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
+
 
 const MagnifireIcon = () => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
+    className='duration-500'
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
@@ -11,6 +17,7 @@ const MagnifireIcon = () => {
       viewBox="0 0 512.005 512.005"
       height="18"
       width="18"
+      fill={`${darkMode? '#94a3b8' :'#1e293b'}`}
     >
       <g>
         <g>

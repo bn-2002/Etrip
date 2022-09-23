@@ -1,13 +1,19 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import List from './pages/List';
 import Cart from './pages/Cart';
 import Error from './pages/Error';
 import SharedLayout from './components/Layout/header/SharedLayout';
+import { useDarkMode } from 'usehooks-ts';
 
 function App() {
+
+  const {darkMode} = useDarkMode();
+  // document.body.style = `background: ${darkMode? 'white' : 'red'};`;
+
   return (
+    <div className = {`${darkMode? 'bg-slate-800' : '' }`}>
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Home />} />
@@ -16,20 +22,15 @@ function App() {
         <Route path="*" element={<Error />} />
       </Route>
     </Routes>
+    </div>
   );
 }
 
 export default App;
 
-///////handle error :/  happen when scroll thumbnail is not up //BUG
 
-////////why filter doesnt work properly for scrolling ?
-////////ask for amount that should add to ProductId
-/////////////lazy loading doest work in search and mabye filter
 
-///////some product items has same key!
 ///////Close filterr form by click on apply filter button
-///////////minimize count of choose ofeach product :/ 1000?//TODO
 
 ///react intersection to make products empty div
 

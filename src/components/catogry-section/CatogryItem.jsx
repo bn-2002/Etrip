@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useList, useDispatchList } from '../../store/ListContext';
+import { useDarkMode } from '../../store/DarkModeContext'
 
 const CatogryItem = ({ name, productCatogeryID, currentProductCatogeryID }) => {
+
+  
+  const {darkMode} = useDarkMode();
   const list = useList();
   const dispatchList = useDispatchList();
 
@@ -32,8 +36,8 @@ const CatogryItem = ({ name, productCatogeryID, currentProductCatogeryID }) => {
     <div
       onClick={onClickHandler}
       className={` ${
-        currentProductCatogeryID === productCatogeryID ? 'bg-gray-200' : ''
-      } py-1 px-2 h-auto  rounded-full border  border-gray-300 relative  w-auto inline text-center `}
+        currentProductCatogeryID === productCatogeryID ? `${darkMode?'bg-slate-500 border-slate-500 text-white' : 'bg-gray-200'}` : `${darkMode?'bg-slate-600 border-slate-600' : 'border-gray-300'}`
+      } py-1 px-2 h-auto rounded-full relative w-auto inline text-center border`}
     >
       <Link to="/list">
         <span className="whitespace-nowrap ">{name}</span>

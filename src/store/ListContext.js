@@ -11,7 +11,8 @@ const ListStateContext = createContext();
 const ListDispatchContext = createContext();
 
 const listReducer = (state, action) => {
-  //////////change category id
+
+  //////////change categoryID
   if (action.type === 'filter-catogery') {
     return {
       ...state,
@@ -110,7 +111,7 @@ const listReducer = (state, action) => {
     return { ...newState };
   }
 
-  ////filter list
+  ////new data is set to list state (filtered data)
   else if (action.type === 'filter-list') {
     const availableItems = [];
     const allItems = [];
@@ -174,7 +175,10 @@ const listReducer = (state, action) => {
       ...state,
       isLoading: true,
     };
-  } else if (action.type === 'load-more-data') {
+  } 
+
+  /////////add new list data (new data that is fetched by scroll) to old data and returns new listState
+  else if (action.type === 'load-more-data') {
     console.log('action.payload.newData: ', action.payload.newData);
 
     const availableItems = [];
@@ -230,13 +234,12 @@ const listReducer = (state, action) => {
         allItems: [...state.allItems, ...allItems],
         availableItems: [...state.availableItems, ...availableItems],
       };
-    } else {
-      return {
+    } else return {
         ...state,
         allItems: allItems,
         availableItems: availableItems,
       };
-    }
+    
   }
 };
 

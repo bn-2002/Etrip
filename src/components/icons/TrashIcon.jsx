@@ -1,13 +1,17 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const TrashIcon = () => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="13"
       height="16"
       viewBox="0 0 17.782 21.894"
-      fill="#666"
+      fill={`${darkMode? '#94a3b8' : '#666'}`}
     >
       <defs></defs>
       <g transform="translate(0.003 0.001)">

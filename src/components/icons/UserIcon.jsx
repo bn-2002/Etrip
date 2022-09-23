@@ -1,14 +1,20 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const UserIcon = () => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
+    className='duration-500'
       height="17"
       width="17"
       enableBackground="new 0 0 32 32"
       id="Layer_1"
       version="1.1"
       viewBox="0 0 32 32"
+      fill={`${darkMode ? '#94a3b8' : '#1e293b'}`}
     >
       <g>
         <polyline

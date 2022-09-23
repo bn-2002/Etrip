@@ -1,6 +1,10 @@
 import React from 'react';
+import { useDarkMode } from '../../../store/DarkModeContext';
 
 const SectionTitle = ({ title, des, align }) => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <div
       className={`flex flex-col gap-2 title ${
@@ -8,7 +12,7 @@ const SectionTitle = ({ title, des, align }) => {
       }`}
     >
       <h1
-        className={`text-3xl text-[#585858] font-bold ${
+        className={`text-3xl  ${darkMode? 'text-slate-300' :  'text-[#585858]' } font-bold ${
           align === 'right' ? 'pr-2' : ''
         }`}
       >

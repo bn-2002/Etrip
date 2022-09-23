@@ -11,7 +11,7 @@ const breakPoints = [
 
 function Slider({ data, card: Card }) {
   return (
-    <div className="w-full h-auto mt-5 overflow-x-hidden">
+    <div className="w-full h-auto mt-5 overflow-x-hidden ">
       <Carousel breakPoints={breakPoints}>
         {data.map((card) => {
           return (

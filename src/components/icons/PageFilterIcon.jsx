@@ -1,14 +1,20 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
+
 
 const PageFilterIcon = ({ color }) => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
+    className='duration-500'
       id="res-page-filter-icon"
       xmlns="http://www.w3.org/2000/svg"
       height="20"
       width="20"
       viewBox="0 0 30 30"
-      fill={color}
+      fill={`${darkMode? '#94a3b8' : color}`}
     >
       <path
         id="Path_142"

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const Service = ({ service, onClickHandler }) => {
+  const {darkMode} = useDarkMode();
+
   const filterHandler = () => {
     onClickHandler(service);
   };
@@ -35,9 +38,9 @@ const Service = ({ service, onClickHandler }) => {
         </div>
       </div>
       <div>
-        <div className="transition-all duration-500 ease-in-out absolute top-0 left-0 w-full h-full bg-gray-200 rounded-[10px] rotate-6 opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-105"></div>
-        <div className="transition-all duration-500 ease-in-out absolute top-0 left-0 w-full h-full bg-gray-300 rounded-[10px] rotate-[10deg]  opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100"></div>
-        <div className="transition-all duration-500 ease-in-out absolute top-0 left-0 w-full h-full bg-gray-200 -rotate-[10deg] rounded-[10px] opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100"></div>
+        <div className={`transition-all duration-500 ease-in-out absolute top-0 left-0 w-full h-full ${darkMode? 'bg-slate-600' : 'bg-gray-200'} rounded-[10px] rotate-6 opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-105`}></div>
+        <div className={`transition-all duration-500 ease-in-out absolute top-0 left-0 w-full h-full ${darkMode? 'bg-slate-700' : 'bg-gray-300'} rounded-[10px] rotate-[10deg]  opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100`}></div>
+        <div className={`transition-all duration-500 ease-in-out absolute top-0 left-0 w-full h-full ${darkMode? 'bg-slate-600' : 'bg-gray-200'} -rotate-[10deg] rounded-[10px] opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100`}></div>
       </div>
     </div>
   );

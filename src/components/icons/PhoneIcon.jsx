@@ -1,16 +1,20 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const PhoneIcon = () => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
-      className="app-download-svg"
+      className="app-download-svg duration-500"
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
       width="16px"
       height="16px"
-      fill="white"
+      fill={`${darkMode? '#1e293b' : 'white'}`}
     >
       <g>
         <g>

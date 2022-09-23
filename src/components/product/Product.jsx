@@ -5,9 +5,11 @@ import CartPreviewsList from './CartPreviewsList';
 import Description from './Description';
 import ProductInfo from './ProductInfo';
 import { useCart } from '../../store/CartContext';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const Product = ({ item }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const {darkMode} = useDarkMode();
 
   const toggleDetailsBtn = () => {
     setShowDetails((prevShowDetails) => !prevShowDetails);
@@ -24,7 +26,7 @@ const Product = ({ item }) => {
   });
 
   return (
-    <div className="relative mx-auto h-fit my-16 ">
+    <div className={`relative mx-auto h-fit my-16 `}>
       <div className="relative mx-8 min-h-min sm:mx-16 md:mx-0 text-[17.5px]">
         <div className="absolute -top-[6px]  left-[70px] md:left-[30px] ">
           <div className="relative z-[50]">
@@ -52,7 +54,7 @@ const Product = ({ item }) => {
       </div>
 
       <div className=" h-[2px] w-full absolute -bottom-[30px]  ">
-        <div className="h-[.7px] mx-auto w-[90%] bg-[#d8d8d8]"></div>
+        <div className={`h-[.7px] mx-auto w-[90%] ${darkMode ? 'bg-slate-500' : 'bg-[#d8d8d8]'}`}></div>
       </div>
     </div>
   );

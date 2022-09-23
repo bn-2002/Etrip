@@ -1,12 +1,18 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
+
 
 const CartIcon = () => {
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
+    className='duration-500'
       xmlns="http://www.w3.org/2000/svg"
       height="23"
       width="23"
       viewBox="0 0 31.611 28.998"
+      fill={`${darkMode? '#94a3b8' :'#1e293b'}`}
     >
       <g id="shopping-cart" transform="translate(0 -21.155)">
         <g id="Group_143" data-name="Group 143" transform="translate(0 21.155)">

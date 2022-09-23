@@ -3,6 +3,7 @@ import Slider from './UI/slider/Slider';
 import Card from './UI/card/Card';
 import SectionTitle from './UI/typography/SectionTitle';
 import { useHomeInfo } from '../store/HomeContext';
+import { useDarkMode } from '../store/DarkModeContext';
 import {
   ShimmerText,
   ShimmerThumbnail,
@@ -11,11 +12,12 @@ import {
 
 const SliderSection = ({ sectionId, index }) => {
   const homeInfo = useHomeInfo();
+  const {darkMode} = useDarkMode();
 
   return (
     <section
       id={sectionId}
-      className="py-6 mx-auto sm:px-1 md:px-1 xl:px-60 lg:px-40 z-[19] relative bg-white"
+      className={`py-6 mx-auto sm:px-1 md:px-1 xl:px-60 lg:px-40 z-[19] relative ${darkMode?'bg-slate-800' : 'bg-white'}`}
     >
       {/* SHIMMER EFFECT */}
       {!homeInfo && (

@@ -3,6 +3,7 @@ import Service from './Service';
 import SectionTitle from '../UI/typography/SectionTitle';
 import { useHomeInfo } from '../../store/HomeContext';
 import { useList, useDispatchList } from '../../store/ListContext';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 import {
   ShimmerText,
@@ -14,6 +15,7 @@ const Services = ({ style }) => {
   const homeInfo = useHomeInfo();
   const list = useList();
   const dispatchList = useDispatchList();
+  const {darkMode} = useDarkMode();
 
   const applyFiltersHandler = (service) => {
     /////////it changes vatogry id in requestConfig
@@ -48,8 +50,8 @@ const Services = ({ style }) => {
     <section
       id="services"
       className={`${style} ${
-        homeInfo ? 'bg-[#F3F4F6]' : 'bg-white'
-      } mx-auto px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40  pt-8 pb-12 flex flex-col gap-10 relative z-[19]`}
+        homeInfo ? `${darkMode ? 'bg-slate-900' : 'bg-[#F3F4F6]'}` : 'bg-white'
+      } mx-auto duration-500 px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40  pt-8 pb-12 flex flex-col gap-10 relative z-[19]`}
     >
       {/* SHIMMER EFFECT */}
       {!homeInfo && (

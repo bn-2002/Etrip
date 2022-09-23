@@ -1,8 +1,15 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
+
 
 const LocationIcon = () => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
+    className='duration-500'
+    fill={`${darkMode? '#94a3b8' :'#1e293b'}`}
     height="23"
     width="23"
     viewBox="0 0 32 32"

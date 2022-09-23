@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionTitle from './UI/typography/SectionTitle';
 import { useHomeInfo } from '../store/HomeContext';
+import { useDarkMode } from '../store/DarkModeContext';
 import {
   ShimmerText,
   ShimmerThumbnail,
@@ -9,13 +10,14 @@ import {
 
 const Packages = () => {
   const homeInfo = useHomeInfo();
+  const {darkMode} = useDarkMode();
 
   return (
     <section
       id="packages"
       className={`${
-        homeInfo ? 'bg-[#F3F4F6]' : 'bg-white'
-      }z-[19] relative mx-auto px-1 sm:px-1 md:px-1 xl:px-40 lg:px-20  pt-8 pb-12 flex flex-col gap-10`}
+        homeInfo ? `${darkMode? 'bg-slate-900' : 'bg-[#F3F4F6]'}`  : 'bg-white'
+      } z-[19] relative mx-auto px-1 sm:px-1 md:px-1 xl:px-40 lg:px-20  pt-8 pb-12 flex flex-col gap-10`}
     >
       {/* SHIMMER EFFECT */}
       {!homeInfo && (
@@ -59,8 +61,6 @@ const Packages = () => {
           </div>
         </>
       )}
-
-      {homeInfo && console.log('homeinfo : ', homeInfo)}
     </section>
   );
 };

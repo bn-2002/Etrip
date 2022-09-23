@@ -1,9 +1,11 @@
 import React from 'react';
 import TrashIcon from '../icons/TrashIcon';
 import { useCart } from '../../store/CartContext';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const CartItemPreview = ({ item }) => {
   const cart = useCart();
+  const {darkMode} = useDarkMode();
 
   const addToCartHandler = () => {
     cart.add(item);
@@ -14,7 +16,7 @@ const CartItemPreview = ({ item }) => {
   };
 
   return (
-    <div className="flex text-black flex-col items-center justify-around w-full h-full gap-4 px-4 py-4 border border-[#d8d8d8] rounded-lg sm:px-0 sm:items-stretch md:items-stretch lg:flex-row mt-2 mb-1">
+    <div className={`flex flex-col items-center justify-around w-full h-full gap-4 px-4 py-4 ${darkMode ? 'bg-slate-700 text-white' : 'text-black border border-[#d8d8d8]'} rounded-lg sm:px-0 sm:items-stretch md:items-stretch lg:flex-row mt-2 mb-1`}>
       <div className="flex items-center justify-center w-full px-6 lg:justify-start lg:w-1/3 title">
         {item.name}
       </div>
@@ -27,7 +29,7 @@ const CartItemPreview = ({ item }) => {
         <div className="flex flex-row justify-around mx-auto w-[50%] sm:w-1/2 sm:justify-around">
           <button
             onClick={addToCartHandler}
-            className="flex items-center justify-center w-4 h-4 p-4 border shadow-3xl rounded-[6px] border-[#88e972] text-xlg"
+            className={`flex items-center justify-center w-4 h-4 p-4 border ${darkMode ? 'shadow-4xl'  : 'shadow-3xl'} rounded-[6px] border-[#88e972] text-xlg`}
           >
             <span className="text-[30px] text-[#44c336]">+</span>
           </button>
