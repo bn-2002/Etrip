@@ -78,9 +78,10 @@ const Services = ({ style }) => {
             des={homeInfo.Module[2].Description}
           />
           <div className="grid gap-4  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            {homeInfo.Module[2].Item.map((service) => {
+            {homeInfo.Module[2].Item.map((service,i) => {
               return (
                 <Service
+                 index={i}
                   key={`${service.Alt}${service.ImageURL}`}
                   service={service}
                   onClickHandler={applyFiltersHandler}

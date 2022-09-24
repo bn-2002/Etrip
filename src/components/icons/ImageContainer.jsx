@@ -1,6 +1,10 @@
 import React from 'react';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const ImageContainer = ({style}) => {
+
+  const {darkMode} = useDarkMode();
+
   return (
     <svg
       id="Layer_2"
@@ -9,7 +13,7 @@ const ImageContainer = ({style}) => {
       viewBox="0 0 45.18 127.89"
       height="100%"
       className={style}
-      fill="rgba(225,225,255,.7)"
+      fill={`${darkMode ? 'rgba(71, 85, 105,.7)' : 'rgba(225,225,255,.7)'}`}
     >
       <path
         className="cls-1"

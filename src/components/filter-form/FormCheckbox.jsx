@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { addOrRemoveObject, search } from '../../helpers/helper';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const FormCheckBox = ({ genderType, clickHandler, genderTypes }) => {
   const [, isExists] = search(genderType.ID, genderTypes);
+  const {darkMode} = useDarkMode();
 
   const [defealt, setDefault] = useState(isExists);
 
@@ -23,7 +25,7 @@ const FormCheckBox = ({ genderType, clickHandler, genderTypes }) => {
         checked={defealt}
         type="checkbox"
       />
-      <label htmlFor={genderType.ID}>{genderType.Name}</label>
+      <label htmlFor={genderType.ID} className={`${darkMode ? 'text-slate-200' : ''}`}>{genderType.Name}</label>
     </div>
   );
 };

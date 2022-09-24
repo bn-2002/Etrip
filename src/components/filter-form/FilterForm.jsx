@@ -7,11 +7,13 @@ import FormTag from './FormTag';
 import FormCheckBox from './FormCheckbox';
 import { addOrRemoveObject } from '../../helpers/helper';
 import { Link } from 'react-router-dom';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const FilterForm = () => {
   const list = useList();
   const dispatchList = useDispatchList();
   const { filter, dispatchFilterForm } = useFilterForm();
+  const {darkMode} = useDarkMode();
 
   //////////////////////////////////states to store states
   const initialState = {
@@ -166,10 +168,10 @@ const FilterForm = () => {
 
   return (
     <form>
-      <h3>فیلتر ها</h3>
+      <h3 className={`${darkMode ? 'text-slate-200' : ''}`}>فیلتر ها</h3>
       {/* devider line */}
-      <div className="my-2 bg-[#e5e5ea] w-full h-[1px]" />
-      <h2 className="text-gray-600 my-1 flex">شهر</h2>
+      <div className={`my-2 ${darkMode ? 'bg-slate-500' : 'bg-[#e5e5ea]'} w-full h-[1px]`} />
+      <h2 className={`${darkMode ? 'text-slate-200' : 'text-gray-600'} my-1 flex`}>شهر</h2>
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'city'}
@@ -177,7 +179,7 @@ const FilterForm = () => {
         menuItems={filter.info.City}
       />
 
-      <h2 className="text-gray-600  my-1">دسته بندی</h2>
+      <h2 className={`${darkMode ? 'text-slate-200' : 'text-gray-600'} my-1`}>دسته بندی</h2>
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'productCategory'}
@@ -185,21 +187,21 @@ const FilterForm = () => {
         menuItems={filter.info.ProductCategory}
       />
 
-      <h2 className="text-gray-600  my-1">مجموعه</h2>
+      <h2 className={`${darkMode ? 'text-slate-200' : 'text-gray-600'} my-1`}>مجموعه</h2>
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'collection'}
         firstItem={formState.collection.name}
         menuItems={filter.info.Collection}
       />
-      <h2 className="text-gray-600  my-1">زیردسته</h2>
+      <h2 className={`${darkMode ? 'text-slate-200' : 'text-gray-600'} my-1`}>زیردسته</h2>
       <FormDropDown
         clickHandler={dropdownClickHandler}
         type={'collectionCategory'}
         firstItem={formState.collectionCategory.name}
         menuItems={filter.info.CollectionCategory}
       />
-      <h2 className="text-gray-600  my-1">برچسب</h2>
+      <h2  className={`${darkMode ? 'text-slate-200' : 'text-gray-600'} my-1`}>برچسب</h2>
       <div className="flex gap-2 text-sm">
         {filter.info.Tag.map((tag) => {
           return (
@@ -211,7 +213,7 @@ const FilterForm = () => {
           );
         })}
       </div>
-      <h2 className="text-gray-600  my-1">نوع</h2>
+      <h2  className={`${darkMode ? 'text-slate-200' : 'text-gray-600'} my-1`}>نوع</h2>
       <div className="flex gap-2 text-gray-600">
         {filter.info.GenderType.map((genderType) => {
           return (
@@ -223,7 +225,7 @@ const FilterForm = () => {
           );
         })}
       </div>
-      <h2 className="text-gray-600  my-1">بازه زمانی</h2>
+      <h2  className={`${darkMode ? 'text-slate-200' : 'text-gray-600'} my-1`}>بازه زمانی</h2>
       <div className=" flex items-center justify-center my-1 gap-2">
         <FormDatePicker
           clickHandler={datePickerHandler}
@@ -241,13 +243,13 @@ const FilterForm = () => {
       <div className=" flex items-center justify-center my-1 gap-2">
         <div
           onClick={clearFormHandler}
-          className="border cursor-pointer border-[#e92444] text-[#e92444] rounded-lg px-2 py-1 flex-1 text-center"
+          className={` ${darkMode ? 'bg-slate-200' : 'border-[#e92444] border'} cursor-pointer  text-[#e92444] rounded-lg px-2 py-1 flex-1 text-center`}
         >
           حذف فیلتر
         </div>
         <div
           onClick={applyFiltersHandler}
-          className="text-white  cursor-pointer border border-[#e92444] bg-[#e92444] px-2 flex-1 py-1 rounded-lg text-center"
+          className={`text-white bg-[#e92444]  cursor-pointer border border-[#e92444] px-2 flex-1 py-1 rounded-lg text-center`}
         >
           <Link to="/list">اعمال فیلتر</Link>
         </div>

@@ -30,7 +30,7 @@ const FormDatePicker = ({ clickHandler, value, setValue, type }) => {
   return (
     <div style={{ direction: 'rtl' }} className="w-1/2">
       <DatePicker
-        className="red"
+        className="gray"
         style={{
           height: '24px',
           borderRadius: '6px',

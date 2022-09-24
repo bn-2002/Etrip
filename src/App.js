@@ -10,7 +10,6 @@ import { useDarkMode } from 'usehooks-ts';
 function App() {
 
   const {darkMode} = useDarkMode();
-  // document.body.style = `background: ${darkMode? 'white' : 'red'};`;
 
   return (
     <div className = {`${darkMode? 'bg-slate-800' : '' }`}>

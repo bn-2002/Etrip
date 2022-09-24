@@ -1,31 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDarkMode } from '../../store/DarkModeContext';
+import imgs from './data';
 
-const Service = ({ service, onClickHandler }) => {
+const Service = ({ service,index, onClickHandler }) => {
   const {darkMode} = useDarkMode();
 
   const filterHandler = () => {
     onClickHandler(service);
   };
 
+  console.log('service : ' , service)
+  console.log('index : ' , index)
+
   return (
+
     <div
       className="relative mx-auto transition-all cursor-pointer group"
       key={service.Alt}
     >
       <div className="relative z-[19]">
         <img
-          src={service.ImageURL}
+          src={` ${darkMode ? imgs[index] : service.ImageURL} `}
           alt=""
           className="shadow-xl rounded-[10px]"
         />
         <div className="absolute flex flex-col h-[90%] justify-around top-2 left-3">
-          <p className="text-[#575757] text-[17px] sm:text-[20px] font-bold">
+          <p className={` ${darkMode ? 'text-slate-200' : 'text-[#575757]'} text-[17px] sm:text-[20px] font-bold`}>
             {service.Title}
           </p>
-          <div className="w-[100px] line-clamp-2">
-            <span className="text-[16px] text-[#626161]">
+          <div className={`w-[100px] line-clamp-2 ${darkMode ? 'text-slate-100' : 'text-[#626161]'}`}>
+            <span className={`text-[16px]`}>
               {service.Description}
             </span>
           </div>
@@ -33,7 +38,7 @@ const Service = ({ service, onClickHandler }) => {
             onClick={filterHandler}
             className="px-3 py-1 text-white bg-[#E92444] rounded-2xl text-[13px] sm:text-[16px] hover:bg-[##CA213D]"
           >
-            <Link to="/list">مشاهده</Link>
+            <Link to="/list">مشاهده {index} </Link>
           </button>
         </div>
       </div>

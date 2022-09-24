@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import ImageContainer from '../icons/ImageContainer';
+import { useDarkMode } from '../../store/DarkModeContext';
 
 const ImgWrapper = ({ imgs, genderText }) => {
+
+  const {darkMode} = useDarkMode();
+
   const initialImgState = {
     firstImg: {
       order: 1,
@@ -119,7 +123,7 @@ const ImgWrapper = ({ imgs, genderText }) => {
           alt=""
           className="box-border w-full h-full mx-auto rounded-md "
         />
-        <div className="bg-white px-2 absolute rounded-[3px] bottom-2 left-2">
+        <div className={` ${darkMode ? 'bg-slate-800 text-white' : 'bg-white'}  px-2 absolute rounded-[3px] bottom-2 left-2`}>
           {genderText}
         </div>
         <ImageContainer style={' absolute right-0 top-0'} />
