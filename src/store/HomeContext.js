@@ -25,6 +25,8 @@ export const HomeProvider = ({ children }) => {
 
     if (homeInfo) {
       initialValue = homeInfo;
+
+      
       
       ///displatch data to reducer function to set state
       dispatch({

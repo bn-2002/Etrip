@@ -79,6 +79,14 @@ const FilterForm = () => {
   };
 
   const datePickerHandler = (type, value) => {
+    console.log('data value : ' , value);
+    if (value.length === 9) {
+      // const newValue = value.splice(5, 0, 0);
+      // console.log('newValue : ' , value)
+      console.log(':/' , typeof(value))
+    }if (value.length === 10) {
+      console.log(':////')
+    }
     if (type === 'start-date') setStartDate(() => value);
     if (type === 'end-date') setEndDate(() => value);
   };

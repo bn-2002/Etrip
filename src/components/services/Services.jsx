@@ -1,9 +1,11 @@
-import React from 'react';
+import React ,{useRef , useEffect}from 'react';
 import Service from './Service';
 import SectionTitle from '../UI/typography/SectionTitle';
 import { useHomeInfo } from '../../store/HomeContext';
 import { useList, useDispatchList } from '../../store/ListContext';
 import { useDarkMode } from '../../store/DarkModeContext';
+// import { gsap } from "gsap";
+
 
 import {
   ShimmerText,
@@ -16,6 +18,21 @@ const Services = ({ style }) => {
   const list = useList();
   const dispatchList = useDispatchList();
   const {darkMode} = useDarkMode();
+  // const serviceRef = useRef();
+
+  // useEffect(() => {
+  //   gsap.from(serviceRef.current, {
+  //     // duration: 1,
+  //     scale:2,
+  //   });
+
+  //   gsap.to(serviceRef.current, {
+  //     // duration: 1,
+  //     scale:1,
+  //   });
+
+  // });
+
 
   const applyFiltersHandler = (service) => {
     /////////it changes vatogry id in requestConfig
@@ -47,11 +64,13 @@ const Services = ({ style }) => {
   };
 
   return (
+
     <section
+      // ref={serviceRef}
       id="services"
-      className={`${style} ${
+      className={` serivce ${style} ${
         homeInfo ? `${darkMode ? 'bg-slate-900' : 'bg-[#F3F4F6]'}` : 'bg-white'
-      } mx-auto duration-500 px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40  pt-8 pb-12 flex flex-col gap-10 relative z-[19]`}
+      } mx-auto duration-500 px-2 sm:px-1 md:px-1 xl:px-60 lg:px-40 pt-8 pb-12 flex flex-col gap-10 relative z-[19]`}
     >
       {/* SHIMMER EFFECT */}
       {!homeInfo && (
@@ -92,6 +111,7 @@ const Services = ({ style }) => {
         </>
       )}
     </section>
+
   );
 };
 

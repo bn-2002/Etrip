@@ -8,6 +8,7 @@ const Description = ({ showDetails, description }) => {
 
   description = description
     .replace(`background:white;`, '')
+    .replace('color: black;','')
     .replace('<o:p></o:p>', ' ');
 
   return (
@@ -18,8 +19,8 @@ const Description = ({ showDetails, description }) => {
           : 'max-h-0 scale-y-0 opacity-0 '
       }  overflow-hidden transition-all duration-500 ease origin-top rounded-lg ${darkMode? 'bg-slate-700 text-white' : 'bg-[#f6f6f6] text-black'} `}
     >
-      <div className={`px-4 py-3 leading-6 ${darkMode? 'bg-slate-700 text-white' : 'bg-[#f6f6f6] text-black'}  `}>
-        <ul>{parse(description)}</ul>
+      <div className={`px-4 py-3 leading-6 ${darkMode? 'bg-slate-700 text-white' : 'bg-[#f6f6f6]'}  `}>
+        <ul className={`${darkMode? 'bg-slate-700 text-white' : 'bg-[#f6f6f6]'} `}>{parse(description)}</ul>
       </div>
     </div>
   );
